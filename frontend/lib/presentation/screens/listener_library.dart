@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:masinqo/core/theme/app_colors.dart';
+import 'package:masinqo/presentation/core/theme/app_colors.dart';
 import 'package:masinqo/models/playlist.dart';
 import 'package:masinqo/presentation/widgets/listener_library_playlist.dart';
 

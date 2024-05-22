@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import '../widgets/login_brand.dart';
-import '../../../core/theme/app_colors.dart';
+import '../core/theme/app_colors.dart';
 import '../widgets/admin_signup_textfield.dart';
 
 class SignupWidget extends StatefulWidget {

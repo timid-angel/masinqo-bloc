@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:masinqo/core/theme/app_colors.dart';
+import 'package:masinqo/presentation/core/theme/app_colors.dart';
 import 'package:masinqo/models/albums.dart';
 import 'package:masinqo/presentation/widgets/listener_album_albumart.dart';
 import 'package:masinqo/presentation/widgets/listener_album_headline.dart';
 import 'package:masinqo/presentation/widgets/listener_album_songlist.dart';
 import 'package:masinqo/presentation/widgets/listener_appbar.dart';
 import 'package:masinqo/presentation/widgets/listener_drawer.dart';
-import '../../audio_manager/listener_audio_manager.dart'; 
+import '../../audio_manager/listener_audio_manager.dart';
 
 class AlbumWidget extends StatefulWidget {
   const AlbumWidget({Key? key}) : super(key: key);
@@ -17,7 +17,7 @@ class AlbumWidget extends StatefulWidget {
 
 class _AlbumWidgetState extends State<AlbumWidget> {
   late Album album;
-  late AudioManager audioManager; 
+  late AudioManager audioManager;
 
   @override
   void initState() {
@@ -27,7 +27,7 @@ class _AlbumWidgetState extends State<AlbumWidget> {
 
   @override
   void dispose() {
-    audioManager.dispose(); 
+    audioManager.dispose();
     super.dispose();
   }
 
@@ -64,8 +64,10 @@ class _AlbumWidgetState extends State<AlbumWidget> {
                       children: [
                         AlbumHeadlineWidget(album: album),
                         const Divider(height: 30, thickness: 2),
-                      
-                        AlbumTracksWidget(album: album, onAdd: () {}, audioManager: audioManager),
+                        AlbumTracksWidget(
+                            album: album,
+                            onAdd: () {},
+                            audioManager: audioManager),
                       ],
                     ),
                   ),

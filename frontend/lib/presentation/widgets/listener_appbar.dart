@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:masinqo/core/theme/app_colors.dart';
+import 'package:masinqo/presentation/core/theme/app_colors.dart';
 
 class ListenerAppbar extends StatelessWidget {
   const ListenerAppbar({super.key});

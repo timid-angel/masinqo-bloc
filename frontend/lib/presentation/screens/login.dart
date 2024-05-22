@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:masinqo/core/theme/app_colors.dart';
+import 'package:masinqo/presentation/core/theme/app_colors.dart';
 import 'package:masinqo/data/admin_data.dart';
 import 'package:masinqo/data/album_data.dart';
 import 'package:masinqo/data/artist_data.dart';
