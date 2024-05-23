@@ -9,8 +9,7 @@ import 'package:masinqo/infrastructure/admin/admin_artists/admin_artists_success
 import 'package:masinqo/infrastructure/core/url.dart';
 
 class AdminArtistDataSource implements AdminArtistRepository {
-  // final String url = Domain.url;
-  final String url = "http://localhost:3000";
+  final String url = Domain.url;
   final String token;
 
   AdminArtistDataSource({required this.token});
@@ -64,14 +63,14 @@ class AdminArtistDataSource implements AdminArtistRepository {
   Future<Either<ArtistStatusChangeFailure, ArtistStatusChangeSuccess>>
       changeStatus(ArtistStatus artist) async {
     String op = artist.status ? "unban" : "ban";
-    http.Response response = await http.delete(
+    http.Response response = await http.patch(
       Uri.parse("$url/artists/$op/${artist.id}"),
       headers: {
         "Cookie": token,
       },
     );
 
-    if ((response.statusCode < 300)) {
+    if (response.statusCode > 299) {
       final Map res = jsonDecode(response.body);
       return Left(ArtistStatusChangeFailure(message: res["message"]));
     }
@@ -80,10 +79,10 @@ class AdminArtistDataSource implements AdminArtistRepository {
   }
 }
 
-void main() async {
-  AdminArtistDataSource adminListenerDS = AdminArtistDataSource(
-      token:
-          'accessToken=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2NDkzMzQ4YjUyOTkyM2I5YmI5ZGFkNSIsInJvbGUiOjAsImlhdCI6MTcxNjQ2MzgxOCwiZXhwIjoxNzE2NTUwMjE4fQ.Strn3-PIJ9DeA74r0mb4BTtilYI07tKgWnnHRVad_m8');
+// void main() async {
+//   AdminArtistDataSource adminListenerDS = AdminArtistDataSource(
+//       token:
+//           'accessToken=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2NDkzMzQ4YjUyOTkyM2I5YmI5ZGFkNSIsInJvbGUiOjAsImlhdCI6MTcxNjQ2MzgxOCwiZXhwIjoxNzE2NTUwMjE4fQ.Strn3-PIJ9DeA74r0mb4BTtilYI07tKgWnnHRVad_m8');
 
   // final res = await adminListenerDS.getArtists();
   // res.fold((l) => (print(l.message)), (r) {
@@ -99,8 +98,8 @@ void main() async {
 
   // res1.fold((l) => print(l.message), (r) => null);
 
-  final res2 = await adminListenerDS
-      .changeStatus(ArtistStatus(id: "664f34d99d7e3abd157266d4", status: true));
+//   final res2 = await adminListenerDS
+//       .changeStatus(ArtistStatus(id: "664f4334b013d2b68e83a02a", status: true));
 
-  res2.fold((l) => print(l.message), (r) => null);
-}
+//   res2.fold((l) => print(l.message), (r) => null);
+// }
