@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import '../../data/artist_data.dart';
-import '../../audio_manager/artist_audio_manager.dart';
-
+import '../../temp/data/artist_data.dart';
+import '../../temp/audio_manager/artist_audio_manager.dart';
 
 class SongCard extends StatelessWidget {
   final int songNumber;
@@ -9,7 +8,7 @@ class SongCard extends StatelessWidget {
   final String artistName;
   final String imagePath;
   final String songFilePath;
-  final AudioManager audioManager; 
+  final AudioManager audioManager;
 
   const SongCard({
     super.key,
@@ -27,7 +26,7 @@ class SongCard extends StatelessWidget {
 
     return GestureDetector(
       onTap: () {
-         audioManager.play(songFilePath);
+        audioManager.play(songFilePath);
       },
       child: Padding(
         padding: const EdgeInsets.symmetric(vertical: 8.0),

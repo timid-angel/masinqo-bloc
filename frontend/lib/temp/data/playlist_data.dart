@@ -1,6 +1,6 @@
-import 'package:masinqo/data/listener_data.dart';
-import 'package:masinqo/models/playlist.dart';
-import 'package:masinqo/models/songs.dart';
+import 'package:masinqo/temp/data/listener_data.dart';
+import 'package:masinqo/temp/models/playlist.dart';
+import 'package:masinqo/temp/models/songs.dart';
 
 List<Playlist> playlistData = [
   Playlist(

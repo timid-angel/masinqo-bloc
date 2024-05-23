@@ -1,4 +1,4 @@
-import 'package:masinqo/models/albums.dart';
+import 'package:masinqo/temp/models/albums.dart';
 
 class Song {
   String name;

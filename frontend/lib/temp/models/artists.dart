@@ -1,5 +1,5 @@
-import 'package:masinqo/models/albums.dart';
-import 'package:masinqo/models/user.dart';
+import 'package:masinqo/temp/models/albums.dart';
+import 'package:masinqo/temp/models/user.dart';
 
 class Artist extends User {
   List<Album> albums;

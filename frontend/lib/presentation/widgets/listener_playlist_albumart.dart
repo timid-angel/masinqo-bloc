@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:masinqo/models/playlist.dart';
+import 'package:masinqo/temp/models/playlist.dart';
 
 class PlaylistAlbumArt extends StatelessWidget {
   const PlaylistAlbumArt({

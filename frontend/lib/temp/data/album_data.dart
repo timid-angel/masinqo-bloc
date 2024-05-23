@@ -1,5 +1,5 @@
-import 'package:masinqo/data/placeholders.dart';
-import 'package:masinqo/models/albums.dart';
+import 'package:masinqo/temp/data/placeholders.dart';
+import 'package:masinqo/temp/models/albums.dart';
 
 List<Album> albumData = [
   Album(

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:masinqo/models/albums.dart';
-import '../../data/artist_data.dart';
+import 'package:masinqo/temp/models/albums.dart';
+import '../../temp/data/artist_data.dart';
 
 class AlbumCard extends StatelessWidget {
   const AlbumCard({

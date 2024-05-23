@@ -4,7 +4,7 @@ import 'package:masinqo/presentation/widgets/profile_mgmt-section_title.dart';
 import 'dart:io';
 import '../widgets/artist_drawer.dart';
 import '../widgets/artist_app_bar.dart';
-import '../../../data/artist_data.dart';
+import '../../temp/data/artist_data.dart';
 
 class ArtistProfile extends StatefulWidget {
   const ArtistProfile({super.key});

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:masinqo/presentation/core/theme/app_colors.dart';
-import 'package:masinqo/models/albums.dart';
+import 'package:masinqo/temp/models/albums.dart';
 
 class ListenerHomeAlbumCard extends StatelessWidget {
   const ListenerHomeAlbumCard({

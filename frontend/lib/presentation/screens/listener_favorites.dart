@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:masinqo/models/albums.dart';
+import 'package:masinqo/temp/models/albums.dart';
 import 'package:masinqo/presentation/widgets/listener_favorite_album.dart';
 
 class ListenerFavorites extends StatelessWidget {

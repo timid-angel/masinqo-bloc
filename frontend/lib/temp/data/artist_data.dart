@@ -1,4 +1,4 @@
-import 'package:masinqo/models/artists.dart';
+import 'package:masinqo/temp/models/artists.dart';
 
 List<Artist> artistData = [
   Artist(

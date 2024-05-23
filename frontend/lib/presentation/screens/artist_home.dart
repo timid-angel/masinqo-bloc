@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:masinqo/data/album_data.dart';
+import 'package:masinqo/temp/data/album_data.dart';
 import 'package:masinqo/presentation/widgets/artist_album_card.dart';
 import 'package:masinqo/presentation/widgets/artist_app_bar.dart';
 import 'package:masinqo/presentation/widgets/artist_create_album_modal.dart';

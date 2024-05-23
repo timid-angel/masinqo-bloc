@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:masinqo/presentation/widgets/admin_header.dart';
 import 'delete_confirmation_modal.dart';
-import '../../data/listener_data.dart';
+import '../../temp/data/listener_data.dart';
 
 class AdminListenerMGT extends StatelessWidget {
   const AdminListenerMGT({super.key});
@@ -41,7 +41,9 @@ class AdminListenerMGT extends StatelessWidget {
                       backgroundImage: AssetImage('assets/images/u.png'),
                     ),
                     title: Text(listener.name),
-                    subtitle: Text(listener.email, style: TextStyle(color: const Color.fromARGB(255, 193, 191, 191))),
+                    subtitle: Text(listener.email,
+                        style: TextStyle(
+                            color: const Color.fromARGB(255, 193, 191, 191))),
                     textColor: Colors.white,
                     subtitleTextStyle: TextStyle(color: Colors.white70),
                     trailing: Row(
@@ -54,7 +56,8 @@ class AdminListenerMGT extends StatelessWidget {
                               context: context,
                               builder: (BuildContext context) {
                                 return DeleteConfirmationDialog(
-                                  title: 'Are you sure you want to delete this Listener?',
+                                  title:
+                                      'Are you sure you want to delete this Listener?',
                                   content: '',
                                   onConfirm: () {
                                     Navigator.of(context).pop();

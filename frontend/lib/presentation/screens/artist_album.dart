@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:masinqo/models/albums.dart';
+import 'package:masinqo/temp/models/albums.dart';
 import '../widgets/artist_add_song_modal.dart';
 import '../widgets/artist_edit_album_modal.dart';
 import '../widgets/artist_drawer.dart';
 import '../widgets/artist_app_bar.dart';
 import '../widgets/artist_song_card.dart';
 import '../widgets/delete_confirmation_modal.dart';
-import '../../audio_manager/artist_audio_manager.dart';
+import '../../temp/audio_manager/artist_audio_manager.dart';
 
 class ArtistsAlbumPage extends StatefulWidget {
   const ArtistsAlbumPage({
@@ -228,7 +228,7 @@ class ArtistsAlbumPageState extends State<ArtistsAlbumPage> {
                   padding: const EdgeInsets.symmetric(
                       horizontal: 16.0, vertical: 8.0),
                   child: SongCard(
-                    audioManager: _audioManager, 
+                    audioManager: _audioManager,
                     songNumber: index + 1,
                     songName: album.songs[index].name,
                     artistName: album.songs[index].album.artist.name,

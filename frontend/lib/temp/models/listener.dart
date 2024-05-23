@@ -1,6 +1,6 @@
-import 'package:masinqo/models/albums.dart';
-import 'package:masinqo/models/playlist.dart';
-import 'package:masinqo/models/user.dart';
+import 'package:masinqo/temp/models/albums.dart';
+import 'package:masinqo/temp/models/playlist.dart';
+import 'package:masinqo/temp/models/user.dart';
 
 class Listener extends User {
   List<Playlist> playlists;

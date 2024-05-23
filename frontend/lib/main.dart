@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:masinqo/application/auth/auth_bloc.dart';
+import 'package:masinqo/infrastructure/auth/login_data_source.dart';
 import 'package:masinqo/presentation/core/theme/app_theme_data.dart';
 import 'package:masinqo/presentation/screens/admin_home.dart';
 import 'package:masinqo/presentation/screens/admin_login.dart';
@@ -15,7 +18,14 @@ import 'package:masinqo/presentation/screens/signup.dart';
 
 void main() {
   runApp(
-    MaterialApp(
+    MultiBlocProvider(
+      providers: [
+        BlocProvider(
+          create: (BuildContext context) =>
+              AuthBloc(authRepository: LoginDataSource()),
+        ),
+      ],
+      child: MaterialApp(
         debugShowCheckedModeBanner: false,
         theme: AppThemeData.listnerTheme,
         initialRoute: '/login',
@@ -24,7 +34,7 @@ void main() {
           "/signup": (context) => const SignupWidget(),
           "/artist": (context) => const ArtistHomePage(),
           "/listener": (context) => const ListenerWidget(),
-          "/admin": (context) => const AdminLogin(),
+          "/admin": (context) => AdminLogin(),
           "/admin/home": (context) => const AdminHome(),
           "/listener/album": (context) => const AlbumWidget(),
           "/listener/playlist": (context) => const PlaylistWidget(),
@@ -32,6 +42,8 @@ void main() {
           "/listener/new_playlist": (context) => AddPlaylistWidget(),
           "/artist/profile": (context) => const ArtistProfile(),
           "/artist/album": (context) => const ArtistsAlbumPage(),
-        }),
+        },
+      ),
+    ),
   );
 }

@@ -1,5 +1,5 @@
-import 'package:masinqo/models/listener.dart';
-import 'package:masinqo/models/songs.dart';
+import 'package:masinqo/temp/models/listener.dart';
+import 'package:masinqo/temp/models/songs.dart';
 
 class Playlist {
   String name;

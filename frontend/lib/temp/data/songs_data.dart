@@ -1,5 +1,5 @@
-import 'package:masinqo/data/placeholders.dart';
-import 'package:masinqo/models/songs.dart';
+import 'package:masinqo/temp/data/placeholders.dart';
+import 'package:masinqo/temp/models/songs.dart';
 
 List<Song> songData = [
   Song(

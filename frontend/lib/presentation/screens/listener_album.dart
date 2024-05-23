@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:masinqo/presentation/core/theme/app_colors.dart';
-import 'package:masinqo/models/albums.dart';
+import 'package:masinqo/temp/models/albums.dart';
 import 'package:masinqo/presentation/widgets/listener_album_albumart.dart';
 import 'package:masinqo/presentation/widgets/listener_album_headline.dart';
 import 'package:masinqo/presentation/widgets/listener_album_songlist.dart';
 import 'package:masinqo/presentation/widgets/listener_appbar.dart';
 import 'package:masinqo/presentation/widgets/listener_drawer.dart';
-import '../../audio_manager/listener_audio_manager.dart';
+import '../../temp/audio_manager/listener_audio_manager.dart';
 
 class AlbumWidget extends StatefulWidget {
   const AlbumWidget({Key? key}) : super(key: key);

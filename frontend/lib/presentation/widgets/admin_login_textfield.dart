@@ -4,16 +4,19 @@ import 'package:masinqo/presentation/core/theme/app_colors.dart';
 class CustomTextField extends StatelessWidget {
   final String hintText;
   final Widget? prefixIcon;
+  final TextEditingController controller;
 
   const CustomTextField({
     super.key,
     required this.hintText,
     this.prefixIcon,
+    required this.controller,
   });
 
   @override
   Widget build(BuildContext context) {
     return TextField(
+      controller: controller,
       style: const TextStyle(color: AppColors.fontColor),
       decoration: InputDecoration(
         contentPadding:

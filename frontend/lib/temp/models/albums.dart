@@ -1,5 +1,5 @@
-import 'package:masinqo/models/artists.dart';
-import 'package:masinqo/models/songs.dart';
+import 'package:masinqo/temp/models/artists.dart';
+import 'package:masinqo/temp/models/songs.dart';
 
 class Album {
   String title;

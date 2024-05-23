@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../../data/artist_data.dart';
+import '../../temp/data/artist_data.dart';
 
 class ArtistProfileSection extends StatelessWidget {
   const ArtistProfileSection({super.key});

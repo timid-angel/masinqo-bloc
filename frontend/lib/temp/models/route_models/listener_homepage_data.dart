@@ -1,5 +1,5 @@
-import 'package:masinqo/models/albums.dart';
-import 'package:masinqo/models/playlist.dart';
+import 'package:masinqo/temp/models/albums.dart';
+import 'package:masinqo/temp/models/playlist.dart';
 
 class ListenerHomePageData {
   ListenerHomePageData(

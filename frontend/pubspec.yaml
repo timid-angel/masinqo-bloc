@@ -44,6 +44,8 @@ dependencies:
   just_audio: ^0.9.38
   http: ^1.2.1
   dartz: ^0.10.1
+  email_validator: ^2.1.17
+  flutter_bloc: ^8.1.5
 
 dev_dependencies:
   flutter_test:

@@ -1,8 +1,8 @@
-import 'package:masinqo/models/albums.dart';
-import 'package:masinqo/models/artists.dart';
-import 'package:masinqo/models/listener.dart';
-import 'package:masinqo/models/playlist.dart';
-import 'package:masinqo/models/songs.dart';
+import 'package:masinqo/temp/models/albums.dart';
+import 'package:masinqo/temp/models/artists.dart';
+import 'package:masinqo/temp/models/listener.dart';
+import 'package:masinqo/temp/models/playlist.dart';
+import 'package:masinqo/temp/models/songs.dart';
 
 Artist pArtist = Artist(
   name: "",

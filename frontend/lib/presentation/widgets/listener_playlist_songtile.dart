@@ -1,18 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:masinqo/models/songs.dart';
-import '../../audio_manager/listener_audio_manager.dart';
+import 'package:masinqo/temp/models/songs.dart';
+import '../../temp/audio_manager/listener_audio_manager.dart';
 
 class PlaylistSongTileWidget extends StatelessWidget {
   const PlaylistSongTileWidget({
     Key? key,
-   
-    required this. onDelete,
+    required this.onDelete,
     required this.song,
     required this.audioManager,
   }) : super(key: key);
 
   final Song song;
-  final AudioManager audioManager; 
+  final AudioManager audioManager;
 
   final Function() onDelete;
   @override
@@ -22,7 +21,7 @@ class PlaylistSongTileWidget extends StatelessWidget {
     return InkWell(
       onTap: () {
         audioManager.stop();
-        audioManager.play(song.filePath); 
+        audioManager.play(song.filePath);
       },
       child: Container(
         padding: const EdgeInsets.symmetric(vertical: 6),
@@ -53,8 +52,8 @@ class PlaylistSongTileWidget extends StatelessWidget {
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
                         style: Theme.of(context).textTheme.bodySmall!.copyWith(
-                          fontSize: 18,
-                        ),
+                              fontSize: 18,
+                            ),
                       ),
                     ),
                     SizedBox(
@@ -69,11 +68,11 @@ class PlaylistSongTileWidget extends StatelessWidget {
                 ),
               ],
             ),
-             IconButton(
-            icon: const Icon(Icons.remove_circle_outline,
-                color: Color.fromARGB(255, 237, 86, 84)),
-            onPressed: onDelete,
-          )
+            IconButton(
+              icon: const Icon(Icons.remove_circle_outline,
+                  color: Color.fromARGB(255, 237, 86, 84)),
+              onPressed: onDelete,
+            )
           ],
         ),
       ),

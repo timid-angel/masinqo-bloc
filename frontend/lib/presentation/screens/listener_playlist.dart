@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:masinqo/presentation/core/theme/app_colors.dart';
-import 'package:masinqo/models/playlist.dart';
+import 'package:masinqo/temp/models/playlist.dart';
 import 'package:masinqo/presentation/widgets/listener_appbar.dart';
 import 'package:masinqo/presentation/widgets/listener_drawer.dart';
 import 'package:masinqo/presentation/widgets/listener_playlist_albumart.dart';
 import 'package:masinqo/presentation/widgets/listener_playlist_buttons.dart';
 import 'package:masinqo/presentation/widgets/listener_playlist_headline.dart';
 import 'package:masinqo/presentation/widgets/listener_playlist_songlist.dart';
-import '../../audio_manager/listener_audio_manager.dart';
+import '../../temp/audio_manager/listener_audio_manager.dart';
 
 class PlaylistWidget extends StatefulWidget {
   const PlaylistWidget({Key? key}) : super(key: key);

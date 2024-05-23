@@ -1,7 +1,7 @@
-import 'package:masinqo/data/album_data.dart';
-import 'package:masinqo/models/albums.dart';
-import 'package:masinqo/models/listener.dart';
-import 'package:masinqo/models/playlist.dart';
+import 'package:masinqo/temp/data/album_data.dart';
+import 'package:masinqo/temp/models/albums.dart';
+import 'package:masinqo/temp/models/listener.dart';
+import 'package:masinqo/temp/models/playlist.dart';
 
 List<Listener> listenerData = [
   Listener(

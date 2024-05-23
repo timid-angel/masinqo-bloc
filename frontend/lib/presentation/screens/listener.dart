@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:masinqo/presentation/core/theme/app_colors.dart';
-import 'package:masinqo/models/albums.dart';
-import 'package:masinqo/models/playlist.dart';
-import 'package:masinqo/models/route_models/listener_homepage_data.dart';
+import 'package:masinqo/temp/models/albums.dart';
+import 'package:masinqo/temp/models/playlist.dart';
+import 'package:masinqo/temp/models/route_models/listener_homepage_data.dart';
 import 'package:masinqo/presentation/widgets/listener_appbar.dart';
 import 'package:masinqo/presentation/screens/listener_favorites.dart';
 import 'package:masinqo/presentation/screens/listener_home.dart';

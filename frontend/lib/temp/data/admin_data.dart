@@ -1,4 +1,4 @@
-import 'package:masinqo/models/admin.dart';
+import 'package:masinqo/temp/models/admin.dart';
 
 List<Admin> adminData = [
   Admin(email: "admin1@gmail.com", password: "admin1"),

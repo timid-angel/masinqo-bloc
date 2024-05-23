@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:masinqo/models/playlist.dart';
+import 'package:masinqo/temp/models/playlist.dart';
 
 class PlaylistHeadlineWidget extends StatelessWidget {
   const PlaylistHeadlineWidget({super.key, required this.playlist});

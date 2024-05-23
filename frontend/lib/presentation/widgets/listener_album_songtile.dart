@@ -1,7 +1,6 @@
-
 import 'package:flutter/material.dart';
-import 'package:masinqo/models/songs.dart';
-import '../../audio_manager/listener_audio_manager.dart';
+import 'package:masinqo/temp/models/songs.dart';
+import '../../temp/audio_manager/listener_audio_manager.dart';
 
 class AlbumSongTileWidget extends StatelessWidget {
   const AlbumSongTileWidget({
@@ -22,7 +21,7 @@ class AlbumSongTileWidget extends StatelessWidget {
     return InkWell(
       onTap: () {
         audioManager.stop();
-        audioManager.play(song.filePath); 
+        audioManager.play(song.filePath);
       },
       child: Container(
         padding: const EdgeInsets.symmetric(vertical: 6),
