@@ -5,12 +5,14 @@ class CustomTextField extends StatelessWidget {
   final String hintText;
   final Widget? prefixIcon;
   final TextEditingController controller;
+  final String? errorMessage;
 
   const CustomTextField({
     super.key,
     required this.hintText,
     this.prefixIcon,
     required this.controller,
+    this.errorMessage,
   });
 
   @override
@@ -36,6 +38,7 @@ class CustomTextField extends StatelessWidget {
             width: 2,
           ),
         ),
+        errorText: errorMessage,
       ),
     );
   }

@@ -16,3 +16,10 @@ class PasswordErrorBloc extends Bloc<PasswordErrorEvent, String> {
     });
   }
 }
+
+class LoginLoadingBloc extends Bloc<LoginLoadingEvent, bool> {
+  LoginLoadingBloc() : super(false) {
+    on<LoginSetLoading>((event, emit) => emit(true));
+    on<LoginUnsetLoading>((event, emit) => emit(false));
+  }
+}
