@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import '../../temp/data/artist_data.dart';
 
 class ArtistDrawer extends StatelessWidget {
@@ -58,17 +59,17 @@ class ArtistDrawer extends StatelessWidget {
                 style: TextStyle(color: Colors.white),
               ),
               onTap: () {
-                Navigator.pushNamed(context, "/artist/profile");
+                context.pushNamed("artist_profile");
               },
             ),
             ListTile(
               leading: const Icon(Icons.logout, color: Colors.white),
               title: const Text(
                 'Logout',
-                style: TextStyle(color: Colors.white),
+                style: TextStyle(color: Color.fromARGB(255, 241, 211, 211)),
               ),
               onTap: () {
-                Navigator.pushNamed(context, "/login");
+                context.go('/login');
               },
             ),
           ],

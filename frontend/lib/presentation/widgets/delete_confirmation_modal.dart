@@ -33,7 +33,7 @@ class DeleteConfirmationDialog extends StatelessWidget {
         TextButton(
           onPressed: () {
             onConfirm();
-            Navigator.of(context).pop();
+            Navigator.pop(context);
           },
           child: const Text(
             'Yes',
@@ -44,7 +44,7 @@ class DeleteConfirmationDialog extends StatelessWidget {
         ),
         TextButton(
           onPressed: () {
-            Navigator.of(context).pop();
+            Navigator.pop(context);
           },
           child: const Text(
             'No',

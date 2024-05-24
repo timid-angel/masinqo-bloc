@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 class ListenerDrawer extends StatelessWidget {
   const ListenerDrawer({super.key});
@@ -50,10 +51,7 @@ class ListenerDrawer extends StatelessWidget {
                 ),
               ),
               onTap: () {
-                Navigator.pushNamed(
-                  context,
-                  "/listener/profile",
-                );
+                context.pushNamed("listener_profile");
               },
             ),
             ListTile(
@@ -69,10 +67,7 @@ class ListenerDrawer extends StatelessWidget {
                 ),
               ),
               onTap: () {
-                Navigator.popAndPushNamed(
-                  context,
-                  "/login",
-                );
+                context.go("/login");
               },
             ),
           ],
