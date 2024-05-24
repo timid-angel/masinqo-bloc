@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:masinqo/application/auth/auth_bloc.dart';
 import 'package:masinqo/application/auth/auth_event.dart';
 import 'package:masinqo/application/auth/auth_state.dart';
@@ -28,17 +29,21 @@ class AdminLogin extends StatelessWidget {
       child: BlocListener<AuthBloc, AuthState>(
         listener: (context, state) {
           if (state.role == "admin" && state.token.length > 1) {
-            Navigator.pushNamed(context, "/admin/home");
+            context.pushNamed("admin_home");
           } else if (state.errors.contains("Incorrect email or password")) {
-            ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-              content: Text("Incorrect email or password"),
-              backgroundColor: Color.fromARGB(255, 212, 47, 47),
-            ));
+            ScaffoldMessenger.of(context).showSnackBar(
+              const SnackBar(
+                content: Text("Incorrect email or password"),
+                backgroundColor: Color.fromARGB(255, 212, 47, 47),
+              ),
+            );
           } else if (state.errors.contains("Connection Error")) {
-            ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-              content: Text("Connection Error"),
-              backgroundColor: Color.fromARGB(255, 212, 47, 47),
-            ));
+            ScaffoldMessenger.of(context).showSnackBar(
+              const SnackBar(
+                content: Text("Connection Error"),
+                backgroundColor: Color.fromARGB(255, 150, 53, 53),
+              ),
+            );
           } else {
             String pwe = "The password is too short.";
             String eme = "Invalid Email";
@@ -71,7 +76,7 @@ class AdminLogin extends StatelessWidget {
                       margin: const EdgeInsets.only(top: 50.0, right: 10.0),
                       child: ElevatedButton(
                         onPressed: () {
-                          Navigator.pushNamed(context, "/login");
+                          context.pushNamed("login");
                         },
                         style: ElevatedButton.styleFrom(
                           padding: const EdgeInsets.symmetric(

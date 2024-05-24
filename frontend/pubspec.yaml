@@ -46,6 +46,7 @@ dependencies:
   dartz: ^0.10.1
   email_validator: ^2.1.17
   flutter_bloc: ^8.1.5
+  go_router: ^14.1.3
 
 dev_dependencies:
   flutter_test:
