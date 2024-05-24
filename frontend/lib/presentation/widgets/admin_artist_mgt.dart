@@ -4,7 +4,7 @@ import '../widgets/delete_confirmation_modal.dart';
 import '../../temp/data/artist_data.dart';
 
 class AdminArtistMGT extends StatefulWidget {
-  const AdminArtistMGT({Key? key}) : super(key: key);
+  const AdminArtistMGT({super.key});
 
   @override
   _AdminArtistMGTState createState() => _AdminArtistMGTState();
@@ -96,9 +96,9 @@ class _AdminArtistMGTState extends State<AdminArtistMGT> {
                                       const Spacer(),
                                       TextButton.icon(
                                         style: TextButton.styleFrom(
-                                          padding: EdgeInsets.symmetric(
+                                          padding: const EdgeInsets.symmetric(
                                               horizontal: 8.0),
-                                          minimumSize: Size(0, 0),
+                                          minimumSize: const Size(0, 0),
                                           tapTargetSize:
                                               MaterialTapTargetSize.shrinkWrap,
                                         ),
@@ -107,7 +107,8 @@ class _AdminArtistMGTState extends State<AdminArtistMGT> {
                                               ? Icons.circle_outlined
                                               : Icons.block,
                                           color: isBlocked
-                                              ? Color.fromARGB(211, 41, 251, 48)
+                                              ? const Color.fromARGB(
+                                                  211, 41, 251, 48)
                                               : Colors.yellow,
                                         ),
                                         label: Text(
@@ -138,9 +139,9 @@ class _AdminArtistMGTState extends State<AdminArtistMGT> {
                                       const SizedBox(width: 8),
                                       TextButton.icon(
                                         style: TextButton.styleFrom(
-                                          padding: EdgeInsets.symmetric(
+                                          padding: const EdgeInsets.symmetric(
                                               horizontal: 8.0),
-                                          minimumSize: Size(0, 0),
+                                          minimumSize: const Size(0, 0),
                                           tapTargetSize:
                                               MaterialTapTargetSize.shrinkWrap,
                                         ),

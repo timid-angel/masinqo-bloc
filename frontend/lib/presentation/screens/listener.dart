@@ -11,8 +11,11 @@ import 'package:masinqo/presentation/widgets/listener_drawer.dart';
 import 'package:masinqo/presentation/widgets/listener_tabs.dart';
 
 class ListenerWidget extends StatefulWidget {
+  final ListenerHomePageData arguments;
+
   const ListenerWidget({
     super.key,
+    required this.arguments,
   });
 
   @override
@@ -25,13 +28,15 @@ class _ListenerWidgetState extends State<ListenerWidget> {
   late List<Playlist> playlists;
 
   @override
-  Widget build(BuildContext context) {
-    final local =
-        ModalRoute.of(context)!.settings.arguments as ListenerHomePageData;
-    albums = local.albums;
-    favorites = local.favorites;
-    playlists = local.playlists;
+  void initState() {
+    super.initState();
+    albums = widget.arguments.albums;
+    favorites = widget.arguments.favorites;
+    playlists = widget.arguments.playlists;
+  }
 
+  @override
+  Widget build(BuildContext context) {
     return DefaultTabController(
       length: 3,
       child: Scaffold(

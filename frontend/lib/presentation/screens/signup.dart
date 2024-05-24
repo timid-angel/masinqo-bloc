@@ -5,6 +5,7 @@ import '../widgets/admin_signup_textfield.dart';
 
 class SignupWidget extends StatefulWidget {
   const SignupWidget({super.key});
+
   @override
   ArtistSignUpPageState createState() => ArtistSignUpPageState();
 }
