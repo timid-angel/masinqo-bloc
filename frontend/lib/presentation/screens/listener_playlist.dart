@@ -10,20 +10,18 @@ import 'package:masinqo/presentation/widgets/listener_playlist_songlist.dart';
 import '../../temp/audio_manager/listener_audio_manager.dart';
 
 class PlaylistWidget extends StatefulWidget {
-  const PlaylistWidget({Key? key}) : super(key: key);
+  final Playlist playlist;
+  const PlaylistWidget({super.key, required this.playlist});
 
   @override
   State<PlaylistWidget> createState() => _PlaylistWidgetState();
 }
 
 class _PlaylistWidgetState extends State<PlaylistWidget> {
-  late Playlist playlist;
-
   @override
   Widget build(BuildContext context) {
     double deviceWidth = MediaQuery.of(context).size.width;
     double deviceHeight = MediaQuery.of(context).size.height;
-    playlist = ModalRoute.of(context)!.settings.arguments as Playlist;
 
     final AudioManager audioManager = AudioManager();
 
@@ -47,21 +45,21 @@ class _PlaylistWidgetState extends State<PlaylistWidget> {
               child: Column(
                 children: [
                   PlaylistAlbumArt(
-                      deviceWidth: deviceWidth, playlist: playlist),
+                      deviceWidth: deviceWidth, playlist: widget.playlist),
                   Container(
                     padding:
                         const EdgeInsets.symmetric(horizontal: 25, vertical: 0),
                     child: Column(
                       children: [
-                        PlaylistHeadlineWidget(playlist: playlist),
+                        PlaylistHeadlineWidget(playlist: widget.playlist),
                         PlaylistButtonsWidget(
                           editController: () {},
                           deleteController: () {},
-                          playlistName: playlist.name,
+                          playlistName: widget.playlist.name,
                         ),
                         const Divider(height: 30, thickness: 2),
                         PlaylistTracksWidget(
-                          playlist: playlist,
+                          playlist: widget.playlist,
                           onDelete: () {},
                           audioManager: audioManager,
                         ),

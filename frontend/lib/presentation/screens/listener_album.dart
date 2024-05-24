@@ -9,14 +9,15 @@ import 'package:masinqo/presentation/widgets/listener_drawer.dart';
 import '../../temp/audio_manager/listener_audio_manager.dart';
 
 class AlbumWidget extends StatefulWidget {
-  const AlbumWidget({Key? key}) : super(key: key);
+  final Album album;
+
+  const AlbumWidget({super.key, required this.album});
 
   @override
   State<AlbumWidget> createState() => _AlbumWidgetState();
 }
 
 class _AlbumWidgetState extends State<AlbumWidget> {
-  late Album album;
   late AudioManager audioManager;
 
   @override
@@ -35,7 +36,6 @@ class _AlbumWidgetState extends State<AlbumWidget> {
   Widget build(BuildContext context) {
     double deviceWidth = MediaQuery.of(context).size.width;
     double deviceHeight = MediaQuery.of(context).size.height;
-    album = ModalRoute.of(context)!.settings.arguments as Album;
 
     return Scaffold(
       backgroundColor: AppColors.black,
@@ -56,16 +56,18 @@ class _AlbumWidgetState extends State<AlbumWidget> {
             SingleChildScrollView(
               child: Column(
                 children: [
-                  AlbumArt(deviceWidth: deviceWidth, albumArt: album.albumArt),
+                  AlbumArt(
+                      deviceWidth: deviceWidth,
+                      albumArt: widget.album.albumArt),
                   Container(
                     padding:
                         const EdgeInsets.symmetric(horizontal: 25, vertical: 0),
                     child: Column(
                       children: [
-                        AlbumHeadlineWidget(album: album),
+                        AlbumHeadlineWidget(album: widget.album),
                         const Divider(height: 30, thickness: 2),
                         AlbumTracksWidget(
-                            album: album,
+                            album: widget.album,
                             onAdd: () {},
                             audioManager: audioManager),
                       ],

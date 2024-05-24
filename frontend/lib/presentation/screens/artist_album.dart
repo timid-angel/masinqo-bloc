@@ -9,8 +9,11 @@ import '../widgets/delete_confirmation_modal.dart';
 import '../../temp/audio_manager/artist_audio_manager.dart';
 
 class ArtistsAlbumPage extends StatefulWidget {
+  final Album album;
+
   const ArtistsAlbumPage({
     super.key,
+    required this.album,
   });
 
   @override
@@ -19,7 +22,6 @@ class ArtistsAlbumPage extends StatefulWidget {
 
 class ArtistsAlbumPageState extends State<ArtistsAlbumPage> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
-  late Album album;
   late AudioManager _audioManager;
 
   @override
@@ -36,8 +38,6 @@ class ArtistsAlbumPageState extends State<ArtistsAlbumPage> {
 
   @override
   Widget build(BuildContext context) {
-    album = ModalRoute.of(context)!.settings.arguments as Album;
-
     return Scaffold(
       key: _scaffoldKey,
       appBar: ArtistAppBar(scaffoldKey: _scaffoldKey),
@@ -54,7 +54,7 @@ class ArtistsAlbumPageState extends State<ArtistsAlbumPage> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    album.title,
+                    widget.album.title,
                     style: const TextStyle(
                       color: Colors.white,
                       fontSize: 36.0,
@@ -63,7 +63,7 @@ class ArtistsAlbumPageState extends State<ArtistsAlbumPage> {
                     maxLines: 2,
                   ),
                   Text(
-                    '${album.songs.length} Tracks',
+                    '${widget.album.songs.length} Tracks',
                     style: const TextStyle(
                       color: Colors.white,
                       fontSize: 12.0,
@@ -85,7 +85,7 @@ class ArtistsAlbumPageState extends State<ArtistsAlbumPage> {
                 child: Stack(
                   children: [
                     Image.asset(
-                      album.albumArt,
+                      widget.album.albumArt,
                       fit: BoxFit.cover,
                       width: double.infinity,
                       height: double.infinity,
@@ -149,10 +149,10 @@ class ArtistsAlbumPageState extends State<ArtistsAlbumPage> {
                           context: context,
                           builder: (BuildContext context) {
                             return EditSongModal(
-                              currentAlbumName: album.albumArt,
-                              currentGenre: album.genre,
-                              currentDescription: album.description,
-                              currentThumbnailPath: album.albumArt,
+                              currentAlbumName: widget.album.albumArt,
+                              currentGenre: widget.album.genre,
+                              currentDescription: widget.album.description,
+                              currentThumbnailPath: widget.album.albumArt,
                             );
                           },
                         );
@@ -182,7 +182,7 @@ class ArtistsAlbumPageState extends State<ArtistsAlbumPage> {
                               content:
                                   'Deleting it will erase all of your songs.',
                               onConfirm: () {
-                                Navigator.of(context).pop();
+                                Navigator.pop(context);
                               },
                             );
                           },
@@ -222,7 +222,7 @@ class ArtistsAlbumPageState extends State<ArtistsAlbumPage> {
             ListView.builder(
               shrinkWrap: true,
               physics: const NeverScrollableScrollPhysics(),
-              itemCount: album.songs.length,
+              itemCount: widget.album.songs.length,
               itemBuilder: (context, index) {
                 return Padding(
                   padding: const EdgeInsets.symmetric(
@@ -230,10 +230,10 @@ class ArtistsAlbumPageState extends State<ArtistsAlbumPage> {
                   child: SongCard(
                     audioManager: _audioManager,
                     songNumber: index + 1,
-                    songName: album.songs[index].name,
-                    artistName: album.songs[index].album.artist.name,
-                    imagePath: album.albumArt,
-                    songFilePath: album.songs[index].filePath,
+                    songName: widget.album.songs[index].name,
+                    artistName: widget.album.songs[index].album.artist.name,
+                    imagePath: widget.album.albumArt,
+                    songFilePath: widget.album.songs[index].filePath,
                   ),
                 );
               },
