@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 class ArtistAppBar extends StatelessWidget implements PreferredSizeWidget {
   final GlobalKey<ScaffoldState>? scaffoldKey;
@@ -37,7 +38,7 @@ class ArtistAppBar extends StatelessWidget implements PreferredSizeWidget {
             color: Colors.white,
           ),
           onPressed: () {
-            Navigator.popAndPushNamed(context, "/artist");
+            context.pushReplacementNamed("artist");
           },
         ),
         IconButton(

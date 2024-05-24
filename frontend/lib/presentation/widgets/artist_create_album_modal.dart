@@ -85,24 +85,24 @@ class CreateAlbumModalState extends State<CreateAlbumModal> {
                 decoration: const InputDecoration(
                   hintText: 'Album name',
                   hintStyle: TextStyle(color: Colors.grey),
-                focusedBorder: UnderlineInputBorder(
-                  borderSide: BorderSide(color: Color(0xFF39DCF3)), 
+                  focusedBorder: UnderlineInputBorder(
+                    borderSide: BorderSide(color: Color(0xFF39DCF3)),
+                  ),
                 ),
+                style: const TextStyle(color: Colors.white),
               ),
-              style: TextStyle(color: Colors.white),
-            ),
               const SizedBox(height: 10),
               TextField(
                 controller: _genreController,
                 decoration: const InputDecoration(
                   hintText: 'Genre',
                   hintStyle: TextStyle(color: Colors.grey),
-                focusedBorder: UnderlineInputBorder(
-                  borderSide: BorderSide(color: Color(0xFF39DCF3)), 
+                  focusedBorder: UnderlineInputBorder(
+                    borderSide: BorderSide(color: Color(0xFF39DCF3)),
+                  ),
                 ),
+                style: const TextStyle(color: Colors.white),
               ),
-              style: TextStyle(color: Colors.white),
-            ),
               const SizedBox(height: 10),
               TextField(
                 controller: _descriptionController,
@@ -110,11 +110,11 @@ class CreateAlbumModalState extends State<CreateAlbumModal> {
                   hintText: 'Description',
                   hintStyle: TextStyle(color: Colors.grey),
                   focusedBorder: UnderlineInputBorder(
-                  borderSide: BorderSide(color: Color(0xFF39DCF3)), 
+                    borderSide: BorderSide(color: Color(0xFF39DCF3)),
+                  ),
                 ),
+                style: const TextStyle(color: Colors.white),
               ),
-              style: TextStyle(color: Colors.white),
-            ),
               const SizedBox(height: 10),
               TextButton(
                 onPressed: _pickImage,

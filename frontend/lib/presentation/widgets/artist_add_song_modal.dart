@@ -9,13 +9,14 @@ class AddSongModal extends StatefulWidget {
 }
 
 class AddSongModalState extends State<AddSongModal> {
-  late final TextEditingController _songNameController = TextEditingController();
+  late final TextEditingController _songNameController =
+      TextEditingController();
   late String _filePath = '';
 
   void _pickSong() async {
     final result = await FilePicker.platform.pickFiles(
-      type: FileType.custom, 
-      allowedExtensions: ['mp3'], 
+      type: FileType.custom,
+      allowedExtensions: ['mp3'],
     );
     if (result != null) {
       setState(() {
@@ -39,7 +40,7 @@ class AddSongModalState extends State<AddSongModal> {
         padding: const EdgeInsets.all(16.0),
         child: Column(
           mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.center, 
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             const Text(
               'Add Song',
@@ -56,7 +57,7 @@ class AddSongModalState extends State<AddSongModal> {
                 hintText: 'Enter song name',
                 hintStyle: TextStyle(color: Colors.grey),
                 focusedBorder: UnderlineInputBorder(
-                  borderSide: BorderSide(color: Color(0xFF39DCF3)), 
+                  borderSide: BorderSide(color: Color(0xFF39DCF3)),
                 ),
               ),
               style: const TextStyle(color: Colors.white),
@@ -65,8 +66,8 @@ class AddSongModalState extends State<AddSongModal> {
             ElevatedButton(
               onPressed: _pickSong,
               style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.transparent, 
-                foregroundColor: Colors.white, 
+                backgroundColor: Colors.transparent,
+                foregroundColor: Colors.white,
               ),
               child: const Text('Pick Song File'),
             ),
@@ -82,18 +83,19 @@ class AddSongModalState extends State<AddSongModal> {
               onPressed: () {
                 final String songName = _songNameController.text.trim();
                 if (songName.isNotEmpty && _filePath.isNotEmpty) {
-                  
                   Navigator.pop(context);
                 } else {
                   ScaffoldMessenger.of(context).showSnackBar(
                     const SnackBar(
-                      content: Text('Please enter a song name and pick a file.'),
+                      content:
+                          Text('Please enter a song name and pick a file.'),
                       backgroundColor: Colors.red,
                     ),
                   );
                 }
               },
-              child: const Text('Add Song' ,style: TextStyle(color: Color(0xFF39DCF3) )),
+              child: const Text('Add Song',
+                  style: TextStyle(color: Color(0xFF39DCF3))),
             ),
           ],
         ),
