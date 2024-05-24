@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:masinqo/presentation/core/theme/app_colors.dart';
 import 'package:masinqo/temp/data/admin_data.dart';
 import 'package:masinqo/temp/data/album_data.dart';
@@ -38,17 +39,16 @@ class LoginWidgetState extends State<LoginWidget> {
 
   void loginHandler() {
     if (!_isArtist) {
-      Navigator.pushNamed(
-        context,
-        "/listener",
-        arguments: ListenerHomePageData(
+      context.pushNamed(
+        "listener",
+        extra: ListenerHomePageData(
           albums: db.albums,
           favorites: db.listeners[2].favorites,
           playlists: db.playlists,
         ),
       );
     } else {
-      Navigator.pushNamed(context, "/artist");
+      context.pushNamed("artist");
     }
   }
 
@@ -69,7 +69,7 @@ class LoginWidgetState extends State<LoginWidget> {
                     alignment: Alignment.topRight,
                     child: TextButton(
                       onPressed: () {
-                        Navigator.pushNamed(context, "/admin");
+                        context.pushNamed("admin");
                       },
                       style: TextButton.styleFrom(
                         backgroundColor: Colors.black,
@@ -218,7 +218,7 @@ class LoginWidgetState extends State<LoginWidget> {
                     ),
                     TextButton(
                       onPressed: () {
-                        Navigator.pushNamed(context, "/signup");
+                        context.pushNamed("signup");
                       },
                       style: TextButton.styleFrom(
                           textStyle: const TextStyle(

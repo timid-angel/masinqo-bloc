@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:masinqo/temp/models/albums.dart';
 import 'package:masinqo/presentation/widgets/listener_home_album.dart';
 
@@ -31,11 +32,7 @@ class ListenerHome extends StatelessWidget {
                 itemCount: albums.length,
                 itemBuilder: (context, index) => GestureDetector(
                   onTap: () {
-                    Navigator.pushNamed(
-                      context,
-                      "/listener/album",
-                      arguments: albums[index],
-                    );
+                    context.pushNamed("listener_album", extra: albums[index]);
                   },
                   child: ListenerHomeAlbumCard(
                     album: albums[index],
