@@ -15,6 +15,94 @@ import 'package:masinqo/presentation/screens/listener_playlist.dart';
 import 'package:masinqo/presentation/screens/listener_profile.dart';
 import 'package:masinqo/presentation/screens/login.dart';
 import 'package:masinqo/presentation/screens/signup.dart';
+import 'package:go_router/go_router.dart';
+import 'package:masinqo/temp/models/albums.dart';
+import 'package:masinqo/temp/models/playlist.dart';
+import 'package:masinqo/temp/models/route_models/listener_homepage_data.dart';
+
+final _router = GoRouter(
+  initialLocation: "/login",
+  routes: [
+    GoRoute(
+      name: "login",
+      path: '/login',
+      builder: (context, state) => const LoginWidget(),
+    ),
+    GoRoute(
+      name: "signup",
+      path: '/signup',
+      builder: (context, state) => const SignupWidget(),
+    ),
+    GoRoute(
+      name: "artist",
+      path: '/artist',
+      builder: (context, state) => const ArtistHomePage(),
+    ),
+    GoRoute(
+      name: "listener",
+      path: '/listener',
+      builder: (context, state) {
+        final args = state.extra as ListenerHomePageData;
+        return ListenerWidget(arguments: args);
+      },
+    ),
+    GoRoute(
+      name: "admin",
+      path: '/admin',
+      builder: (context, state) => AdminLogin(),
+    ),
+    GoRoute(
+      name: "admin_home",
+      path: '/admin/home',
+      builder: (context, state) => const AdminHome(),
+    ),
+    GoRoute(
+      name: "listener_album",
+      path: '/listener/album',
+      builder: (context, state) {
+        final args = state.extra as Album;
+        return AlbumWidget(
+          album: args,
+        );
+      },
+    ),
+    GoRoute(
+      name: "listener_playlist",
+      path: '/listener/playlist',
+      builder: (context, state) {
+        final playlist = state.extra as Playlist;
+        return PlaylistWidget(
+          playlist: playlist,
+        );
+      },
+    ),
+    GoRoute(
+      name: "listener_profile",
+      path: '/listener/profile',
+      builder: (context, state) => const ListenerProfile(),
+    ),
+    GoRoute(
+      name: "listener_new_playlist",
+      path: '/listener/new_playlist',
+      builder: (context, state) => AddPlaylistWidget(),
+    ),
+    GoRoute(
+      name: "artist_profile",
+      path: '/artist/profile',
+      builder: (context, state) => const ArtistProfile(),
+    ),
+    GoRoute(
+      name: "artist_album",
+      path: '/artist/album',
+      builder: (context, state) {
+        final args = state.extra as Album;
+        return ArtistsAlbumPage(
+          album: args,
+        );
+      },
+    ),
+  ],
+);
 
 void main() {
   runApp(
@@ -25,24 +113,10 @@ void main() {
               AuthBloc(authRepository: LoginDataSource()),
         ),
       ],
-      child: MaterialApp(
+      child: MaterialApp.router(
         debugShowCheckedModeBanner: false,
         theme: AppThemeData.listnerTheme,
-        initialRoute: '/login',
-        routes: {
-          "/login": (context) => const LoginWidget(),
-          "/signup": (context) => const SignupWidget(),
-          "/artist": (context) => const ArtistHomePage(),
-          "/listener": (context) => const ListenerWidget(),
-          "/admin": (context) => AdminLogin(),
-          "/admin/home": (context) => const AdminHome(),
-          "/listener/album": (context) => const AlbumWidget(),
-          "/listener/playlist": (context) => const PlaylistWidget(),
-          "/listener/profile": (context) => const ListenerProfile(),
-          "/listener/new_playlist": (context) => AddPlaylistWidget(),
-          "/artist/profile": (context) => const ArtistProfile(),
-          "/artist/album": (context) => const ArtistsAlbumPage(),
-        },
+        routerConfig: _router,
       ),
     ),
   );
