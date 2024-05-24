@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 class AdminHeader extends StatelessWidget {
   const AdminHeader({super.key});
@@ -41,7 +42,7 @@ class AdminHeader extends StatelessWidget {
             const SizedBox(width: 5),
             TextButton(
               onPressed: () {
-                Navigator.popAndPushNamed(context, "/admin");
+                context.pushReplacementNamed("admin");
               },
               child: const Icon(
                 Icons.logout,

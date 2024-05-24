@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 import 'package:masinqo/temp/models/albums.dart';
 import '../../temp/data/artist_data.dart';
@@ -18,11 +19,7 @@ class AlbumCard extends StatelessWidget {
 
     return GestureDetector(
       onTap: () {
-        Navigator.pushNamed(
-          context,
-          "/artist/album",
-          arguments: album,
-        );
+        context.pushNamed("artist_album", extra: album);
       },
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),

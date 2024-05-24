@@ -35,17 +35,17 @@ class AdminListenerMGT extends StatelessWidget {
                   return ListTile(
                     minLeadingWidth: 20,
                     minVerticalPadding: 20,
-                    leading: CircleAvatar(
+                    leading: const CircleAvatar(
                       radius: 24,
                       backgroundColor: Colors.transparent,
                       backgroundImage: AssetImage('assets/images/u.png'),
                     ),
                     title: Text(listener.name),
                     subtitle: Text(listener.email,
-                        style: TextStyle(
-                            color: const Color.fromARGB(255, 193, 191, 191))),
+                        style: const TextStyle(
+                            color: Color.fromARGB(255, 193, 191, 191))),
                     textColor: Colors.white,
-                    subtitleTextStyle: TextStyle(color: Colors.white70),
+                    subtitleTextStyle: const TextStyle(color: Colors.white70),
                     trailing: Row(
                       mainAxisSize: MainAxisSize.min,
                       children: [
@@ -60,7 +60,7 @@ class AdminListenerMGT extends StatelessWidget {
                                       'Are you sure you want to delete this Listener?',
                                   content: '',
                                   onConfirm: () {
-                                    Navigator.of(context).pop();
+                                    Navigator.pop(context);
                                   },
                                 );
                               },
