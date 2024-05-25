@@ -1,10 +1,10 @@
 import 'package:masinqo/domain/signup/artist.dart';
-import 'package:masinqo/infrastructure/signup/signup_datasource.dart';
+import 'package:masinqo/infrastructure/signup/artist_signup_datasource.dart';
 
-class SignupRepository {
-  final SignupDataSource dataSource;
+class ArtistSignupRepository {
+  final ArtistSignupDataSource dataSource;
 
-  SignupRepository({required this.dataSource});
+  ArtistSignupRepository({required this.dataSource});
 
   Future<bool> signupArtist(Artist artist, String confirmPassword) async {
     try {

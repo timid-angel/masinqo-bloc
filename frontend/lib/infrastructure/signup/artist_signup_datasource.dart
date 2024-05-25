@@ -1,11 +1,11 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import '../../domain/signup/artist.dart';
-abstract class SignupDataSource {
+abstract class ArtistSignupDataSource {
   Future<bool> signupArtist(Artist artist, String confirmPassword);
 }
 
-class MockSignupDataSource implements SignupDataSource {
+class MockArtistSignupDataSource implements ArtistSignupDataSource {
   @override
   Future<bool> signupArtist(Artist artist, String confirmPassword) async {
     
@@ -14,10 +14,10 @@ class MockSignupDataSource implements SignupDataSource {
   }
 }
 
-class HttpSignupDataSource implements SignupDataSource {
+class HttpArtistSignupDataSource implements ArtistSignupDataSource {
   final String baseUrl;
 
-  HttpSignupDataSource({required this.baseUrl});
+  HttpArtistSignupDataSource({required this.baseUrl});
 
   @override
   Future<bool> signupArtist(Artist artist, String confirmPassword) async {
