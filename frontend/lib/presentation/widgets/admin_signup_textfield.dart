@@ -1,21 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:masinqo/presentation/core/theme/app_colors.dart';
-
 class CustomTextField extends StatelessWidget {
   final String hintText;
   final bool isArtist;
   final Icon? prefixIcon;
+  final TextEditingController controller; // Add controller argument
 
   const CustomTextField({
-    super.key,
+    Key? key,
     required this.hintText,
     required this.isArtist,
     this.prefixIcon,
-  });
+    required this.controller, // Define controller as a required argument
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return TextField(
+      controller: controller, // Assign the controller to the TextField
       style: const TextStyle(fontSize: 17, color: Colors.white),
       decoration: InputDecoration(
         contentPadding:

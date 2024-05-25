@@ -16,7 +16,7 @@ class Brand extends StatelessWidget {
       children: [
         Image.asset(
           'assets/images/logo.png',
-          height: 135,
+          height: 70,
         ),
         const SizedBox(width: 10),
         Padding(
