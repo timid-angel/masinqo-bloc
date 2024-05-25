@@ -8,8 +8,8 @@ abstract class SignupDataSource {
 class MockSignupDataSource implements SignupDataSource {
   @override
   Future<bool> signupArtist(Artist artist, String confirmPassword) async {
-    // Simulate signup process and return success if passwords match
-    await Future.delayed(Duration(seconds: 2)); // Simulating network delay
+    
+    await Future.delayed(Duration(seconds: 2)); 
     return artist.password == confirmPassword;
   }
 }
