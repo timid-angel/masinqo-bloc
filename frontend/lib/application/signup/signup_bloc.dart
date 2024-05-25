@@ -2,6 +2,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:masinqo/application/signup/signup_event.dart';
 import 'package:masinqo/application/signup/signup_state.dart';
 import 'package:masinqo/infrastructure/signup/signup_repository.dart';
+
 class SignupBloc extends Bloc<ArtistSignupEvent, SignupState> {
   final SignupRepository signupRepository;
 
