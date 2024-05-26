@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:masinqo/application/admin/admin_bloc.dart';
-import 'package:masinqo/application/auth/auth_bloc.dart';
-import 'package:masinqo/infrastructure/auth/login_repository.dart';
+import 'package:masinqo/application/auth/admin_auth_bloc.dart';
+import 'package:masinqo/infrastructure/auth/admin/admin_login_repository.dart';
 import '../widgets/admin_listener_mgt.dart';
 import '../widgets/admin_artist_mgt.dart';
 import '../widgets/background.dart';
@@ -20,7 +20,8 @@ class AdminHome extends StatelessWidget {
         BlocProvider(create: (BuildContext context) => ArtistBloc()),
         BlocProvider(
           create: (BuildContext context) {
-            final authBloc = AuthBloc(authRepository: LoginRepository());
+            final authBloc =
+                AdminAuthBloc(authRepository: AdminLoginRepository());
             final token = tk.split(";")[0];
             authBloc.state.token = token;
             return authBloc;

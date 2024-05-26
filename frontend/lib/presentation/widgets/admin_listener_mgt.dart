@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:masinqo/application/admin/admin_event.dart';
 import 'package:masinqo/application/admin/admin_state.dart';
 import 'package:masinqo/application/admin/admin_bloc.dart';
-import 'package:masinqo/application/auth/auth_bloc.dart';
+import 'package:masinqo/application/auth/admin_auth_bloc.dart';
 import 'package:masinqo/domain/admin/admin_listeners/admin_listeners.dart';
 import 'package:masinqo/presentation/widgets/admin_header.dart';
 import 'delete_confirmation_modal.dart';
@@ -13,8 +13,8 @@ class AdminListenerMGT extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    BlocProvider.of<ListenerBloc>(context).add(
-        GetListeners(token: BlocProvider.of<AuthBloc>(context).state.token));
+    BlocProvider.of<ListenerBloc>(context).add(GetListeners(
+        token: BlocProvider.of<AdminAuthBloc>(context).state.token));
     return Scaffold(
       backgroundColor: Colors.transparent,
       body: Column(
@@ -93,8 +93,9 @@ class ListenerList extends StatelessWidget {
                     BlocProvider.of<ListenerBloc>(context).add(
                       DeleteListener(
                           listenerId: listener.id,
-                          token:
-                              BlocProvider.of<AuthBloc>(context).state.token),
+                          token: BlocProvider.of<AdminAuthBloc>(context)
+                              .state
+                              .token),
                     );
                   }
 

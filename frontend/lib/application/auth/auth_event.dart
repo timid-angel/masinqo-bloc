@@ -1,19 +1,22 @@
-abstract class AuthEvent {}
+abstract class AdminAuthEvent {}
 
-class LoginEvent extends AuthEvent {
+abstract class ArtistAuthEvent {}
+
+abstract class ListenerAuthEvent {}
+
+class AdminLoginEvent extends AdminAuthEvent {
   final String email;
   final String password;
   final String role;
 
-  LoginEvent({
+  AdminLoginEvent({
     required this.email,
     required this.password,
     required this.role,
   });
 }
 
-
-class ArtistLoginEvent extends AuthEvent {
+class ArtistLoginEvent extends ArtistAuthEvent {
   final String email;
   final String password;
 
@@ -23,7 +26,7 @@ class ArtistLoginEvent extends AuthEvent {
   });
 }
 
-class ListenerLoginEvent extends AuthEvent {
+class ListenerLoginEvent extends ListenerAuthEvent {
   final String email;
   final String password;
 

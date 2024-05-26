@@ -1,6 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:http/http.dart' as http;
-import 'package:masinqo/domain/auth/artist_login_repository_interface.dart';
+import 'package:masinqo/domain/auth/interfaces/artist_login_repository_interface.dart';
 import 'package:masinqo/infrastructure/auth/artist/artist_login_datasource.dart';
 import 'package:masinqo/infrastructure/auth/artist/artist_login_dto.dart';
 import 'package:masinqo/infrastructure/auth/login_failure.dart';
@@ -8,9 +8,7 @@ import 'package:masinqo/infrastructure/auth/login_success.dart';
 import 'package:masinqo/infrastructure/core/secure_storage_service.dart';
 
 class ArtistLoginRepository implements ArtistLoginRepositoryInterface {
-  final SecureStorageService secureStorageService;
-
-  ArtistLoginRepository({required this.secureStorageService});
+  final SecureStorageService secureStorageService = SecureStorageService();
 
   @override
   Future<Either<LoginRequestFailure, LoginRequestSuccess>> artistLogin(

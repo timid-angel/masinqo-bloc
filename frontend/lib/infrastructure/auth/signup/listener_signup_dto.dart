@@ -1,11 +1,9 @@
-class Listeners {
-  final String id;
+class ListenerSignupDTO {
   final String name;
   final String email;
   final String password;
 
-  Listeners({
-    required this.id,
+  ListenerSignupDTO({
     required this.name,
     required this.email,
     required this.password,

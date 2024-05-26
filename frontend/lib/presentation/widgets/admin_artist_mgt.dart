@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:masinqo/application/admin/admin_event.dart';
 import 'package:masinqo/application/admin/admin_state.dart';
 import 'package:masinqo/application/admin/admin_bloc.dart';
-import 'package:masinqo/application/auth/auth_bloc.dart';
+import 'package:masinqo/application/auth/admin_auth_bloc.dart';
 import 'package:masinqo/domain/admin/admin_artists/admin_artists.dart';
 import 'package:masinqo/infrastructure/core/url.dart';
 import 'package:masinqo/presentation/widgets/admin_header.dart';
@@ -14,8 +14,8 @@ class AdminArtistMGT extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    BlocProvider.of<ArtistBloc>(context)
-        .add(GetArtists(token: BlocProvider.of<AuthBloc>(context).state.token));
+    BlocProvider.of<ArtistBloc>(context).add(
+        GetArtists(token: BlocProvider.of<AdminAuthBloc>(context).state.token));
 
     return Scaffold(
       backgroundColor: Colors.transparent,
@@ -141,7 +141,8 @@ class ArtistList extends StatelessWidget {
                                     ChangeArtistStatus(
                                       artistId: artist.id,
                                       newBannedStatus: artist.isBanned,
-                                      token: BlocProvider.of<AuthBloc>(context)
+                                      token: BlocProvider.of<AdminAuthBloc>(
+                                              context)
                                           .state
                                           .token,
                                     ),
@@ -175,10 +176,10 @@ class ArtistList extends StatelessWidget {
                                   BlocProvider.of<ArtistBloc>(context).add(
                                     DeleteArtist(
                                         artistId: artist.id,
-                                        token:
-                                            BlocProvider.of<AuthBloc>(context)
-                                                .state
-                                                .token),
+                                        token: BlocProvider.of<AdminAuthBloc>(
+                                                context)
+                                            .state
+                                            .token),
                                   );
                                 }
 

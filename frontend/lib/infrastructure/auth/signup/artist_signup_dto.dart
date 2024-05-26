@@ -1,11 +1,9 @@
-class Artist {
-  final String id;
+class ArtistSignupDTO {
   final String name;
   final String email;
   final String password;
 
-  Artist({
-    required this.id,
+  ArtistSignupDTO({
     required this.name,
     required this.email,
     required this.password,

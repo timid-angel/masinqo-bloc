@@ -6,15 +6,15 @@ import '../widgets/admin_signup_textfield.dart';
 import '../../application/auth/signup/artist_signup/artist_signup_bloc.dart';
 import '../../application/auth/signup/artist_signup/artist_signup_event.dart';
 import '../../application/auth/signup/artist_signup/artist_signup_state.dart';
-import '../../infrastructure/signup/artist_signup_repository.dart';
-import '../../infrastructure/signup/artist_signup_datasource.dart';
-import '../../domain/auth/signup/artist.dart';
+import '../../infrastructure/auth/signup/artist_signup_repository.dart';
+import '../../infrastructure/auth/signup/artist_signup_datasource.dart';
+import '../../infrastructure/auth/signup/artist_signup_dto.dart';
 import '../../application/auth/signup/listener_signup/listener_signup_bloc.dart';
 import '../../application/auth/signup/listener_signup/listener_signup_event.dart';
 import '../../application/auth/signup/listener_signup/listener_signup_state.dart';
-import '../../infrastructure/signup/listener_signup_repository.dart';
-import '../../infrastructure/signup/listener_signup_datasource.dart';
-import '../../domain/auth/signup/listener.dart';
+import '../../infrastructure/auth/signup/listener_signup_repository.dart';
+import '../../infrastructure/auth/signup/listener_signup_datasource.dart';
+import '../../infrastructure/auth/signup/listener_signup_dto.dart';
 
 class SignupWidget extends StatefulWidget {
   const SignupWidget({Key? key}) : super(key: key);
@@ -276,11 +276,10 @@ class _SignupWidgetState extends State<SignupWidget> {
 
   void _onSignupPressed() {
     if (_isArtist) {
-      final artist = Artist(
+      final artist = ArtistSignupDTO(
         name: _usernameController.text,
         email: _emailController.text,
         password: _passwordController.text,
-        id: '',
       );
       final confirmPassword = _confirmPasswordController.text;
 
@@ -289,11 +288,10 @@ class _SignupWidgetState extends State<SignupWidget> {
       //   confirmPassword: confirmPassword,
       // ));
     } else {
-      final listener = Listeners(
+      final listener = ListenerSignupDTO(
         name: _usernameController.text,
         email: _emailController.text,
         password: _passwordController.text,
-        id: '',
       );
       final confirmPassword = _confirmPasswordController.text;
 

@@ -1,8 +1,8 @@
 import 'package:http/http.dart' as http;
-import 'package:masinqo/infrastructure/auth/login_dto.dart';
+import 'package:masinqo/infrastructure/auth/admin/admin_login_dto.dart';
 import 'package:masinqo/infrastructure/core/url.dart';
 
-class LoginDataSource {
+class AdminLoginDataSource {
   final String url = Domain.url;
 
   Future<http.Response> adminLogin(LoginDTO loginDto) async {

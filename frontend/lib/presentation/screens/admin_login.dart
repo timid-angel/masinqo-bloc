@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
-import 'package:masinqo/application/auth/auth_bloc.dart';
+import 'package:masinqo/application/auth/admin_auth_bloc.dart';
 import 'package:masinqo/application/auth/auth_event.dart';
 import 'package:masinqo/application/auth/auth_state.dart';
 import 'package:masinqo/application/auth/login_form/admin_login/admin_login_bloc.dart';
 import 'package:masinqo/application/auth/login_form/admin_login/admin_login_event.dart';
-import 'package:masinqo/infrastructure/auth/login_repository.dart';
+import 'package:masinqo/infrastructure/auth/admin/admin_login_repository.dart';
 import 'package:masinqo/presentation/core/theme/app_colors.dart';
 import 'package:masinqo/presentation/widgets/login_brand.dart';
 import 'package:masinqo/presentation/widgets/admin_login_button.dart';
@@ -26,12 +26,12 @@ class AdminLogin extends StatelessWidget {
       providers: [
         BlocProvider(
             create: (BuildContext context) =>
-                AuthBloc(authRepository: LoginRepository())),
+                AdminAuthBloc(authRepository: AdminLoginRepository())),
         BlocProvider(create: (BuildContext context) => PasswordErrorBloc()),
         BlocProvider(create: (BuildContext context) => EmailErrorBloc()),
         BlocProvider(create: (BuildContext context) => LoginLoadingBloc()),
       ],
-      child: BlocListener<AuthBloc, AuthState>(
+      child: BlocListener<AdminAuthBloc, AdminAuthState>(
         listener: (context, state) {
           BlocProvider.of<LoginLoadingBloc>(context).add(LoginUnsetLoading());
           if (state.role == "admin" && state.token.length > 1) {
@@ -192,9 +192,9 @@ class AdminLogin extends StatelessWidget {
                                   BlocProvider.of<LoginLoadingBloc>(context)
                                       .add(LoginSetLoading());
                                   await Future.delayed(
-                                      const Duration(seconds: 2));
-                                  BlocProvider.of<AuthBloc>(context).add(
-                                    LoginEvent(
+                                      const Duration(milliseconds: 1500));
+                                  BlocProvider.of<AdminAuthBloc>(context).add(
+                                    AdminLoginEvent(
                                         email: _emailController.text,
                                         password: _passwordController.text,
                                         role: "admin"),
