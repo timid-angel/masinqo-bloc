@@ -15,7 +15,7 @@ class AdminArtistsCollection {
     }
 
     final res = await AdminArtistsRepository(token: token).getArtists();
-    res.fold((l) {
+    final Either<AdminFailure, GetArtistsSuccess> result = res.fold((l) {
       return Left(AdminFailure(message: l.message));
     }, (r) {
       return Right(GetArtistsSuccess(
@@ -32,7 +32,7 @@ class AdminArtistsCollection {
               .toList()));
     });
 
-    return Left(AdminFailure(message: "Unknown Error"));
+    return result;
   }
 
   Future<Either<AdminFailure, AdminSuccess>> deleteArtist(String id) async {
@@ -42,13 +42,13 @@ class AdminArtistsCollection {
     final res = await AdminArtistsRepository(token: token)
         .deleteArtist(ArtistID(id: id));
 
-    res.fold((l) {
+    final Either<AdminFailure, AdminSuccess> result = res.fold((l) {
       return Left(AdminFailure(message: l.message));
     }, (r) {
       return Right(AdminSuccess());
     });
 
-    return Left(AdminFailure(message: "Unknown Error"));
+    return result;
   }
 
   Future<Either<AdminFailure, AdminSuccess>> changeStatus(
@@ -59,13 +59,13 @@ class AdminArtistsCollection {
     final res = await AdminArtistsRepository(token: token)
         .changeStatus(ArtistStatus(id: id, newBannedStatus: newBannedStatus));
 
-    res.fold((l) {
+    final Either<AdminFailure, AdminSuccess> result = res.fold((l) {
       return Left(AdminFailure(message: l.message));
     }, (r) {
       return Right(AdminSuccess());
     });
 
-    return Left(AdminFailure(message: "Unknown Error"));
+    return result;
   }
 }
 

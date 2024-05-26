@@ -15,7 +15,7 @@ class AdminListenerCollection {
     }
 
     final res = await AdminListenersRepository(token: token).getListeners();
-    res.fold((l) {
+    return res.fold((l) {
       return Left(AdminFailure(message: l.message));
     }, (r) {
       return Right(GetListenersSuccess(
@@ -23,8 +23,6 @@ class AdminListenerCollection {
               .map((a) => AdminListener(id: a.id, email: a.email, name: a.name))
               .toList()));
     });
-
-    return Left(AdminFailure(message: "Unknown Error"));
   }
 
   Future<Either<AdminFailure, AdminSuccess>> deleteListener(String id) async {
@@ -34,13 +32,11 @@ class AdminListenerCollection {
     final res = await AdminListenersRepository(token: token)
         .deleteListener(ListenerID(id: id));
 
-    res.fold((l) {
+    return res.fold((l) {
       return Left(AdminFailure(message: l.message));
     }, (r) {
       return Right(AdminSuccess());
     });
-
-    return Left(AdminFailure(message: "Unknown Error"));
   }
 }
 

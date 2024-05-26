@@ -10,7 +10,8 @@ class ArtistSignupBloc extends Bloc<ArtistSignupEvent, ArtistSignupState> {
     on<ArtistSignupEvent>(_onArtistSignupEvent);
   }
 
-  void _onArtistSignupEvent(ArtistSignupEvent event, Emitter<ArtistSignupState> emit) async {
+  void _onArtistSignupEvent(
+      ArtistSignupEvent event, Emitter<ArtistSignupState> emit) async {
     emit(SignupLoading());
     try {
       if (event.artist.password != event.confirmPassword) {
@@ -18,7 +19,8 @@ class ArtistSignupBloc extends Bloc<ArtistSignupEvent, ArtistSignupState> {
         return;
       }
 
-      final success = await signupRepository.signupArtist(event.artist, event.confirmPassword);
+      final success = await signupRepository.signupArtist(
+          event.artist, event.confirmPassword);
 
       if (success) {
         emit(ArtistSignupSuccess());

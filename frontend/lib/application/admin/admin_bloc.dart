@@ -7,7 +7,8 @@ import 'package:masinqo/domain/admin/admin_listeners/admin_listeners.dart';
 class ListenerBloc extends Bloc<AdminListenerEvent, AdminListenersState> {
   ListenerBloc() : super(AdminListenersState(listeners: [])) {
     on<GetListeners>((event, emit) async {
-      final res = await AdminListenerCollection(token: "").getListeners();
+      final res =
+          await AdminListenerCollection(token: event.token).getListeners();
       res.fold((l) {
         final newState = AdminListenersState(listeners: []);
         newState.errorMessages = l.message;
@@ -19,7 +20,7 @@ class ListenerBloc extends Bloc<AdminListenerEvent, AdminListenersState> {
     });
 
     on<DeleteListener>((event, emit) async {
-      final res = await AdminListenerCollection(token: "")
+      final res = await AdminListenerCollection(token: event.token)
           .deleteListener(event.listenerId);
 
       res.fold((l) {
@@ -41,7 +42,7 @@ class ListenerBloc extends Bloc<AdminListenerEvent, AdminListenersState> {
 class ArtistBloc extends Bloc<AdminArtistEvent, AdminArtistsState> {
   ArtistBloc() : super(AdminArtistsState(artists: [])) {
     on<GetArtists>((event, emit) async {
-      final res = await AdminArtistsCollection(token: "").getArtists();
+      final res = await AdminArtistsCollection(token: event.token).getArtists();
       res.fold((l) {
         final newState = AdminArtistsState(artists: []);
         newState.errorMessages = l.message;
@@ -53,8 +54,8 @@ class ArtistBloc extends Bloc<AdminArtistEvent, AdminArtistsState> {
     });
 
     on<DeleteArtist>((event, emit) async {
-      final res =
-          await AdminArtistsCollection(token: "").deleteArtist(event.artistId);
+      final res = await AdminArtistsCollection(token: event.token)
+          .deleteArtist(event.artistId);
 
       res.fold((l) {
         AdminArtistsState newState;
@@ -71,7 +72,7 @@ class ArtistBloc extends Bloc<AdminArtistEvent, AdminArtistsState> {
     });
 
     on<ChangeArtistStatus>((event, emit) async {
-      final res = await AdminArtistsCollection(token: "")
+      final res = await AdminArtistsCollection(token: event.token)
           .changeStatus(event.artistId, event.newBannedStatus);
 
       res.fold((l) {

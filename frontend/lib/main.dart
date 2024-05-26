@@ -1,7 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:masinqo/application/auth/auth_bloc.dart';
-import 'package:masinqo/infrastructure/auth/login_repository.dart';
 import 'package:masinqo/presentation/core/theme/app_theme_data.dart';
 import 'package:masinqo/presentation/screens/admin_home.dart';
 import 'package:masinqo/presentation/screens/admin_login.dart';
@@ -53,8 +50,10 @@ final _router = GoRouter(
     ),
     GoRoute(
       name: "admin_home",
-      path: '/admin/home',
-      builder: (context, state) => const AdminHome(),
+      path: '/admin_home/:tk',
+      builder: (context, state) {
+        return AdminHome(tk: state.pathParameters["tk"] as String);
+      },
     ),
     GoRoute(
       name: "listener_album",
@@ -106,18 +105,9 @@ final _router = GoRouter(
 
 void main() {
   runApp(
-    MultiBlocProvider(
-      providers: [
-        BlocProvider(
-          create: (BuildContext context) =>
-              AuthBloc(authRepository: LoginRepository()),
-        ),
-      ],
-      child: MaterialApp.router(
+    MaterialApp.router(
         debugShowCheckedModeBanner: false,
         theme: AppThemeData.listnerTheme,
-        routerConfig: _router,
-      ),
-    ),
+        routerConfig: _router),
   );
 }

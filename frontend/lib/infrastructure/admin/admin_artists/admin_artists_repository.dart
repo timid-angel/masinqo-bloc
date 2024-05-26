@@ -24,6 +24,7 @@ class AdminArtistsRepository implements AdminArtistRepositoryInterface {
 
     List<AdminArtist> res = [];
     List artists = jsonDecode(response.body);
+
     for (int i = 0; i < artists.length; i++) {
       res.add(
         AdminArtist(
@@ -35,7 +36,6 @@ class AdminArtistsRepository implements AdminArtistRepositoryInterface {
         ),
       );
     }
-
     return Right(ArtistFetchSuccess(artists: res));
   }
 
