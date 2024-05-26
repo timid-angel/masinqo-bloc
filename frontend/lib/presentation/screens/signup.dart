@@ -3,19 +3,19 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../widgets/login_brand.dart';
 import '../core/theme/app_colors.dart';
 import '../widgets/admin_signup_textfield.dart';
-import '../../application/signup/artist_signup/artist_signup_bloc.dart'; 
-import '../../application/signup/artist_signup/artist_signup_event.dart';
-import '../../application/signup/artist_signup/artist_signup_state.dart';
+import '../../application/auth/signup/artist_signup/artist_signup_bloc.dart'; 
+import '../../application/auth/signup/artist_signup/artist_signup_event.dart';
+import '../../application/auth/signup/artist_signup/artist_signup_state.dart';
 import '../../infrastructure/signup/artist_signup_repository.dart';
 import '../../infrastructure/signup/artist_signup_datasource.dart';
-import '../../domain/signup/artist.dart';
-import '../../application/signup/listener_signup/listener_signup_bloc.dart';
-import '../../application/signup/listener_signup/listener_signup_event.dart';
-import '../../application/signup/listener_signup/listener_signup_state.dart';
+import '../../domain/auth/signup/artist.dart';
+import '../../application/auth/signup/listener_signup/listener_signup_bloc.dart';
+import '../../application/auth/signup/listener_signup/listener_signup_event.dart';
+import '../../application/auth/signup/listener_signup/listener_signup_state.dart';
 import '../../infrastructure/signup/listener_signup_repository.dart';
 import '../../infrastructure/signup/listener_signup_datasource.dart';
-import '../../domain/signup/listener.dart';
-import '../../infrastructure/core/url.dart';
+import '../../domain/auth/signup/listener.dart';
+
 
 class SignupWidget extends StatefulWidget {
   const SignupWidget({Key? key}) : super(key: key);
