@@ -9,6 +9,7 @@ class EmailErrorBloc extends Bloc<EmailErrorEvent, String> {
   }
 }
 
+
 class PasswordErrorBloc extends Bloc<PasswordErrorEvent, String> {
   PasswordErrorBloc() : super("") {
     on<PasswordErrorChange>((event, emit) {
