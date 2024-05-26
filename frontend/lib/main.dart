@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:masinqo/application/auth/auth_bloc.dart';
-import 'package:masinqo/infrastructure/auth/login_data_source.dart';
+import 'package:masinqo/infrastructure/auth/login_repository.dart';
 import 'package:masinqo/presentation/core/theme/app_theme_data.dart';
 import 'package:masinqo/presentation/screens/admin_home.dart';
 import 'package:masinqo/presentation/screens/admin_login.dart';
@@ -110,7 +110,7 @@ void main() {
       providers: [
         BlocProvider(
           create: (BuildContext context) =>
-              AuthBloc(authRepository: LoginDataSource()),
+              AuthBloc(authRepository: LoginRepository()),
         ),
       ],
       child: MaterialApp.router(

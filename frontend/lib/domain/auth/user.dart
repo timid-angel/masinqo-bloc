@@ -2,8 +2,8 @@ import 'package:dartz/dartz.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:masinqo/domain/auth/login_failure.dart';
 import 'package:masinqo/domain/auth/login_success.dart';
-import 'package:masinqo/infrastructure/auth/login_data_source.dart';
 import 'package:masinqo/infrastructure/auth/login_dto.dart';
+import 'package:masinqo/infrastructure/auth/login_repository.dart';
 
 class User {
   final String email;
@@ -27,7 +27,7 @@ class User {
       return Left(loginFailure);
     }
 
-    final res = await LoginDataSource()
+    final res = await LoginRepository()
         .adminLogin(LoginDTO(email: email, password: password));
 
     Either<LoginFailure, LoginSuccess> response = Left(loginFailure);
