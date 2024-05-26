@@ -15,6 +15,7 @@ import '../../application/signup/listener_signup/listener_signup_state.dart';
 import '../../infrastructure/signup/listener_signup_repository.dart';
 import '../../infrastructure/signup/listener_signup_datasource.dart';
 import '../../domain/signup/listener.dart';
+import '../../infrastructure/core/url.dart';
 
 class SignupWidget extends StatefulWidget {
   const SignupWidget({Key? key}) : super(key: key);
@@ -42,11 +43,11 @@ class _SignupWidgetState extends State<SignupWidget> {
     _signupBloc = _isArtist
         ? ArtistSignupBloc(
             signupRepository: ArtistSignupRepository(
-                dataSource: HttpArtistSignupDataSource(baseUrl: 'http://localhost:3000')),
+                dataSource: HttpArtistSignupDataSource(baseUrl:"http://10.0.2.2:3000" )),
           )
         : ListenerSignupBloc(
             signupRepository: ListenerSignupRepository(
-                dataSource: HttpListenerSignupDataSource(baseUrl: 'http://localhost:3000')),
+                dataSource: HttpListenerSignupDataSource(baseUrl: "http://10.0.2.2:3000")),
           );
   }
 
