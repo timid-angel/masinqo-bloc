@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'dart:io';
 
 import 'package:dartz/dartz.dart';
 import 'package:masinqo/core.dart';
@@ -50,9 +49,16 @@ class ArtistsRepository implements ArtistsRepositoryInterface {
   }
 
   @override
-  Future<Either<ArtistFailure, Success>> addSong() {
-    // TODO: implement addSong
-    throw UnimplementedError();
+  Future<Either<ArtistFailure, Success>> addSong(
+      CreateSongDTO songDto, String songFilePath) async {
+    http.StreamedResponse response = await ArtistsDataSource(token: token)
+        .addSong(songDto.albumId, songDto.songName, songFilePath);
+
+    if (response.statusCode != 201) {
+      return Left(ArtistFailure(message: response.statusCode.toString()));
+    }
+
+    return Right(ArtistsSuccess());
   }
 
   @override
@@ -79,15 +85,29 @@ class ArtistsRepository implements ArtistsRepositoryInterface {
   }
 
   @override
-  Future<Either<ArtistFailure, Success>> getSong() {
-    // TODO: implement getSong
-    throw UnimplementedError();
+  Future<Either<ArtistFailure, GetSongsSuccess>> getSongs(
+      String albumId) async {
+    http.Response response =
+        await ArtistsDataSource(token: token).getSongs(albumId);
+
+    if (response.statusCode != 200) {
+      return Left(ArtistFailure(message: response.body));
+    }
+    Map album = jsonDecode(response.body);
+    return Right(GetSongsSuccess(songs: album["songs"]));
   }
 
   @override
-  Future<Either<ArtistFailure, Success>> removeSong() {
-    // TODO: implement removeSong
-    throw UnimplementedError();
+  Future<Either<ArtistFailure, Success>> removeSong(
+      String albumId, String songName) async {
+    http.Response response =
+        await ArtistsDataSource(token: token).deleteSong(albumId, songName);
+
+    if (response.statusCode != 200) {
+      return Left(ArtistFailure(message: response.body));
+    }
+
+    return Right(ArtistsSuccess());
   }
 
   @override
@@ -109,7 +129,7 @@ class ArtistsRepository implements ArtistsRepositoryInterface {
     http.Response response = await ArtistsDataSource(token: token)
         .updateAlbum(updateDto.albumId, body);
 
-    if (response.statusCode != 201) {
+    if (response.statusCode != 200) {
       return Left(ArtistFailure(message: response.body));
     }
 
@@ -117,18 +137,18 @@ class ArtistsRepository implements ArtistsRepositoryInterface {
   }
 }
 
-void main() async {
-  final ArtistsRepository artistRepo = ArtistsRepository(
-      token:
-          "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2NTI5YzBmNTEwZTU4ZGRlYmJkYTk1MSIsInJvbGUiOjEsImlhdCI6MTcxNjY5OTM3MCwiZXhwIjoxNzE2Nzg1NzcwfQ.hptWAQD0UigjLi4yOtv4YpAte45If_UDNHhu1EHmyLE");
+// void main() async {
+//   final ArtistsRepository artistRepo = ArtistsRepository(
+//       token:
+//           "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2NTI5YzBmNTEwZTU4ZGRlYmJkYTk1MSIsInJvbGUiOjEsImlhdCI6MTcxNjY5OTM3MCwiZXhwIjoxNzE2Nzg1NzcwfQ.hptWAQD0UigjLi4yOtv4YpAte45If_UDNHhu1EHmyLE");
 
   // get albums
-  final res = await artistRepo.getAlbums();
-  res.fold((l) {
-    print(l.message);
-  }, (r) {
-    print(r.albums);
-  });
+  // final res = await artistRepo.getAlbums();
+  // res.fold((l) {
+  //   print(l.message);
+  // }, (r) {
+  //   print(r.albums);
+  // });
 
   // add albums
   // String albumArtPath = "./transformer.png";
@@ -168,4 +188,36 @@ void main() async {
   // });
 
   // 6652cdfe8fed1d2eef050c57
-}
+
+  // get songs
+  // final res = await artistRepo.getSongs("6652cdfe8fed1d2eef050c57");
+  // res.fold((l) {
+  //   print(l.message);
+  // }, (r) {
+  //   print(r.songs);
+  // });
+
+  // add songs
+  // final res = await artistRepo.addSong(
+  //   CreateSongDTO(
+  //     songName: "The Heart Part V",
+  //     albumId: "6652cdfe8fed1d2eef050c57",
+  //   ),
+  //   "./02. Seatbelts - Tank! (TV Edit).mp3",
+  // );
+
+  // res.fold((l) {
+  //   print(l.message);
+  // }, (r) {
+  //   print(r.toString());
+  // });
+
+  // delete songs
+  // final res = await artistRepo.removeSong(
+  //     "6652cdfe8fed1d2eef050c57", "Cry me a river 2");
+  // res.fold((l) {
+  //   print(l.message);
+  // }, (r) {
+  //   print(r.toString());
+  // });
+// }

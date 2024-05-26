@@ -7,7 +7,8 @@ abstract class ArtistsRepositoryInterface {
   Future<Either<Failure, Success>> addAlbum(CreateAlbumDTO albumDto);
   Future<Either<Failure, Success>> deleteAlbum(String albumId);
   Future<Either<Failure, Success>> updateAlbum(UpdateAlbumDTO updateDto);
-  Future<Either<Failure, Success>> getSong();
-  Future<Either<Failure, Success>> addSong();
-  Future<Either<Failure, Success>> removeSong();
+  Future<Either<Failure, Success>> getSongs(String albumId);
+  Future<Either<Failure, Success>> addSong(
+      CreateSongDTO songDto, String songFilePath);
+  Future<Either<Failure, Success>> removeSong(String albumId, String songName);
 }

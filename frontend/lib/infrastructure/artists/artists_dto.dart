@@ -27,3 +27,10 @@ class CreateAlbumDTO {
     required this.albumArt,
   });
 }
+
+class CreateSongDTO {
+  final String songName;
+  final String albumId;
+
+  CreateSongDTO({required this.songName, required this.albumId});
+}
