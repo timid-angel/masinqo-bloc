@@ -92,10 +92,11 @@ class ListenerList extends StatelessWidget {
                   void emitDeleteEvent() {
                     BlocProvider.of<ListenerBloc>(context).add(
                       DeleteListener(
-                          listenerId: listener.id,
-                          token: BlocProvider.of<AdminAuthBloc>(context)
-                              .state
-                              .token),
+                        listenerId: listener.id,
+                        token:
+                            BlocProvider.of<AdminAuthBloc>(context).state.token,
+                        prevState: BlocProvider.of<ListenerBloc>(context).state,
+                      ),
                     );
                   }
 

@@ -3,10 +3,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:masinqo/application/admin/admin_bloc.dart';
 import 'package:masinqo/application/auth/admin_auth_bloc.dart';
 import 'package:masinqo/infrastructure/auth/admin/admin_login_repository.dart';
-import '../widgets/admin_listener_mgt.dart';
-import '../widgets/admin_artist_mgt.dart';
-import '../widgets/background.dart';
-import '../widgets/admin_tabs.dart';
+import 'package:masinqo/presentation/widgets/admin_artist_mgt.dart';
+import 'package:masinqo/presentation/widgets/admin_listener_mgt.dart';
+import 'package:masinqo/presentation/widgets/admin_tabs.dart';
+import 'package:masinqo/presentation/widgets/background.dart';
 
 class AdminHome extends StatelessWidget {
   final String tk;

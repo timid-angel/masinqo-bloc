@@ -33,7 +33,14 @@ class ListenerBloc extends Bloc<AdminListenerEvent, AdminListenersState> {
         newState.errorMessages = l.message;
         emit(newState);
       }, (r) {
-        emit(event.prevState ?? AdminListenersState(listeners: []));
+        final List<AdminListener> res = [];
+        for (int i = 0; i < event.prevState!.listeners.length; i++) {
+          if (event.prevState!.listeners[i].id != event.listenerId) {
+            res.add(event.prevState!.listeners[i]);
+          }
+        }
+
+        emit(event.prevState ?? AdminListenersState(listeners: res));
       });
     });
   }
@@ -67,7 +74,14 @@ class ArtistBloc extends Bloc<AdminArtistEvent, AdminArtistsState> {
         newState.errorMessages = l.message;
         emit(newState);
       }, (r) {
-        emit(event.prevState ?? AdminArtistsState(artists: []));
+        final List<AdminArtist> res = [];
+        for (int i = 0; i < event.prevState!.artists.length; i++) {
+          if (event.prevState!.artists[i].id != event.artistId) {
+            res.add(event.prevState!.artists[i]);
+          }
+        }
+
+        emit(event.prevState ?? AdminArtistsState(artists: res));
       });
     });
 
@@ -85,7 +99,16 @@ class ArtistBloc extends Bloc<AdminArtistEvent, AdminArtistsState> {
         newState.errorMessages = l.message;
         emit(newState);
       }, (r) {
-        emit(event.prevState ?? AdminArtistsState(artists: []));
+        final List<AdminArtist> res = [];
+        for (int i = 0; i < event.prevState!.artists.length; i++) {
+          if (event.prevState!.artists[i].id == event.artistId) {
+            event.prevState!.artists[i].isBanned =
+                !event.prevState!.artists[i].isBanned;
+          }
+          res.add(event.prevState!.artists[i]);
+        }
+
+        emit(event.prevState ?? AdminArtistsState(artists: res));
       });
     });
   }

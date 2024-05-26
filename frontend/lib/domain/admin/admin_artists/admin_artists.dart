@@ -73,7 +73,7 @@ class AdminArtist {
   final String email;
   final String id;
   final String name;
-  final bool isBanned;
+  bool isBanned;
   final String profilePicture;
 
   AdminArtist({

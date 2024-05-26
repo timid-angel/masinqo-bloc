@@ -34,7 +34,7 @@ class AdminLogin extends StatelessWidget {
       child: BlocListener<AdminAuthBloc, AdminAuthState>(
         listener: (context, state) {
           BlocProvider.of<LoginLoadingBloc>(context).add(LoginUnsetLoading());
-          if (state.role == "admin" && state.token.length > 1) {
+          if (state.token.length > 1) {
             context.goNamed("admin_home", pathParameters: {"tk": state.token});
           } else if (state.errors.contains("Incorrect email or password")) {
             ScaffoldMessenger.of(context).showSnackBar(
@@ -191,13 +191,13 @@ class AdminLogin extends StatelessWidget {
                                 onPressed: () async {
                                   BlocProvider.of<LoginLoadingBloc>(context)
                                       .add(LoginSetLoading());
-                                  await Future.delayed(
-                                      const Duration(milliseconds: 1500));
+                                  // await Future.delayed(
+                                  //     const Duration(milliseconds: 1500));
                                   BlocProvider.of<AdminAuthBloc>(context).add(
                                     AdminLoginEvent(
-                                        email: _emailController.text,
-                                        password: _passwordController.text,
-                                        role: "admin"),
+                                      email: _emailController.text,
+                                      password: _passwordController.text,
+                                    ),
                                   );
                                 },
                                 buttonText: 'Login'),

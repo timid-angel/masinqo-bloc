@@ -7,12 +7,10 @@ abstract class ListenerAuthEvent {}
 class AdminLoginEvent extends AdminAuthEvent {
   final String email;
   final String password;
-  final String role;
 
   AdminLoginEvent({
     required this.email,
     required this.password,
-    required this.role,
   });
 }
 

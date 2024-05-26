@@ -12,11 +12,9 @@ import 'package:masinqo/infrastructure/auth/listener/listener_login_repository.d
 class AdminAuthEntity {
   final String email;
   final String password;
-  final String role;
   late String token;
 
-  AdminAuthEntity(
-      {required this.email, required this.password, required this.role});
+  AdminAuthEntity({required this.email, required this.password});
 
   Future<Either<LoginFailure, LoginSuccess>> loginAdmin() async {
     LoginFailure loginFailure = LoginFailure();

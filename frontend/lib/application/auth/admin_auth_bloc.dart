@@ -7,21 +7,19 @@ import 'package:masinqo/infrastructure/auth/admin/admin_login_repository.dart';
 class AdminAuthBloc extends Bloc<AdminAuthEvent, AdminAuthState> {
   final AdminLoginRepository authRepository;
 
-  AdminAuthBloc({required this.authRepository})
-      : super(AdminAuthState(role: "")) {
+  AdminAuthBloc({required this.authRepository}) : super(AdminAuthState()) {
     on<AdminLoginEvent>((event, emit) async {
-      final AdminAuthEntity user = AdminAuthEntity(
-          email: event.email, password: event.password, role: event.role);
-      emit(AdminAuthState(role: "", token: "", isLoading: true));
+      final AdminAuthEntity user =
+          AdminAuthEntity(email: event.email, password: event.password);
+      emit(AdminAuthState(token: "", isLoading: true));
 
       final res = await user.loginAdmin();
       res.fold((l) {
-        AdminAuthState newState = AdminAuthState(role: "", token: "");
+        AdminAuthState newState = AdminAuthState(token: "");
         newState.errors = l.messages;
         emit(newState);
       }, (r) {
-        AdminAuthState newState =
-            AdminAuthState(role: event.role, token: r.token);
+        AdminAuthState newState = AdminAuthState(token: r.token);
         emit(newState);
       });
     });

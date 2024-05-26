@@ -85,7 +85,9 @@ class ArtistList extends StatelessWidget {
                     child: CircleAvatar(
                       radius: 48,
                       backgroundImage: NetworkImage(
-                          "${Domain.url}/${artist.profilePicture}"),
+                          artist.profilePicture.isNotEmpty
+                              ? "${Domain.url}/${artist.profilePicture}"
+                              : "${Domain.url}/local/artist_placeholder.jpg"),
                     ),
                   ),
                   const SizedBox(width: 16),
@@ -145,6 +147,9 @@ class ArtistList extends StatelessWidget {
                                               context)
                                           .state
                                           .token,
+                                      prevState:
+                                          BlocProvider.of<ArtistBloc>(context)
+                                              .state,
                                     ),
                                   );
                                 }
@@ -175,11 +180,15 @@ class ArtistList extends StatelessWidget {
                                 void activateDeletion() {
                                   BlocProvider.of<ArtistBloc>(context).add(
                                     DeleteArtist(
-                                        artistId: artist.id,
-                                        token: BlocProvider.of<AdminAuthBloc>(
-                                                context)
-                                            .state
-                                            .token),
+                                      artistId: artist.id,
+                                      token: BlocProvider.of<AdminAuthBloc>(
+                                              context)
+                                          .state
+                                          .token,
+                                      prevState:
+                                          BlocProvider.of<ArtistBloc>(context)
+                                              .state,
+                                    ),
                                   );
                                 }
 

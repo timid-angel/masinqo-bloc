@@ -1,10 +1,9 @@
 class AdminAuthState {
-  final String role;
   String token = "";
   List<String> errors = [];
   bool isLoading = false;
 
-  AdminAuthState({this.token = "", required this.role, this.isLoading = false});
+  AdminAuthState({this.token = "", this.isLoading = false});
 }
 
 class ArtistAuthState {
