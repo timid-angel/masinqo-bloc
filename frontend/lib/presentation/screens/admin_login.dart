@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:masinqo/application/auth/auth_bloc.dart';
 import 'package:masinqo/application/auth/auth_event.dart';
 import 'package:masinqo/application/auth/auth_state.dart';
@@ -45,7 +46,7 @@ class AdminLogin extends StatelessWidget {
               ),
             );
           } else {
-            String pwe = "The password is too short.";
+            String pwe = "The password is too short";
             String eme = "Invalid Email";
             if (state.errors.contains(pwe)) {
               BlocProvider.of<PasswordErrorBloc>(context)
@@ -64,124 +65,142 @@ class AdminLogin extends StatelessWidget {
             }
           }
         },
-        child: Scaffold(
-          body: SingleChildScrollView(
-            child: SizedBox(
-              height: deviceHeight,
-              child: Container(
-                decoration: const BoxDecoration(color: AppColors.black),
-                child: Stack(
-                  children: [
-                    Container(
-                      margin: const EdgeInsets.only(top: 50.0, right: 10.0),
-                      child: ElevatedButton(
-                        onPressed: () {
-                          context.pushNamed("login");
-                        },
-                        style: ElevatedButton.styleFrom(
-                          padding: const EdgeInsets.symmetric(
-                              vertical: 8, horizontal: 15),
-                          backgroundColor: AppColors.artist4,
-                        ),
-                        child: const Row(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            Icon(
-                              Icons.arrow_back_ios_new,
-                              size: 19,
-                              color: AppColors.artist2,
-                            ),
-                            SizedBox(width: 4),
-                            Text(
-                              'Back to user login',
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontWeight: FontWeight.w500,
-                                fontSize: 16,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                    Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: <Widget>[
+        child: BlocBuilder<AuthBloc, AuthState>(
+          builder: (context, state) {
+            if (state.isLoading) {
+              return Scaffold(
+                backgroundColor: AppColors.black,
+                body: Center(
+                  child: LoadingAnimationWidget.staggeredDotsWave(
+                    color: AppColors.listener3,
+                    size: 200,
+                  ),
+                ),
+              );
+            }
+            return Scaffold(
+              body: SingleChildScrollView(
+                child: SizedBox(
+                  height: deviceHeight,
+                  child: Container(
+                    decoration: const BoxDecoration(color: AppColors.black),
+                    child: Stack(
+                      children: [
                         Container(
-                          decoration: const BoxDecoration(
-                            borderRadius: BorderRadius.all(Radius.circular(16)),
-                          ),
-                          child: Padding(
-                            padding: const EdgeInsets.all(22.0),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: <Widget>[
-                                const Brand(
-                                  text: 'Masinqo Admins',
-                                  size: 40,
+                          margin: const EdgeInsets.only(top: 50.0, right: 10.0),
+                          child: ElevatedButton(
+                            onPressed: () {
+                              context.pushNamed("login");
+                            },
+                            style: ElevatedButton.styleFrom(
+                              padding: const EdgeInsets.symmetric(
+                                  vertical: 8, horizontal: 15),
+                              backgroundColor: AppColors.artist4,
+                            ),
+                            child: const Row(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                Icon(
+                                  Icons.arrow_back_ios_new,
+                                  size: 19,
+                                  color: AppColors.artist2,
                                 ),
-                                const SizedBox(height: 16),
-                                BlocBuilder<EmailErrorBloc, String>(
-                                  builder: (context, state) {
-                                    if (state.isNotEmpty) {
-                                      return CustomTextField(
-                                        controller: _emailController,
-                                        hintText: 'Admin Email',
-                                        prefixIcon: const Icon(Icons.mail),
-                                      );
-                                    } else {
-                                      return CustomTextField(
-                                        controller: _emailController,
-                                        hintText: 'Admin Email',
-                                        prefixIcon: const Icon(Icons.mail),
-                                        errorMessage: state,
-                                      );
-                                    }
-                                  },
-                                ),
-                                const SizedBox(height: 16),
-                                BlocBuilder<PasswordErrorBloc, String>(
-                                  builder: (context, state) {
-                                    if (state.isNotEmpty) {
-                                      return CustomTextField(
-                                        controller: _passwordController,
-                                        hintText: 'Password',
-                                        prefixIcon: const Icon(Icons.lock),
-                                      );
-                                    } else {
-                                      return CustomTextField(
-                                        controller: _passwordController,
-                                        hintText: 'Password',
-                                        prefixIcon: const Icon(Icons.lock),
-                                        errorMessage: state,
-                                      );
-                                    }
-                                  },
+                                SizedBox(width: 4),
+                                Text(
+                                  'Back to user login',
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.w500,
+                                    fontSize: 16,
+                                  ),
                                 ),
                               ],
                             ),
                           ),
                         ),
-                        const SizedBox(height: 20),
-                        CustomElevatedButton(
-                            onPressed: () {
-                              BlocProvider.of<AuthBloc>(context).add(
-                                LoginEvent(
-                                    email: _emailController.text,
-                                    password: _passwordController.text,
-                                    role: "admin"),
-                              );
-                            },
-                            buttonText: 'Login'),
+                        Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: <Widget>[
+                            Container(
+                              decoration: const BoxDecoration(
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(16)),
+                              ),
+                              child: Padding(
+                                padding: const EdgeInsets.all(22.0),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: <Widget>[
+                                    const Brand(
+                                      text: 'Masinqo Admins',
+                                      size: 40,
+                                    ),
+                                    const SizedBox(height: 16),
+                                    BlocBuilder<EmailErrorBloc, String>(
+                                      builder: (context, state) {
+                                        if (state.isEmpty) {
+                                          return CustomTextField(
+                                            controller: _emailController,
+                                            hintText: 'Admin Email',
+                                            prefixIcon: const Icon(Icons.mail),
+                                          );
+                                        } else {
+                                          return CustomTextFieldError(
+                                            controller: _emailController,
+                                            hintText: 'Admin Email',
+                                            prefixIcon: const Icon(Icons.mail),
+                                            errorMessage: state,
+                                          );
+                                        }
+                                      },
+                                    ),
+                                    const SizedBox(height: 16),
+                                    BlocBuilder<PasswordErrorBloc, String>(
+                                      builder: (context, state) {
+                                        if (state.isEmpty) {
+                                          return CustomTextField(
+                                            controller: _passwordController,
+                                            hintText: 'Password',
+                                            prefixIcon: const Icon(Icons.lock),
+                                            isPassword: true,
+                                          );
+                                        } else {
+                                          return CustomTextFieldError(
+                                            controller: _passwordController,
+                                            hintText: 'Password',
+                                            prefixIcon: const Icon(Icons.lock),
+                                            errorMessage: state,
+                                            isPassword: true,
+                                          );
+                                        }
+                                      },
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                            const SizedBox(height: 20),
+                            CustomElevatedButton(
+                                onPressed: () {
+                                  BlocProvider.of<AuthBloc>(context).add(
+                                    LoginEvent(
+                                        email: _emailController.text,
+                                        password: _passwordController.text,
+                                        role: "admin"),
+                                  );
+                                },
+                                buttonText: 'Login'),
+                          ],
+                        ),
                       ],
                     ),
-                  ],
+                  ),
                 ),
               ),
-            ),
-          ),
+            );
+          },
         ),
       ),
     );

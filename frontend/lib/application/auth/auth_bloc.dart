@@ -14,7 +14,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     on<LoginEvent>((event, emit) async {
       final User user =
           User(email: event.email, password: event.password, role: event.role);
-
+      emit(AuthState(role: "", token: "", isLoading: true));
       Either<LoginFailure, LoginSuccess> res = await user.loginUser();
       res.fold((l) {
         AuthState newState = AuthState(role: "", token: "");
