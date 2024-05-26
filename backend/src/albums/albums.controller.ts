@@ -14,6 +14,11 @@ export class AlbumsController {
         private albumService: AlbumsService
     ) { }
 
+    @Get('/public')
+    async getPublicAlbums(): Promise<Album[]> {
+        return this.albumService.findAllPublic()
+    }
+
     @Get(':id')
     async findAlbumById(@Param('id') id: string): Promise<Album> {
         return this.albumService.findById(id)
@@ -23,7 +28,6 @@ export class AlbumsController {
     async getAllAlbums(@Req() req: Request, @Query() query: EQuery): Promise<Album[]> {
         return this.albumService.findAll(req, query)
     }
-
 
     @Get('/published')
     async getAlbumByArtistId(@Req() req: Request) {

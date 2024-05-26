@@ -51,10 +51,17 @@ export class AlbumsService {
         const albumsPerPage = 6
         const currentPage = Number(query.page) || 1
         const skipCount = albumsPerPage * (currentPage - 1)
+        // const albums = await this.albumModel
+        //     .find({ artist: artist._id.valueOf() })
+        //     .limit(albumsPerPage).skip(skipCount)
         const albums = await this.albumModel
             .find({ artist: artist._id.valueOf() })
-            .limit(albumsPerPage).skip(skipCount)
+
         return albums
+    }
+
+    async findAllPublic(): Promise<Album[]> {
+        return await this.albumModel.find({})
     }
 
     async getArtistInfo(req) {
