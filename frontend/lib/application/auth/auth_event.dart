@@ -13,3 +13,22 @@ class LoginEvent extends AuthEvent {
 }
 
 
+class ArtistLoginEvent extends AuthEvent {
+  final String email;
+  final String password;
+
+  ArtistLoginEvent({
+    required this.email,
+    required this.password,
+  });
+}
+
+class ListenerLoginEvent extends AuthEvent {
+  final String email;
+  final String password;
+
+  ListenerLoginEvent({
+    required this.email,
+    required this.password,
+  });
+}

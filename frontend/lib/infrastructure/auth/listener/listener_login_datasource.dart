@@ -1,24 +1,19 @@
 
-// listener_login_datasource.dart
 import 'package:http/http.dart' as http;
-import 'dart:convert';
+import 'package:masinqo/infrastructure/core/url.dart';
+import 'package:masinqo/infrastructure/auth/listener/listener_login_dto.dart';
+
 
 class ListenerLoginDataSource {
-  final String baseUrl;
+  final String url = Domain.url;
 
-  ListenerLoginDataSource({required this.baseUrl});
+  Future<http.Response> listenerLogin(ListenerLoginDTO loginDto) async {
+    http.Response response =
+        await http.post(Uri.parse("$url/auth/listener/login"), body: {
+      "email": loginDto.email,
+      "password": loginDto.password,
+    });
 
-  Future<void> login(String email, String password) async {
-    final response = await http.post(
-      Uri.parse('$baseUrl/auth/listener/login'),
-      headers: {'Content-Type': 'application/json'},
-      body: json.encode({'email': email, 'password': password}),
-    );
-
-    if (response.statusCode != 200) {
-      throw Exception('Failed to login');
-    }
-
-    // Handle successful login response if needed
+    return response;
   }
 }
