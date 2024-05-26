@@ -11,5 +11,3 @@ class LoginEvent extends AuthEvent {
     required this.role,
   });
 }
-
-

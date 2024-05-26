@@ -41,7 +41,7 @@ class ArtistID {
 
 class ArtistStatus {
   final String id;
-  final bool status;
+  final bool newBannedStatus;
 
-  ArtistStatus({required this.id, required this.status});
+  ArtistStatus({required this.id, required this.newBannedStatus});
 }
