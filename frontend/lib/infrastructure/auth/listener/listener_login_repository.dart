@@ -1,22 +1,31 @@
-// listener_login_repository.dart
-class ListenerLoginRepository {
-  final ListenerLoginDataSource dataSource;
+import 'package:dartz/dartz.dart';
+import 'package:http/http.dart' as http;
+import 'package:masinqo/domain/auth/listener_login_repository_interface.dart';
+import 'package:masinqo/infrastructure/auth/listener/listener_login_datasource.dart';
+import 'package:masinqo/infrastructure/auth/listener/listener_login_dto.dart';
+import 'package:masinqo/infrastructure/auth/login_failure.dart';
+import 'package:masinqo/infrastructure/auth/login_success.dart';
+import 'package:masinqo/infrastructure/core/secure_storage_service.dart';
 
-  ListenerLoginRepository({required this.dataSource});
+class ListenerLoginRepository implements ListenerLoginRepositoryInterface {
+  final SecureStorageService secureStorageService;
 
-  Future<void> login(String email, String password) async {
-    return dataSource.login(email, password);
-  }
-}
+  ListenerLoginRepository({required this.secureStorageService});
 
-// listener_login_datasource.dart
-class ListenerLoginDataSource {
-  final String baseUrl;
+  @override
+  Future<Either<LoginRequestFailure, LoginRequestSuccess>> listenerLogin(ListenerLoginDTO loginDto) async {
+    try {
+      http.Response response = await ListenerLoginDataSource().listenerLogin(loginDto);
 
-  ListenerLoginDataSource({required this.baseUrl});
+      if (response.statusCode != 200) {
+        return Left(LoginRequestFailure(name: "login_error", message: response.body));
+      }
 
-  Future<void> login(String email, String password) async {
-    // Perform the login API call here
-    // Use http or dio package to make the API request
+      String token = response.headers["set-cookie"] as String;
+      await secureStorageService.writeToken(token);
+      return Right(LoginRequestSuccess(token: token));
+    } catch (e) {
+      return Left(LoginRequestFailure(name: "login_error", message: "An error occurred"));
+    }
   }
 }

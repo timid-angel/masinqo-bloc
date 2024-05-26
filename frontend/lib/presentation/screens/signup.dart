@@ -3,19 +3,18 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../widgets/login_brand.dart';
 import '../core/theme/app_colors.dart';
 import '../widgets/admin_signup_textfield.dart';
-import '../../application/signup/artist_signup/artist_signup_bloc.dart'; 
-import '../../application/signup/artist_signup/artist_signup_event.dart';
-import '../../application/signup/artist_signup/artist_signup_state.dart';
+import '../../application/auth/signup/artist_signup/artist_signup_bloc.dart';
+import '../../application/auth/signup/artist_signup/artist_signup_event.dart';
+import '../../application/auth/signup/artist_signup/artist_signup_state.dart';
 import '../../infrastructure/signup/artist_signup_repository.dart';
 import '../../infrastructure/signup/artist_signup_datasource.dart';
-import '../../domain/signup/artist.dart';
-import '../../application/signup/listener_signup/listener_signup_bloc.dart';
-import '../../application/signup/listener_signup/listener_signup_event.dart';
-import '../../application/signup/listener_signup/listener_signup_state.dart';
+import '../../domain/auth/signup/artist.dart';
+import '../../application/auth/signup/listener_signup/listener_signup_bloc.dart';
+import '../../application/auth/signup/listener_signup/listener_signup_event.dart';
+import '../../application/auth/signup/listener_signup/listener_signup_state.dart';
 import '../../infrastructure/signup/listener_signup_repository.dart';
 import '../../infrastructure/signup/listener_signup_datasource.dart';
-import '../../domain/signup/listener.dart';
-import '../../infrastructure/core/url.dart';
+import '../../domain/auth/signup/listener.dart';
 
 class SignupWidget extends StatefulWidget {
   const SignupWidget({Key? key}) : super(key: key);
@@ -25,31 +24,34 @@ class SignupWidget extends StatefulWidget {
 }
 
 class _SignupWidgetState extends State<SignupWidget> {
-  late dynamic _signupBloc; 
+  late dynamic _signupBloc;
   bool _isArtist = true;
 
   final TextEditingController _usernameController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
-  final TextEditingController _confirmPasswordController = TextEditingController();
+  final TextEditingController _confirmPasswordController =
+      TextEditingController();
 
   @override
   void initState() {
     super.initState();
-    _initializeBloc();
+    // _initializeBloc();
   }
 
-  void _initializeBloc() {
-    _signupBloc = _isArtist
-        ? ArtistSignupBloc(
-            signupRepository: ArtistSignupRepository(
-                dataSource: HttpArtistSignupDataSource(baseUrl:"http://10.0.2.2:3000" )),
-          )
-        : ListenerSignupBloc(
-            signupRepository: ListenerSignupRepository(
-                dataSource: HttpListenerSignupDataSource(baseUrl: "http://10.0.2.2:3000")),
-          );
-  }
+  // void _initializeBloc() {
+  //   _signupBloc = _isArtist
+  //       ? ArtistSignupBloc(
+  //           signupRepository: ArtistSignupRepository(
+  //               dataSource: HttpArtistSignupDataSource(
+  //                   baseUrl: "http://10.0.2.2:3000")),
+  //         )
+  //       : ListenerSignupBloc(
+  //           signupRepository: ListenerSignupRepository(
+  //               dataSource: HttpListenerSignupDataSource(
+  //                   baseUrl: "http://10.0.2.2:3000")),
+  //         );
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -86,7 +88,8 @@ class _SignupWidgetState extends State<SignupWidget> {
                   if (state is ArtistSignupFailure) {
                     _showSnackBar(context, 'Artist signup failed', Colors.red);
                   } else if (state is ListenerSignupFailure) {
-                    _showSnackBar(context, 'Listener signup failed', Colors.red);
+                    _showSnackBar(
+                        context, 'Listener signup failed', Colors.red);
                   } else if (state is ArtistSignupSuccess) {
                     _showSnackBar(context, 'Signup Successful!!', Colors.green);
                     _clearTextFields();
@@ -120,7 +123,9 @@ class _SignupWidgetState extends State<SignupWidget> {
                               isArtist: _isArtist,
                               prefixIcon: Icon(
                                 Icons.person,
-                                color: _isArtist ? AppColors.artist2 : AppColors.listener4,
+                                color: _isArtist
+                                    ? AppColors.artist2
+                                    : AppColors.listener4,
                               ),
                             ),
                             const SizedBox(height: 12),
@@ -130,7 +135,9 @@ class _SignupWidgetState extends State<SignupWidget> {
                               isArtist: _isArtist,
                               prefixIcon: Icon(
                                 Icons.mail,
-                                color: _isArtist ? AppColors.artist2 : AppColors.listener4,
+                                color: _isArtist
+                                    ? AppColors.artist2
+                                    : AppColors.listener4,
                               ),
                             ),
                             const SizedBox(height: 12),
@@ -140,7 +147,9 @@ class _SignupWidgetState extends State<SignupWidget> {
                               isArtist: _isArtist,
                               prefixIcon: Icon(
                                 Icons.lock,
-                                color: _isArtist ? AppColors.artist2 : AppColors.listener4,
+                                color: _isArtist
+                                    ? AppColors.artist2
+                                    : AppColors.listener4,
                               ),
                             ),
                             const SizedBox(height: 12),
@@ -150,7 +159,9 @@ class _SignupWidgetState extends State<SignupWidget> {
                               isArtist: _isArtist,
                               prefixIcon: Icon(
                                 Icons.lock,
-                                color: _isArtist ? AppColors.artist2 : AppColors.listener4,
+                                color: _isArtist
+                                    ? AppColors.artist2
+                                    : AppColors.listener4,
                               ),
                             ),
                             const SizedBox(height: 20),
@@ -161,16 +172,19 @@ class _SignupWidgetState extends State<SignupWidget> {
                                   onPressed: () {
                                     setState(() {
                                       _isArtist = true;
-                                      _initializeBloc(); 
+                                      // _initializeBloc();
                                     });
                                   },
                                   style: ButtonStyle(
-                                    backgroundColor: MaterialStateProperty.all(Colors.transparent),
+                                    backgroundColor: MaterialStateProperty.all(
+                                        Colors.transparent),
                                     shape: MaterialStateProperty.all(
                                       RoundedRectangleBorder(
                                         borderRadius: BorderRadius.circular(5),
                                         side: BorderSide(
-                                          color: _isArtist ? AppColors.artist2 : Colors.white,
+                                          color: _isArtist
+                                              ? AppColors.artist2
+                                              : Colors.white,
                                           width: 2,
                                         ),
                                       ),
@@ -181,7 +195,9 @@ class _SignupWidgetState extends State<SignupWidget> {
                                     style: TextStyle(
                                       fontSize: 17,
                                       fontWeight: FontWeight.w600,
-                                      color: _isArtist ? AppColors.artist2 : Colors.white,
+                                      color: _isArtist
+                                          ? AppColors.artist2
+                                          : Colors.white,
                                     ),
                                   ),
                                 ),
@@ -189,16 +205,19 @@ class _SignupWidgetState extends State<SignupWidget> {
                                   onPressed: () {
                                     setState(() {
                                       _isArtist = false;
-                                      _initializeBloc(); 
+                                      // _initializeBloc();
                                     });
                                   },
                                   style: ButtonStyle(
-                                    backgroundColor: MaterialStateProperty.all(Colors.transparent),
+                                    backgroundColor: MaterialStateProperty.all(
+                                        Colors.transparent),
                                     shape: MaterialStateProperty.all(
                                       RoundedRectangleBorder(
                                         borderRadius: BorderRadius.circular(5),
                                         side: BorderSide(
-                                          color: _isArtist ? Colors.white : AppColors.listener4,
+                                          color: _isArtist
+                                              ? Colors.white
+                                              : AppColors.listener4,
                                           width: 2,
                                         ),
                                       ),
@@ -209,7 +228,10 @@ class _SignupWidgetState extends State<SignupWidget> {
                                     style: TextStyle(
                                       fontSize: 17,
                                       fontWeight: FontWeight.w600,
-                                      color: _isArtist ? Colors.white : const Color.fromARGB(255, 193, 53, 217),
+                                      color: _isArtist
+                                          ? Colors.white
+                                          : const Color.fromARGB(
+                                              255, 193, 53, 217),
                                     ),
                                   ),
                                 ),
@@ -219,10 +241,14 @@ class _SignupWidgetState extends State<SignupWidget> {
                             ElevatedButton(
                               onPressed: _onSignupPressed,
                               style: ButtonStyle(
-                                backgroundColor: MaterialStateProperty.all<Color>(
-                                  _isArtist ? AppColors.artist2 : AppColors.listener4,
+                                backgroundColor:
+                                    MaterialStateProperty.all<Color>(
+                                  _isArtist
+                                      ? AppColors.artist2
+                                      : AppColors.listener4,
                                 ),
-                                shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                                shape: MaterialStateProperty.all<
+                                    RoundedRectangleBorder>(
                                   RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(5),
                                   ),
@@ -230,7 +256,8 @@ class _SignupWidgetState extends State<SignupWidget> {
                               ),
                               child: const Text(
                                 'Signup',
-                                style: TextStyle(color: Colors.white, fontSize: 18),
+                                style: TextStyle(
+                                    color: Colors.white, fontSize: 18),
                               ),
                             ),
                           ],
@@ -257,10 +284,10 @@ class _SignupWidgetState extends State<SignupWidget> {
       );
       final confirmPassword = _confirmPasswordController.text;
 
-      _signupBloc.add(ArtistSignupEvent(
-        artist: artist,
-        confirmPassword: confirmPassword,
-      ));
+      // _signupBloc.add(ArtistSignupEvent(
+      //   artist: artist,
+      //   confirmPassword: confirmPassword,
+      // ));
     } else {
       final listener = Listeners(
         name: _usernameController.text,
@@ -270,10 +297,10 @@ class _SignupWidgetState extends State<SignupWidget> {
       );
       final confirmPassword = _confirmPasswordController.text;
 
-      _signupBloc.add(ListenerSignupEvent(
-        listener: listener,
-        confirmPassword: confirmPassword,
-      ));
+      // _signupBloc.add(ListenerSignupEvent(
+      //   listener: listener,
+      //   confirmPassword: confirmPassword,
+      // ));
     }
   }
 

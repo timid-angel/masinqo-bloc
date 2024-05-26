@@ -25,5 +25,37 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         emit(newState);
       });
     });
+
+    // on<ArtistLoginEvent>((event, emit) async {
+    //   final User user =
+    //       User(email: event.email, password: event.password, role: 'artist');
+    //   emit(AuthState(role: "", token: "", isLoading: true));
+    //   Either<LoginFailure, LoginSuccess> res = await user.loginUser();
+    //   res.fold((l) {
+    //     AuthState newState = AuthState(role: "", token: "");
+    //     newState.errors = l.messages;
+    //     emit(newState);
+    //   }, (r) async {
+    //     AuthState newState = AuthState(role: 'artist', token: r.token);
+    //     await secureStorageService.writeToken(r.token); // Store token securely
+    //     emit(newState);
+    //   });
+    // });
+
+    // on<ListenerLoginEvent>((event, emit) async {
+    //   final User user =
+    //       User(email: event.email, password: event.password, role: 'listener');
+    //   emit(AuthState(role: "", token: "", isLoading: true));
+    //   Either<LoginFailure, LoginSuccess> res = await user.loginUser();
+    //   res.fold((l) {
+    //     AuthState newState = AuthState(role: "", token: "");
+    //     newState.errors = l.messages;
+    //     emit(newState);
+    //   }, (r) async {
+    //     AuthState newState = AuthState(role: 'listener', token: r.token);
+    //     await secureStorageService.writeToken(r.token); // Store token securely
+    //     emit(newState);
+    //   });
+    // });
   }
 }
