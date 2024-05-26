@@ -11,4 +11,6 @@ abstract class ArtistsRepositoryInterface {
   Future<Either<Failure, Success>> addSong(
       CreateSongDTO songDto, String songFilePath);
   Future<Either<Failure, Success>> removeSong(String albumId, String songName);
+  Future<Either<Failure, Success>> updateInformation(
+      UpdateArtistInformatioDTO artist);
 }

@@ -1,9 +1,8 @@
-// artist_login_event.dart
 import 'package:equatable/equatable.dart';
 
 abstract class ArtistLoginEvent extends Equatable {
   const ArtistLoginEvent();
-  
+
   @override
   List<Object> get props => [];
 }
@@ -18,12 +17,9 @@ class ArtistLoginSubmitted extends ArtistLoginEvent {
   List<Object> get props => [email, password];
 }
 
-// listener_login_event.dart
-import 'package:equatable/equatable.dart';
-
 abstract class ListenerLoginEvent extends Equatable {
   const ListenerLoginEvent();
-  
+
   @override
   List<Object> get props => [];
 }

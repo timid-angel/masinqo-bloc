@@ -1,5 +1,5 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:masinqo/application/auth/login_form/admin_login_event.dart';
+import 'package:masinqo/application/auth/login_form/admin_login/admin_login_event.dart';
 
 class EmailErrorBloc extends Bloc<EmailErrorEvent, String> {
   EmailErrorBloc() : super("") {
@@ -8,7 +8,6 @@ class EmailErrorBloc extends Bloc<EmailErrorEvent, String> {
     });
   }
 }
-
 
 class PasswordErrorBloc extends Bloc<PasswordErrorEvent, String> {
   PasswordErrorBloc() : super("") {

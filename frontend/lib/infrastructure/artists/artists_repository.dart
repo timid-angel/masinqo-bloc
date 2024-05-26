@@ -42,7 +42,8 @@ class ArtistsRepository implements ArtistsRepositoryInterface {
     );
 
     if (response.statusCode != 201) {
-      return Left(ArtistFailure(message: response.statusCode.toString()));
+      return Left(
+          ArtistFailure(message: await response.stream.bytesToString()));
     }
 
     return Right(ArtistsSuccess());
@@ -55,7 +56,8 @@ class ArtistsRepository implements ArtistsRepositoryInterface {
         .addSong(songDto.albumId, songDto.songName, songFilePath);
 
     if (response.statusCode != 201) {
-      return Left(ArtistFailure(message: response.statusCode.toString()));
+      return Left(
+          ArtistFailure(message: await response.stream.bytesToString()));
     }
 
     return Right(ArtistsSuccess());
@@ -131,6 +133,36 @@ class ArtistsRepository implements ArtistsRepositoryInterface {
 
     if (response.statusCode != 200) {
       return Left(ArtistFailure(message: response.body));
+    }
+
+    return Right(ArtistsSuccess());
+  }
+
+  @override
+  Future<Either<ArtistFailure, Success>> updateInformation(
+      UpdateArtistInformatioDTO artist) async {
+    Map<String, String> body = <String, String>{};
+    if (artist.email.isNotEmpty) {
+      body["email"] = artist.email;
+    }
+
+    if (artist.name.isNotEmpty) {
+      body["name"] = artist.name;
+    }
+
+    if (artist.password.isNotEmpty) {
+      body["password"] = artist.password;
+    }
+
+    http.StreamedResponse response =
+        await ArtistsDataSource(token: token).updateArtistInfo(
+      body,
+      artist.profilePictureFilePath,
+    );
+
+    if (response.statusCode != 200) {
+      return Left(
+          ArtistFailure(message: await response.stream.bytesToString()));
     }
 
     return Right(ArtistsSuccess());
@@ -215,6 +247,15 @@ class ArtistsRepository implements ArtistsRepositoryInterface {
   // delete songs
   // final res = await artistRepo.removeSong(
   //     "6652cdfe8fed1d2eef050c57", "Cry me a river 2");
+  // res.fold((l) {
+  //   print(l.message);
+  // }, (r) {
+  //   print(r.toString());
+  // });
+
+  // update information
+  // final res = await artistRepo.updateInformation(
+  //     UpdateArtistInformatioDTO("", name: "", email: "", password: ""));
   // res.fold((l) {
   //   print(l.message);
   // }, (r) {

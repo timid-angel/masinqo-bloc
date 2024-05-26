@@ -4,8 +4,25 @@ import 'package:masinqo/infrastructure/core/url.dart';
 class ArtistsDataSource {
   final String url = Domain.url;
   final String token;
-
   ArtistsDataSource({required this.token});
+
+  Future<http.StreamedResponse> updateArtistInfo(
+      Map<String, String> body, String filePath) async {
+    var headers = {'Cookie': 'accessToken=$token'};
+    var request = http.MultipartRequest(
+        'PATCH', Uri.parse('http://localhost:3000/artists/update'));
+
+    request.fields.addAll(body);
+    request.headers.addAll(headers);
+
+    if (filePath.isNotEmpty) {
+      request.files
+          .add(await http.MultipartFile.fromPath('profilePicture', filePath));
+    }
+
+    return await request.send();
+  }
+
   Future<http.Response> getAlbums() async {
     http.Response response = await http.get(Uri.parse("$url/albums"), headers: {
       "Cookie": "accessToken=$token",

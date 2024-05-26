@@ -34,3 +34,13 @@ class CreateSongDTO {
 
   CreateSongDTO({required this.songName, required this.albumId});
 }
+
+class UpdateArtistInformatioDTO {
+  final String name;
+  final String email;
+  final String password;
+  final String profilePictureFilePath;
+
+  UpdateArtistInformatioDTO(this.profilePictureFilePath,
+      {required this.name, required this.email, required this.password});
+}
