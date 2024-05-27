@@ -6,15 +6,17 @@ import 'package:masinqo/infrastructure/admin/admin_artists/admin_artists_reposit
 
 class AdminArtistsCollection {
   late List<AdminArtist> listeners;
-  final String token;
+  final AdminArtistsRepository adminArtistsRepository;
 
-  AdminArtistsCollection({required this.token});
+  AdminArtistsCollection({
+    required this.adminArtistsRepository,
+  });
   Future<Either<AdminFailure, GetArtistsSuccess>> getArtists() async {
-    if (token.isEmpty) {
+    if (adminArtistsRepository.token.isEmpty) {
       return Left(AdminFailure(message: "Invalid token"));
     }
 
-    final res = await AdminArtistsRepository(token: token).getArtists();
+    final res = await adminArtistsRepository.getArtists();
     final Either<AdminFailure, GetArtistsSuccess> result = res.fold((l) {
       return Left(AdminFailure(message: l.message));
     }, (r) {
@@ -36,11 +38,10 @@ class AdminArtistsCollection {
   }
 
   Future<Either<AdminFailure, AdminSuccess>> deleteArtist(String id) async {
-    if (token.isEmpty) {
+    if (adminArtistsRepository.token.isEmpty) {
       return Left(AdminFailure(message: "Invalid token"));
     }
-    final res = await AdminArtistsRepository(token: token)
-        .deleteArtist(ArtistID(id: id));
+    final res = await adminArtistsRepository.deleteArtist(ArtistID(id: id));
 
     final Either<AdminFailure, AdminSuccess> result = res.fold((l) {
       return Left(AdminFailure(message: l.message));
@@ -53,10 +54,10 @@ class AdminArtistsCollection {
 
   Future<Either<AdminFailure, AdminSuccess>> changeStatus(
       String id, bool newBannedStatus) async {
-    if (token.isEmpty) {
+    if (adminArtistsRepository.token.isEmpty) {
       return Left(AdminFailure(message: "Invalid token"));
     }
-    final res = await AdminArtistsRepository(token: token)
+    final res = await adminArtistsRepository
         .changeStatus(ArtistStatus(id: id, newBannedStatus: newBannedStatus));
 
     final Either<AdminFailure, AdminSuccess> result = res.fold((l) {

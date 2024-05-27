@@ -6,15 +6,15 @@ import 'package:masinqo/infrastructure/admin/admin_listeners/admin_listeners_rep
 
 class AdminListenerCollection {
   late List<AdminListener> listeners;
-  final String token;
+  final AdminListenersRepository adminListenersRepo;
 
-  AdminListenerCollection({required this.token});
+  AdminListenerCollection({required this.adminListenersRepo});
   Future<Either<AdminFailure, GetListenersSuccess>> getListeners() async {
-    if (token.isEmpty) {
+    if (adminListenersRepo.token.isEmpty) {
       return Left(AdminFailure(message: "Invalid token"));
     }
 
-    final res = await AdminListenersRepository(token: token).getListeners();
+    final res = await adminListenersRepo.getListeners();
     return res.fold((l) {
       return Left(AdminFailure(message: l.message));
     }, (r) {
@@ -26,11 +26,10 @@ class AdminListenerCollection {
   }
 
   Future<Either<AdminFailure, AdminSuccess>> deleteListener(String id) async {
-    if (token.isEmpty) {
+    if (adminListenersRepo.token.isEmpty) {
       return Left(AdminFailure(message: "Invalid token"));
     }
-    final res = await AdminListenersRepository(token: token)
-        .deleteListener(ListenerID(id: id));
+    final res = await adminListenersRepo.deleteListener(ListenerID(id: id));
 
     return res.fold((l) {
       return Left(AdminFailure(message: l.message));
