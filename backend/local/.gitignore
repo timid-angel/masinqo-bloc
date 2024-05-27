@@ -1,6 +1,9 @@
 # compiled output
 /dist
 /node_modules
+/album-thumbnails
+/artist-pictures
+/audio
 
 # Logs
 logs
