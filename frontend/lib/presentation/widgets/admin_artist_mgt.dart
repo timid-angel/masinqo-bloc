@@ -6,6 +6,7 @@ import 'package:masinqo/application/admin/admin_bloc.dart';
 import 'package:masinqo/application/auth/admin_auth_bloc.dart';
 import 'package:masinqo/domain/admin/admin_artists/admin_artists.dart';
 import 'package:masinqo/infrastructure/core/url.dart';
+import 'package:masinqo/presentation/widgets/admin_empty_list.dart';
 import 'package:masinqo/presentation/widgets/admin_header.dart';
 import 'package:masinqo/presentation/widgets/delete_confirmation_modal.dart';
 
@@ -14,11 +15,6 @@ class AdminArtistMGT extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    if (BlocProvider.of<AdminAuthBloc>(context) != null) {
-      BlocProvider.of<ArtistBloc>(context).add(GetArtists(
-          token: BlocProvider.of<AdminAuthBloc>(context).state.token));
-    }
-
     return Scaffold(
       backgroundColor: Colors.transparent,
       body: Column(
@@ -39,20 +35,8 @@ class AdminArtistMGT extends StatelessWidget {
           BlocBuilder<ArtistBloc, AdminArtistsState>(
             builder: (context, state) {
               if (state.artists.isEmpty) {
-                return Expanded(
-                  child: Center(
-                    child: Container(
-                      decoration: const BoxDecoration(
-                          image: DecorationImage(
-                              image:
-                                  AssetImage("assets/images/empty_list.png"))),
-                      height: 400,
-                      width: 400,
-                    ),
-                  ),
-                );
+                return const Expanded(child: AdminEmptyList());
               }
-
               return Expanded(child: ArtistList(artistData: state.artists));
             },
           ),

@@ -16,7 +16,7 @@ class AdminHome extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
-        BlocProvider(create: (BuildContext context) => ListenerBloc()),
+        BlocProvider(create: (BuildContext context) => ListenerBloc(tk)),
         BlocProvider(create: (BuildContext context) => ArtistBloc()),
         BlocProvider(
           create: (BuildContext context) {

@@ -7,7 +7,8 @@ import 'package:masinqo/infrastructure/admin/admin_artists/admin_artists_reposit
 import 'package:masinqo/infrastructure/admin/admin_listeners/admin_listeners_repository.dart';
 
 class ListenerBloc extends Bloc<AdminListenerEvent, AdminListenersState> {
-  ListenerBloc() : super(AdminListenersState(listeners: [])) {
+  ListenerBloc(String token) : super(AdminListenersState(listeners: [])) {
+    add(GetListeners(token: token));
     on<GetListeners>((event, emit) async {
       final res = await AdminListenerCollection(
               adminListenersRepo: AdminListenersRepository(token: event.token))
