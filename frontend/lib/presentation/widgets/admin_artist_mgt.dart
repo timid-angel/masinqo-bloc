@@ -14,8 +14,10 @@ class AdminArtistMGT extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    BlocProvider.of<ArtistBloc>(context).add(
-        GetArtists(token: BlocProvider.of<AdminAuthBloc>(context).state.token));
+    if (BlocProvider.of<AdminAuthBloc>(context) != null) {
+      BlocProvider.of<ArtistBloc>(context).add(GetArtists(
+          token: BlocProvider.of<AdminAuthBloc>(context).state.token));
+    }
 
     return Scaffold(
       backgroundColor: Colors.transparent,
