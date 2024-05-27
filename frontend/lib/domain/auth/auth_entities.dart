@@ -53,6 +53,7 @@ class ListenerAuthEntity {
 
   Future<Either<LoginFailure, LoginSuccess>> loginListener() async {
     LoginFailure loginFailure = LoginFailure();
+
     if (password.length < 6) {
       loginFailure.messages.add("The password is too short");
     }

@@ -5,22 +5,33 @@ import 'package:masinqo/domain/auth/auth_entities.dart';
 import 'package:masinqo/infrastructure/core/secure_storage_service.dart';
 
 class ListenerAuthBloc extends Bloc<ListenerAuthEvent, ListenerAuthState> {
+  String token = "";
   ListenerAuthBloc() : super(ListenerAuthState()) {
     on<ListenerLoginEvent>((event, emit) async {
       final res =
           await ListenerAuthEntity(email: event.email, password: event.password)
               .loginListener();
 
-      res.fold((l) {
+      await res.fold((l) {
         ListenerAuthState newState = ListenerAuthState();
         newState.errors = l.messages;
         emit(newState);
       }, (r) async {
         ListenerAuthState newState = ListenerAuthState();
-        await SecureStorageService()
-            .writeToken(r.token); // Store token securely
+        await SecureStorageService().writeToken(r.token);
+        token = r.token; // Store token securely
         emit(newState);
       });
     });
+
+    on<ChangeLoadingStateListener>((event, emit) async {
+      ListenerAuthState newState =
+          ListenerAuthState(isLoading: event.newLoadingState);
+      newState.errors = state.errors;
+      emit(newState);
+    });
+
+    on<ResetErrorsListeners>(
+        (event, emit) => emit(ListenerAuthState(isLoading: state.isLoading)));
   }
 }

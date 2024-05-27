@@ -95,7 +95,6 @@ class ListenerList extends StatelessWidget {
                         listenerId: listener.id,
                         token:
                             BlocProvider.of<AdminAuthBloc>(context).state.token,
-                        prevState: BlocProvider.of<ListenerBloc>(context).state,
                       ),
                     );
                   }

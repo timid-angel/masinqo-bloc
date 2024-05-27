@@ -8,7 +8,6 @@ import 'package:masinqo/infrastructure/admin/admin_listeners/admin_listeners_rep
 
 class ListenerBloc extends Bloc<AdminListenerEvent, AdminListenersState> {
   ListenerBloc(String token) : super(AdminListenersState(listeners: [])) {
-    add(GetListeners(token: token));
     on<GetListeners>((event, emit) async {
       final res = await AdminListenerCollection(
               adminListenersRepo: AdminListenersRepository(token: event.token))
@@ -29,30 +28,27 @@ class ListenerBloc extends Bloc<AdminListenerEvent, AdminListenersState> {
           .deleteListener(event.listenerId);
 
       res.fold((l) {
-        AdminListenersState newState;
-        if (event.prevState != null) {
-          newState = AdminListenersState(listeners: event.prevState!.listeners);
-        } else {
-          newState = AdminListenersState(listeners: []);
-        }
+        AdminListenersState newState =
+            AdminListenersState(listeners: state.listeners);
         newState.errorMessages = l.message;
         emit(newState);
       }, (r) {
         final List<AdminListener> res = [];
-        for (int i = 0; i < event.prevState!.listeners.length; i++) {
-          if (event.prevState!.listeners[i].id != event.listenerId) {
-            res.add(event.prevState!.listeners[i]);
+        for (int i = 0; i < state.listeners.length; i++) {
+          if (state.listeners[i].id != event.listenerId) {
+            res.add(state.listeners[i]);
           }
         }
 
-        emit(event.prevState ?? AdminListenersState(listeners: res));
+        emit(AdminListenersState(listeners: res));
       });
     });
+    add(GetListeners(token: token));
   }
 }
 
 class ArtistBloc extends Bloc<AdminArtistEvent, AdminArtistsState> {
-  ArtistBloc() : super(AdminArtistsState(artists: [])) {
+  ArtistBloc(String token) : super(AdminArtistsState(artists: [])) {
     on<GetArtists>((event, emit) async {
       final res = await AdminArtistsCollection(
         adminArtistsRepository: AdminArtistsRepository(token: event.token),
@@ -73,23 +69,18 @@ class ArtistBloc extends Bloc<AdminArtistEvent, AdminArtistsState> {
       ).deleteArtist(event.artistId);
 
       res.fold((l) {
-        AdminArtistsState newState;
-        if (event.prevState != null) {
-          newState = AdminArtistsState(artists: event.prevState!.artists);
-        } else {
-          newState = AdminArtistsState(artists: []);
-        }
+        AdminArtistsState newState = AdminArtistsState(artists: state.artists);
         newState.errorMessages = l.message;
         emit(newState);
       }, (r) {
         final List<AdminArtist> res = [];
-        for (int i = 0; i < event.prevState!.artists.length; i++) {
-          if (event.prevState!.artists[i].id != event.artistId) {
-            res.add(event.prevState!.artists[i]);
+        for (int i = 0; i < state.artists.length; i++) {
+          if (state.artists[i].id != event.artistId) {
+            res.add(state.artists[i]);
           }
         }
 
-        emit(event.prevState ?? AdminArtistsState(artists: res));
+        emit(AdminArtistsState(artists: res));
       });
     });
 
@@ -99,26 +90,21 @@ class ArtistBloc extends Bloc<AdminArtistEvent, AdminArtistsState> {
       ).changeStatus(event.artistId, event.newBannedStatus);
 
       res.fold((l) {
-        AdminArtistsState newState;
-        if (event.prevState != null) {
-          newState = AdminArtistsState(artists: event.prevState!.artists);
-        } else {
-          newState = AdminArtistsState(artists: []);
-        }
+        AdminArtistsState newState = AdminArtistsState(artists: state.artists);
         newState.errorMessages = l.message;
         emit(newState);
       }, (r) {
         final List<AdminArtist> res = [];
-        for (int i = 0; i < event.prevState!.artists.length; i++) {
-          if (event.prevState!.artists[i].id == event.artistId) {
-            event.prevState!.artists[i].isBanned =
-                !event.prevState!.artists[i].isBanned;
+        for (int i = 0; i < state.artists.length; i++) {
+          if (state.artists[i].id == event.artistId) {
+            state.artists[i].isBanned = !state.artists[i].isBanned;
           }
-          res.add(event.prevState!.artists[i]);
+          res.add(state.artists[i]);
         }
 
-        emit(event.prevState ?? AdminArtistsState(artists: res));
+        emit(AdminArtistsState(artists: res));
       });
     });
+    add(GetArtists(token: token));
   }
 }

@@ -41,3 +41,19 @@ class SwitchRole extends LoginPageEvent {
 
   SwitchRole({required this.toValue});
 }
+
+class ChangeLoadingStateListener extends ListenerAuthEvent {
+  final bool newLoadingState;
+
+  ChangeLoadingStateListener({required this.newLoadingState});
+}
+
+class ChangeLoadingStateArtist extends ArtistAuthEvent {
+  final bool newLoadingState;
+
+  ChangeLoadingStateArtist({required this.newLoadingState});
+}
+
+class ResetErrorsArtists extends ArtistAuthEvent {}
+
+class ResetErrorsListeners extends ListenerAuthEvent {}

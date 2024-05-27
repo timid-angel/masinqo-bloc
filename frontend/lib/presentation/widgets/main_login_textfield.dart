@@ -8,6 +8,7 @@ class NormalLoginTextfield extends StatelessWidget {
   final String fieldText;
   final IconData icon;
   final LoginPageBloc loginBloc;
+  final bool obscureText;
 
   const NormalLoginTextfield({
     super.key,
@@ -15,12 +16,14 @@ class NormalLoginTextfield extends StatelessWidget {
     required this.fieldText,
     required this.icon,
     required this.loginBloc,
+    this.obscureText = false,
   });
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<LoginPageBloc, bool>(builder: (context, state) {
       return TextField(
         controller: controller,
+        obscureText: obscureText,
         style: const TextStyle(
           color: AppColors.fontColor,
           fontSize: 17,
@@ -67,6 +70,7 @@ class ErrorLoginTextfield extends StatelessWidget {
   final String fieldText;
   final IconData icon;
   final LoginPageBloc loginBloc;
+  final bool obscureText;
 
   const ErrorLoginTextfield({
     super.key,
@@ -75,11 +79,13 @@ class ErrorLoginTextfield extends StatelessWidget {
     required this.fieldText,
     required this.icon,
     required this.loginBloc,
+    this.obscureText = false,
   });
   @override
   Widget build(BuildContext context) {
     return TextField(
       controller: controller,
+      obscureText: obscureText,
       style: const TextStyle(
         color: AppColors.fontColor,
         fontSize: 17,

@@ -133,9 +133,6 @@ class ArtistList extends StatelessWidget {
                                               context)
                                           .state
                                           .token,
-                                      prevState:
-                                          BlocProvider.of<ArtistBloc>(context)
-                                              .state,
                                     ),
                                   );
                                 }
@@ -171,9 +168,6 @@ class ArtistList extends StatelessWidget {
                                               context)
                                           .state
                                           .token,
-                                      prevState:
-                                          BlocProvider.of<ArtistBloc>(context)
-                                              .state,
                                     ),
                                   );
                                 }

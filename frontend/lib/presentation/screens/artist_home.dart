@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:masinqo/temp/data/album_data.dart';
 import 'package:masinqo/presentation/widgets/artist_album_card.dart';
 import 'package:masinqo/presentation/widgets/artist_app_bar.dart';
 import 'package:masinqo/presentation/widgets/artist_create_album_modal.dart';
 import 'package:masinqo/presentation/widgets/artist_drawer.dart';
 import 'package:masinqo/presentation/widgets/artist_profile_section.dart';
+import 'package:masinqo/temp/models/albums.dart';
 
 class ArtistHomePage extends StatefulWidget {
-  const ArtistHomePage({super.key});
+  final List<Album> albumData;
 
+  const ArtistHomePage({super.key, required this.albumData});
   @override
   ArtistHomePageState createState() => ArtistHomePageState();
 }
@@ -54,7 +55,7 @@ class ArtistHomePageState extends State<ArtistHomePage> {
                 ],
               ),
             ),
-            for (final album in albumData) AlbumCard(album: album),
+            for (final album in widget.albumData) AlbumCard(album: album),
             const SizedBox(height: 10),
           ],
         ),

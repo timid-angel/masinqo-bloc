@@ -95,7 +95,7 @@ class AdminLogin extends StatelessWidget {
                           margin: const EdgeInsets.only(top: 50.0, right: 10.0),
                           child: ElevatedButton(
                             onPressed: () {
-                              context.pushNamed("login");
+                              context.go("/login");
                             },
                             style: ElevatedButton.styleFrom(
                               padding: const EdgeInsets.symmetric(

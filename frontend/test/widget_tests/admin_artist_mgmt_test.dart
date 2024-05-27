@@ -10,7 +10,7 @@ void main() {
     testWidgets("Admin Artist Management Widget Test", (tester) async {
       await tester.pumpWidget(
         MultiBlocProvider(
-          providers: [BlocProvider(create: (context) => ArtistBloc())],
+          providers: [BlocProvider(create: (context) => ArtistBloc(""))],
           child: const MaterialApp(home: AdminArtistMGT()),
         ),
       );
@@ -25,8 +25,7 @@ void main() {
     testWidgets("Empty list tester", (tester) async {
       await tester.pumpWidget(const MaterialApp(home: AdminEmptyList()));
 
-      final emptyListFinder = find.byWidget(Center());
-      // find.image(AssetImage("assets/images/empty_list.png"));
+      final emptyListFinder = find.byType(Container);
 
       expect(emptyListFinder, findsOneWidget);
     });

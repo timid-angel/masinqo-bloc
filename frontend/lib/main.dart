@@ -33,15 +33,14 @@ final _router = GoRouter(
     GoRoute(
       name: "artist",
       path: '/artist',
-      builder: (context, state) => const ArtistHomePage(),
+      builder: (context, state) => const ArtistHomePage(albumData: []),
     ),
     GoRoute(
       name: "listener",
       path: '/listener',
-      builder: (context, state) {
-        final args = state.extra as ListenerHomePageData;
-        return ListenerWidget(arguments: args);
-      },
+      builder: (context, state) => ListenerWidget(
+          arguments:
+              ListenerHomePageData(albums: [], favorites: [], playlists: [])),
     ),
     GoRoute(
       name: "admin",
