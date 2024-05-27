@@ -81,7 +81,7 @@ class ArtistList extends StatelessWidget {
                 children: [
                   CircleAvatar(
                     radius: 50,
-                    backgroundColor: Colors.white,
+                    backgroundColor: Colors.transparent,
                     child: CircleAvatar(
                       radius: 48,
                       backgroundImage: NetworkImage(
@@ -126,7 +126,7 @@ class ArtistList extends StatelessWidget {
                                     : Colors.yellow,
                               ),
                               label: Text(
-                                isBanned ? 'Ban' : 'UnBan',
+                                isBanned ? 'Ban' : 'Unban',
                                 style: const TextStyle(
                                     color: Colors.white, fontSize: 12),
                               ),

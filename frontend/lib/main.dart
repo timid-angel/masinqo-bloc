@@ -23,7 +23,7 @@ final _router = GoRouter(
     GoRoute(
       name: "login",
       path: '/login',
-      builder: (context, state) => const LoginWidget(),
+      builder: (context, state) => LoginWidget(),
     ),
     GoRoute(
       name: "signup",

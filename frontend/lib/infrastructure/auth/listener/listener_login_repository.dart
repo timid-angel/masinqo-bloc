@@ -5,29 +5,32 @@ import 'package:masinqo/infrastructure/auth/listener/listener_login_datasource.d
 import 'package:masinqo/infrastructure/auth/listener/listener_login_dto.dart';
 import 'package:masinqo/infrastructure/auth/login_failure.dart';
 import 'package:masinqo/infrastructure/auth/login_success.dart';
-import 'package:masinqo/infrastructure/core/secure_storage_service.dart';
 
 class ListenerLoginRepository implements ListenerLoginRepositoryInterface {
-  final SecureStorageService secureStorageService = SecureStorageService();
-
   @override
   Future<Either<LoginRequestFailure, LoginRequestSuccess>> listenerLogin(
       ListenerLoginDTO loginDto) async {
-    try {
-      http.Response response =
-          await ListenerLoginDataSource().listenerLogin(loginDto);
+    http.Response response =
+        await ListenerLoginDataSource().listenerLogin(loginDto);
 
-      if (response.statusCode != 200) {
-        return Left(
-            LoginRequestFailure(name: "login_error", message: response.body));
-      }
-
-      String token = response.headers["set-cookie"] as String;
-      await secureStorageService.writeToken(token);
-      return Right(LoginRequestSuccess(token: token));
-    } catch (e) {
-      return Left(LoginRequestFailure(
-          name: "login_error", message: "An error occurred"));
+    if (response.statusCode != 200) {
+      return Left(LoginRequestFailure(message: response.body));
     }
+
+    String token = response.headers["set-cookie"] as String;
+    return Right(LoginRequestSuccess(token: token));
   }
 }
+
+// void main() async {
+//   ListenerLoginRepository artistRepo = ListenerLoginRepository();
+
+//   final res = await artistRepo.listenerLogin(
+//       ListenerLoginDTO(email: "user12@gmail.com", password: "user11"));
+
+//   res.fold((l) {
+//     print(l.message);
+//   }, (r) {
+//     print(r.token);
+//   });
+// }

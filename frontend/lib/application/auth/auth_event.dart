@@ -4,6 +4,8 @@ abstract class ArtistAuthEvent {}
 
 abstract class ListenerAuthEvent {}
 
+abstract class LoginPageEvent {}
+
 class AdminLoginEvent extends AdminAuthEvent {
   final String email;
   final String password;
@@ -32,4 +34,10 @@ class ListenerLoginEvent extends ListenerAuthEvent {
     required this.email,
     required this.password,
   });
+}
+
+class SwitchRole extends LoginPageEvent {
+  final bool toValue;
+
+  SwitchRole({required this.toValue});
 }

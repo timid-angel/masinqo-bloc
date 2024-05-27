@@ -13,8 +13,7 @@ class AdminLoginRepository implements AdminLoginRepositoryInterface {
     http.Response response = await AdminLoginDataSource().adminLogin(loginDto);
 
     if (!(response.statusCode == 200)) {
-      return Left(
-          LoginRequestFailure(name: "login_error", message: response.body));
+      return Left(LoginRequestFailure(message: response.body));
     }
 
     String token = response.headers["set-cookie"] as String;
