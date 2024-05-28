@@ -210,8 +210,8 @@ class SignupWidget extends StatelessWidget {
                                         _isArtist.value = true;
                                       },
                                       style: ButtonStyle(
-                                        backgroundColor: MaterialStateProperty.all<Color>(Colors.transparent),
-                                        shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                                        backgroundColor: WidgetStateProperty.all<Color>(Colors.transparent),
+                                        shape: WidgetStateProperty.all<RoundedRectangleBorder>(
                                           RoundedRectangleBorder(
                                             borderRadius: BorderRadius.circular(5),
                                             side: BorderSide(
@@ -235,8 +235,8 @@ class SignupWidget extends StatelessWidget {
                                         _isArtist.value = false;
                                       },
                                       style: ButtonStyle(
-                                        backgroundColor: MaterialStateProperty.all<Color>(Colors.transparent),
-                                        shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                                        backgroundColor: WidgetStateProperty.all<Color>(Colors.transparent),
+                                        shape: WidgetStateProperty.all<RoundedRectangleBorder>(
                                           RoundedRectangleBorder(
                                             borderRadius: BorderRadius.circular(5),
                                             side: BorderSide(
@@ -261,10 +261,10 @@ class SignupWidget extends StatelessWidget {
                                 ElevatedButton(
                                   onPressed: signupHandler(context),
                                   style: ButtonStyle(
-                                    backgroundColor: MaterialStateProperty.all<Color>(
+                                    backgroundColor: WidgetStateProperty.all<Color>(
                                       isArtist ? AppColors.artist2 : AppColors.listener4,
                                     ),
-                                    shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                                    shape: WidgetStateProperty.all<RoundedRectangleBorder>(
                                       RoundedRectangleBorder(
                                         borderRadius: BorderRadius.circular(5),
                                       ),
