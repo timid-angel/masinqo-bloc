@@ -6,11 +6,11 @@ import '../../temp/audio_manager/listener_audio_manager.dart';
 
 class PlaylistTracksWidget extends StatelessWidget {
   const PlaylistTracksWidget({
-    Key? key,
+    super.key,
     required this.playlist,
     required this.onDelete,
     required this.audioManager,
-  }) : super(key: key);
+  });
 
   final Playlist playlist;
   final Function() onDelete;

@@ -1,7 +1,7 @@
 import 'package:dartz/dartz.dart';
 import 'package:email_validator/email_validator.dart';
-import 'package:masinqo/domain/auth/login_failure.dart';
-import 'package:masinqo/domain/auth/login_success.dart';
+import 'package:masinqo/domain/auth/login/login_failure.dart';
+import 'package:masinqo/domain/auth/login/login_success.dart';
 import 'package:masinqo/infrastructure/auth/admin/admin_login_dto.dart';
 import 'package:masinqo/infrastructure/auth/admin/admin_login_repository.dart';
 import 'package:masinqo/infrastructure/auth/artist/artist_login_dto.dart';
@@ -54,12 +54,12 @@ class ListenerAuthEntity {
   Future<Either<LoginFailure, LoginSuccess>> loginListener() async {
     LoginFailure loginFailure = LoginFailure();
 
-    if (password.length < 6) {
-      loginFailure.messages.add("The password is too short");
-    }
-
     if (!EmailValidator.validate(email)) {
       loginFailure.messages.add("Invalid Email");
+    }
+
+    if (password.length < 6) {
+      loginFailure.messages.add("The password is too short");
     }
 
     if (loginFailure.messages.isNotEmpty) {
@@ -88,12 +88,12 @@ class ArtistAuthEntity {
 
   Future<Either<LoginFailure, LoginSuccess>> loginArtist() async {
     LoginFailure loginFailure = LoginFailure();
-    if (password.length < 6) {
-      loginFailure.messages.add("The password is too short");
-    }
-
     if (!EmailValidator.validate(email)) {
       loginFailure.messages.add("Invalid Email");
+    }
+
+    if (password.length < 6) {
+      loginFailure.messages.add("The password is too short");
     }
 
     if (loginFailure.messages.isNotEmpty) {

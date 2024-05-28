@@ -1,4 +1,4 @@
-import { Injectable, UnauthorizedException } from '@nestjs/common';
+import { BadRequestException, Injectable, UnauthorizedException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Artist } from './schema/artist.schema';
 import * as bcrypt from 'bcrypt'
@@ -24,6 +24,10 @@ export class AuthService {
 
   // artist
   async artistSignUp(reqBody: SignUpDto): Promise<{ token: string }> {
+    const old = await this.artistModel.findOne({ email: reqBody.email });
+    if (old) {
+      throw new BadRequestException("Account with the provided email already exists")
+    }
     const artistObj = { ...reqBody };
     const hashedPwd = await bcrypt.hash(reqBody.password, 10);
     artistObj.password = hashedPwd;
@@ -51,6 +55,10 @@ export class AuthService {
 
   // listener
   async listenerSignUp(reqBody: SignUpDto): Promise<{ token: string }> {
+    const old = await this.listenerModel.findOne({ email: reqBody.email });
+    if (old) {
+      throw new BadRequestException("Account with the provided email already exists")
+    }
     const listenerObj = { ...reqBody };
     const hashedPwd = await bcrypt.hash(reqBody.password, 10);
     listenerObj.password = hashedPwd;

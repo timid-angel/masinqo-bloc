@@ -4,11 +4,11 @@ import '../../temp/audio_manager/listener_audio_manager.dart';
 
 class PlaylistSongTileWidget extends StatelessWidget {
   const PlaylistSongTileWidget({
-    Key? key,
+    super.key,
     required this.onDelete,
     required this.song,
     required this.audioManager,
-  }) : super(key: key);
+  });
 
   final Song song;
   final AudioManager audioManager;

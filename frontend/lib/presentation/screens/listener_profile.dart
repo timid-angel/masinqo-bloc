@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:masinqo/presentation/core/theme/app_colors.dart';
-import 'package:masinqo/presentation/widgets/profile_mgmt-section_title.dart';
+import 'package:masinqo/presentation/widgets/profile_mgmt_section_title.dart';
 
 class ListenerProfile extends StatefulWidget {
   const ListenerProfile({super.key});
@@ -102,8 +102,7 @@ class ListenerProfileState extends State<ListenerProfile> {
 class RoundedInputField extends StatelessWidget {
   final String placeholder;
 
-  const RoundedInputField({Key? key, required this.placeholder})
-      : super(key: key);
+  const RoundedInputField({super.key, required this.placeholder});
 
   @override
   Widget build(BuildContext context) {

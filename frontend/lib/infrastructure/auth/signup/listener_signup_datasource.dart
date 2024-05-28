@@ -6,29 +6,21 @@ import 'package:masinqo/infrastructure/core/url.dart';
 class ListenerSignupDataSource {
   final String baseUrl = Domain.url;
 
-  Future<bool> signupListener(ListenerSignupDTO listener) async {
+  Future<http.Response> signupListener(ListenerSignupDTO listener) async {
     final url = Uri.parse('$baseUrl/auth/listener/signup');
 
-    try {
-      final response = await http.post(
-        url,
-        headers: <String, String>{
-          'Content-Type': 'application/json; charset=UTF-8',
-        },
-        body: jsonEncode(<String, String>{
-          'name': listener.name,
-          'email': listener.email,
-          'password': listener.password,
-        }),
-      );
+    final response = await http.post(
+      url,
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+      },
+      body: jsonEncode(<String, String>{
+        'name': listener.name,
+        'email': listener.email,
+        'password': listener.password,
+      }),
+    );
 
-      if (response.statusCode == 200) {
-        return true;
-      } else {
-        return false;
-      }
-    } catch (e) {
-      return false;
-    }
+    return response;
   }
 }

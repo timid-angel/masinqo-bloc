@@ -16,7 +16,7 @@ class ListenerSignupSuccess extends ListenerSignupState {}
 class ListenerSignupFailure extends ListenerSignupState {
   final String error;
 
-  const ListenerSignupFailure(this.error);
+  const ListenerSignupFailure({required this.error});
 
   @override
   List<Object> get props => [error];

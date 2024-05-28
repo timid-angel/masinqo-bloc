@@ -1,22 +1,15 @@
-import 'package:equatable/equatable.dart';
 import 'package:masinqo/domain/entities/artists.dart';
 
-abstract class SignupEvent extends Equatable {
-  const SignupEvent();
+abstract class ASignupEvent {}
 
-  @override
-  List<Object?> get props => [];
-}
-
-class ArtistSignupEvent extends SignupEvent {
+class ArtistSignupEvent extends ASignupEvent {
   final Artist artist;
   final String confirmPassword;
 
-  const ArtistSignupEvent({
+  ArtistSignupEvent({
     required this.artist,
     required this.confirmPassword,
   });
-
-  @override
-  List<Object?> get props => [artist, confirmPassword];
 }
+
+class AResetState extends ASignupEvent {}

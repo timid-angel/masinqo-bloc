@@ -1,18 +1,3 @@
-import 'package:equatable/equatable.dart';
+import 'package:masinqo/core.dart';
 
-abstract class SignupState extends Equatable {
-  const SignupState();
-
-  @override
-  List<Object> get props => [];
-}
-
-class SignupSuccess extends SignupState {
-  final String message;
-
-  const SignupSuccess(this.message);
-
-  @override
-  List<Object> get props => [message];
-}
-
+class SignupSuccess implements Success {}

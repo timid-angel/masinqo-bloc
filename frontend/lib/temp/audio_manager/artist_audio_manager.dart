@@ -12,7 +12,7 @@ class AudioManager {
       await _audioPlayer.setUrl(audioFilePath);
       await _audioPlayer.play();
     } catch (e) {
-      print('Error playing audio: $e');
+      return;
     }
   }
 
@@ -20,7 +20,7 @@ class AudioManager {
     try {
       await _audioPlayer.stop();
     } catch (e) {
-      print('Error stopping audio: $e');
+      return;
     }
   }
 
@@ -28,7 +28,7 @@ class AudioManager {
     try {
       await _audioPlayer.dispose();
     } catch (e) {
-      print('Error disposing audio player: $e');
+      return;
     }
   }
 }

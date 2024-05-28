@@ -136,9 +136,9 @@ class ArtistsAlbumPageState extends State<ArtistsAlbumPage> {
                         ),
                       ),
                       style: ButtonStyle(
-                        foregroundColor: MaterialStateProperty.all<Color>(
+                        foregroundColor: WidgetStateProperty.all<Color>(
                             const Color(0xFF39DCF3)),
-                        shape: MaterialStateProperty.all<OutlinedBorder>(
+                        shape: WidgetStateProperty.all<OutlinedBorder>(
                           const CircleBorder(),
                         ),
                       ),
@@ -167,7 +167,7 @@ class ArtistsAlbumPageState extends State<ArtistsAlbumPage> {
                         ),
                       ),
                       style: ButtonStyle(
-                        foregroundColor: MaterialStateProperty.all<Color>(
+                        foregroundColor: WidgetStateProperty.all<Color>(
                             const Color(0xFF39DCF3)),
                       ),
                     ),
@@ -199,7 +199,7 @@ class ArtistsAlbumPageState extends State<ArtistsAlbumPage> {
                       ),
                       style: ButtonStyle(
                         foregroundColor:
-                            MaterialStateProperty.all<Color>(Colors.red),
+                            WidgetStateProperty.all<Color>(Colors.red),
                       ),
                     ),
                   ],
