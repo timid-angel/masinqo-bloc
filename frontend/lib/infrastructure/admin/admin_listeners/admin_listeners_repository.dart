@@ -11,7 +11,7 @@ import 'package:masinqo/infrastructure/core/url.dart';
 
 class AdminListenersRepository implements AdminListenerRepositoryInterface {
   final String url = Domain.url;
-  final String token;
+  final String? token;
 
   AdminListenersRepository({required this.token});
 
@@ -19,7 +19,7 @@ class AdminListenersRepository implements AdminListenerRepositoryInterface {
   Future<Either<ListenerFetchFailure, ListenerFetchSuccess>>
       getListeners() async {
     http.Response response =
-        await AdminListenersDatasource(token: token).getListeners();
+        await AdminListenersDatasource(token: token!).getListeners();
 
     if (!(response.statusCode == 200)) {
       final Map res = jsonDecode(response.body);
@@ -41,7 +41,7 @@ class AdminListenersRepository implements AdminListenerRepositoryInterface {
   @override
   Future<Either<ListenerDeleteFailure, ListenerDeleteSuccess>> deleteListener(
       ListenerID listener) async {
-    http.Response response = await AdminListenersDatasource(token: token)
+    http.Response response = await AdminListenersDatasource(token: token!)
         .deleteListener(listener.id);
 
     if (!(response.statusCode == 200)) {
