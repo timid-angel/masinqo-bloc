@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:file_picker/file_picker.dart';
-import 'package:masinqo/presentation/widgets/profile_mgmt-section_title.dart';
+import 'package:masinqo/presentation/widgets/profile_mgmt_section_title.dart';
 import 'dart:io';
 import '../widgets/artist_drawer.dart';
 import '../widgets/artist_app_bar.dart';

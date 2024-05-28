@@ -1,7 +1,7 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:masinqo/application/auth/auth_event.dart';
 import 'package:masinqo/application/auth/auth_state.dart';
-import 'package:masinqo/domain/auth/auth_entities.dart';
+import 'package:masinqo/domain/auth/login/login_entities.dart';
 import 'package:masinqo/infrastructure/core/secure_storage_service.dart';
 
 class ArtistAuthBloc extends Bloc<ArtistAuthEvent, ArtistAuthState> {

@@ -10,7 +10,7 @@ class AdminListenerCollection {
 
   AdminListenerCollection({required this.adminListenersRepo});
   Future<Either<AdminFailure, GetListenersSuccess>> getListeners() async {
-    if (adminListenersRepo.token.isEmpty) {
+    if (adminListenersRepo.token?.isEmpty ?? true) {
       return Left(AdminFailure(message: "Invalid token"));
     }
 
@@ -26,7 +26,7 @@ class AdminListenerCollection {
   }
 
   Future<Either<AdminFailure, AdminSuccess>> deleteListener(String id) async {
-    if (adminListenersRepo.token.isEmpty) {
+    if (adminListenersRepo.token?.isEmpty ?? true) {
       return Left(AdminFailure(message: "Invalid token"));
     }
     final res = await adminListenersRepo.deleteListener(ListenerID(id: id));

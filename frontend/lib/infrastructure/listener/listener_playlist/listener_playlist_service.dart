@@ -14,7 +14,7 @@ class ListenerPlaylistService {
       "Cookie": token,
     });
 
-    print(response.body);
+    // print(response.body);
     if (response.statusCode == 200) {
       Iterable lists = json.decode(response.body);
       return List<Playlist>.from(

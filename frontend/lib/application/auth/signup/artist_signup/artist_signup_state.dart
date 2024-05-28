@@ -16,8 +16,5 @@ class ArtistSignupSuccess extends ArtistSignupState {}
 class ArtistSignupFailure extends ArtistSignupState {
   final String error;
 
-  const ArtistSignupFailure(this.error);
-
-  @override
-  List<Object> get props => [error];
+  const ArtistSignupFailure({required this.error});
 }

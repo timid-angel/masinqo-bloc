@@ -6,11 +6,11 @@ import '../../temp/audio_manager/listener_audio_manager.dart';
 
 class AlbumTracksWidget extends StatelessWidget {
   const AlbumTracksWidget({
-    Key? key,
+    super.key,
     required this.album,
     required this.onAdd,
     required this.audioManager,
-  }) : super(key: key);
+  });
 
   final Album album;
   final Function() onAdd;

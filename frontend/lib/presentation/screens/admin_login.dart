@@ -191,8 +191,8 @@ class AdminLogin extends StatelessWidget {
                                 onPressed: () async {
                                   BlocProvider.of<LoginLoadingBloc>(context)
                                       .add(LoginSetLoading());
-                                  await Future.delayed(
-                                      const Duration(milliseconds: 1500));
+                                  // await Future.delayed(
+                                  //     const Duration(milliseconds: 1500));
                                   BlocProvider.of<AdminAuthBloc>(context).add(
                                     AdminLoginEvent(
                                       email: _emailController.text,

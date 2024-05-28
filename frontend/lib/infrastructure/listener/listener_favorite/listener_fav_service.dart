@@ -13,7 +13,7 @@ class ListenerFavService {
         await http.get(Uri.parse('$baseUrl/listener/favorites'), headers: {
       "Cookie": token,
     });
-    print(response.body);
+    // print(response.body);
     if (response.statusCode == 200) {
       Iterable lists = json.decode(response.body);
       return List<Album>.from(lists.map((model) => Album.fromJson(model)));
