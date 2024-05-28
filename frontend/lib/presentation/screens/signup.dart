@@ -86,7 +86,6 @@ class SignupWidget extends StatelessWidget {
         listeners: [
           BlocListener<ArtistSignupBloc, ArtistSignupState>(
             listener: (context, state) {
-              print("ArtistSignupBloc state: $state");
               if (state is ArtistSignupSuccess) {
                 context.go("/artist");
               } else if (state is ArtistSignupFailure) {

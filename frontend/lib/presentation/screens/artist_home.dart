@@ -67,7 +67,7 @@ class ArtistHomePageState extends State<ArtistHomePage> {
     showDialog(
       context: context,
       builder: (BuildContext context) {
-        return const CreateAlbumModal();
+        return const CreateAlbumModal(token: '',);
       },
     );
   }
