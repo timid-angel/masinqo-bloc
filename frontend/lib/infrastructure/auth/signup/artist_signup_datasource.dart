@@ -7,7 +7,7 @@ class ArtistSignupDataSource {
   final String baseUrl = Domain.url;
 
   Future<bool> signupArtist(ArtistSignupDTO artist) async {
-    final url = Uri.parse('http://10.0.2.2:3000/auth/artist/signup');
+    final url = Uri.parse('$baseUrl/auth/artist/signup');
 
     try {
       final response = await http.post(
