@@ -7,7 +7,7 @@ class ListenerSignupDataSource {
   final String baseUrl = Domain.url;
 
   Future<bool> signupListener(ListenerSignupDTO listener) async {
-    final url = Uri.parse('$baseUrl/auth/listener/signup');
+    final url = Uri.parse('http://10.0.2.2:3000/auth/listener/signup');
 
     try {
       final response = await http.post(
