@@ -12,7 +12,7 @@ class AdminArtistsCollection {
     required this.adminArtistsRepository,
   });
   Future<Either<AdminFailure, GetArtistsSuccess>> getArtists() async {
-    if (adminArtistsRepository.token.isEmpty) {
+    if (adminArtistsRepository.token?.isEmpty ?? true) {
       return Left(AdminFailure(message: "Invalid token"));
     }
 
@@ -38,7 +38,7 @@ class AdminArtistsCollection {
   }
 
   Future<Either<AdminFailure, AdminSuccess>> deleteArtist(String id) async {
-    if (adminArtistsRepository.token.isEmpty) {
+    if (adminArtistsRepository.token?.isEmpty ?? true) {
       return Left(AdminFailure(message: "Invalid token"));
     }
     final res = await adminArtistsRepository.deleteArtist(ArtistID(id: id));
@@ -54,7 +54,7 @@ class AdminArtistsCollection {
 
   Future<Either<AdminFailure, AdminSuccess>> changeStatus(
       String id, bool newBannedStatus) async {
-    if (adminArtistsRepository.token.isEmpty) {
+    if (adminArtistsRepository.token?.isEmpty ?? true) {
       return Left(AdminFailure(message: "Invalid token"));
     }
     final res = await adminArtistsRepository
