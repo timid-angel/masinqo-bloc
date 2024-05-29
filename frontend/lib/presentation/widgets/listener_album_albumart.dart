@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:masinqo/infrastructure/core/url.dart';
 
 class AlbumArt extends StatelessWidget {
   const AlbumArt({
@@ -20,9 +21,9 @@ class AlbumArt extends StatelessWidget {
         borderRadius: BorderRadius.circular(7),
         image: DecorationImage(
           fit: BoxFit.cover,
-          image: albumArt.isNotEmpty
-              ? AssetImage(albumArt)
-              : const AssetImage("assets/images/black.png"),
+          image: NetworkImage(albumArt.isNotEmpty
+              ? "${Domain.url}/${albumArt}"
+              : "${Domain.url}/local / album_art_placeholder.jpg"),
         ),
       ),
     );

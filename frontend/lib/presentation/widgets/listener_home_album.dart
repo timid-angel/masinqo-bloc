@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:masinqo/domain/entities/albums.dart';
+import 'package:masinqo/infrastructure/core/url.dart';
 import 'package:masinqo/presentation/core/theme/app_colors.dart';
 
 class ListenerHomeAlbumCard extends StatelessWidget {
@@ -38,7 +39,9 @@ class ListenerHomeAlbumCard extends StatelessWidget {
               ),
               image: DecorationImage(
                 fit: BoxFit.cover,
-                image: AssetImage(album.albumArt),
+                image: NetworkImage(album.albumArt.isNotEmpty
+                    ? "${Domain.url}/${album.albumArt}"
+                    : "${Domain.url}/local / album_art_placeholder.jpg"),
               ),
             ),
           ),
