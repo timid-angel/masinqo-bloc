@@ -54,7 +54,6 @@ class PlaylistButtonsWidget extends StatelessWidget {
               builder: (BuildContext context) {
                 return DeleteConfirmationDialog(
                   title: 'Are you sure you want to delete this playlist?',
-                  content: '',
                   onConfirm: () {
                     Navigator.of(context).pop();
                   },

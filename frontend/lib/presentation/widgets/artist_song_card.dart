@@ -50,10 +50,12 @@ class SongCard extends StatelessWidget {
               height: 55,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(10.0),
-                image: DecorationImage(
-                  image: AssetImage(imagePath),
-                  fit: BoxFit.cover,
-                ),
+                image: imagePath.isNotEmpty
+                    ? DecorationImage(
+                        image: AssetImage(imagePath),
+                        fit: BoxFit.cover,
+                      )
+                    : null,
               ),
             ),
             const SizedBox(width: 10.0),

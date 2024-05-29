@@ -10,3 +10,13 @@ class Song {
     required this.album,
   });
 }
+
+class MockSong {
+  String name;
+  String filePath;
+
+  MockSong({
+    required this.name,
+    required this.filePath,
+  });
+}

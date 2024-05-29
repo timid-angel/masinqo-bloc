@@ -31,8 +31,8 @@ class Album {
           .map((songJson) => Song.fromJson(songJson))
           .toList(),
     );
-    print("Ad");
-    print(r);
+    // print("Ad");
+    // print(r);
     return r;
   }
 

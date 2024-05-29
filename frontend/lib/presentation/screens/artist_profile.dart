@@ -115,6 +115,13 @@ class ArtistProfileState extends State<ArtistProfile> {
   }
 
   Widget profilePicture() {
+    if (_profileImagePath.isEmpty) {
+      return Image.asset(
+        "assets/images/black.png",
+        fit: BoxFit.cover,
+      );
+    }
+
     if (_profileImagePath.startsWith('assets/')) {
       return Image.asset(
         _profileImagePath,

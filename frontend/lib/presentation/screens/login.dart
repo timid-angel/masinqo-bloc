@@ -163,7 +163,7 @@ class LoginWidget extends StatelessWidget {
                                       controller: _emailController,
                                       fieldText: loginBloc.state
                                           ? 'Artist Email'
-                                          : 'User email',
+                                          : 'User Email',
                                       icon: Icons.mail,
                                       loginBloc: loginBloc,
                                     );

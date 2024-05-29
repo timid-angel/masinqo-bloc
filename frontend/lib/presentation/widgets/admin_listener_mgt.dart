@@ -13,8 +13,6 @@ class AdminListenerMGT extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    BlocProvider.of<ListenerBloc>(context).add(GetListeners(
-        token: BlocProvider.of<AdminAuthBloc>(context).state.token));
     return Scaffold(
       backgroundColor: Colors.transparent,
       body: Column(
@@ -104,7 +102,6 @@ class ListenerList extends StatelessWidget {
                     builder: (BuildContext context) {
                       return DeleteConfirmationDialog(
                         title: 'Are you sure you want to delete this Listener?',
-                        content: '',
                         onConfirm: () {
                           emitDeleteEvent();
                           Navigator.pop(context);

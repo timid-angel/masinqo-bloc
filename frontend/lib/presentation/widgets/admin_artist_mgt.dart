@@ -203,7 +203,6 @@ void showDeleteConfirmationDialog(BuildContext context, String title,
     builder: (BuildContext context) {
       return DeleteConfirmationDialog(
         title: title,
-        content: content,
         onConfirm: onConfirm,
       );
     },

@@ -18,8 +18,6 @@ import 'package:masinqo/presentation/screens/login.dart';
 import 'package:masinqo/presentation/screens/signup.dart';
 import 'package:go_router/go_router.dart';
 
-import 'package:masinqo/temp/models/route_models/listener_homepage_data.dart';
-
 import 'domain/entities/albums.dart';
 
 final _router = GoRouter(
@@ -48,12 +46,8 @@ final _router = GoRouter(
     GoRoute(
       name: "listener",
       path: '/listener:token',
-      builder: (context, state) => ListenerWidget(
-          arguments: ListenerHomePageData(
-              albums: [],
-              favorites: [],
-              playlists: [],
-              token: state.pathParameters["token"] as String)),
+      builder: (context, state) =>
+          ListenerWidget(arguments: state.pathParameters["token"] as String),
     ),
     GoRoute(
       name: "admin",
