@@ -7,8 +7,18 @@ class ListenerFavRepository implements FavoriteRepository {
   ListenerFavRepository(this.listenerFavService);
 
   @override
-  Future<List<Album>> getFavorites() async {
-    return await listenerFavService.getFavorites();
+  Future<List<Album>> getFavorites(String token) async {
+    return await listenerFavService.getFavorites(token);
+  }
+
+  @override
+  Future<void> addFavorite(String id, String token) async {
+    await listenerFavService.addFavorite(id, token);
+  }
+
+  @override
+  Future<void> deleteFavorite(String id, String token) async {
+    await listenerFavService.deleteFavorite(id, token);
   }
 }
 

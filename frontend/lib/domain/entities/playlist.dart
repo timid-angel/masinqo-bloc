@@ -1,4 +1,4 @@
-import 'package:masinqo/temp/models/songs.dart';
+import 'package:masinqo/domain/entities/songs.dart';
 
 class Playlist {
   String name;
@@ -22,7 +22,9 @@ class Playlist {
           DateTime.parse(json['creationDate'] ?? DateTime.now().toString()),
       owner: json['owner'] ?? '',
       description: json['description'] ?? '',
-      songs: List<Song>.from(json['songs']),
+      songs: (json['songs'] as List<dynamic>)
+          .map((songJson) => Song.fromJson(songJson))
+          .toList(),
     );
   }
 

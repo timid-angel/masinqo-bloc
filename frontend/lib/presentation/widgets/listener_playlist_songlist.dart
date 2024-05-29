@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:masinqo/temp/models/playlist.dart';
-import 'package:masinqo/temp/models/songs.dart';
+import 'package:masinqo/domain/entities/playlist.dart';
+import 'package:masinqo/domain/entities/songs.dart';
+
 import '../widgets/listener_playlist_songtile.dart';
 import '../../temp/audio_manager/listener_audio_manager.dart';
 

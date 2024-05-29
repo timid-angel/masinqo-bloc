@@ -4,17 +4,34 @@ import 'package:masinqo/infrastructure/listener/listener_playlist/listener_playl
 
 class ListenerPlaylistCollection {
   late List<Playlist> albums;
-  final String token;
+  // final String token;
 
-  ListenerPlaylistCollection({required this.token});
-  Future<List<Playlist>> getPlaylists() async {
+  ListenerPlaylistCollection();
+  Future<List<Playlist>> getPlaylists(String token) async {
     if (token.isEmpty) {
       throw Exception('Invalid token');
     }
 
-    final res =
-        await ListenerPlaylistRepository(ListenerPlaylistService(token: token))
-            .getPlaylists();
+    final res = await ListenerPlaylistRepository(ListenerPlaylistService())
+        .getPlaylists(token);
     return res;
+  }
+
+  Future<void> addPlaylist(String playlistName, String token) async {
+    if (token.isEmpty) {
+      throw Exception('Invalid token');
+    }
+
+    await ListenerPlaylistRepository(ListenerPlaylistService())
+        .addPlaylist(playlistName, token);
+  }
+
+  Future<void> editPlaylist(String id, String name, String token) async {
+    if (token.isEmpty) {
+      throw Exception('Invalid token');
+    }
+
+    await ListenerPlaylistRepository(ListenerPlaylistService())
+        .editPlaylist(id, name, token);
   }
 }

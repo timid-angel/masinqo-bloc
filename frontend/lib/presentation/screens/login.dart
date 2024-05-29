@@ -55,12 +55,17 @@ class LoginWidget extends StatelessWidget {
         child: MultiBlocListener(
           listeners: [
             BlocListener<ArtistAuthBloc, ArtistAuthState>(
+             
                 listener: (context, state) {
               if (artistAuthBloc.state.errors.isEmpty &&
                   !artistAuthBloc.state.isLoading &&
-                  artistAuthBloc.token.isNotEmpty) {
-                context.go("/artist");
+                  artistAuthBloc.token.isNotEmpty) 
+                  {
+                context.goNamed("artist",
+                pathParameters: {"token": state.token});
+                  print("Artist Token: ${state.token}");
               }
+
 
               if (artistAuthBloc.state.errors.isNotEmpty) {
                 ScaffoldMessenger.of(context).showSnackBar(
@@ -78,7 +83,10 @@ class LoginWidget extends StatelessWidget {
               if (listenerAuthBloc.state.errors.isEmpty &&
                   !listenerAuthBloc.state.isLoading &&
                   listenerAuthBloc.token.isNotEmpty) {
-                context.go("/listener");
+                context.goNamed("listener",
+                    pathParameters: {"token": state.token});
+                     print(" Token: ${state.token}");
+                    
               }
 
               if (listenerAuthBloc.state.errors.isNotEmpty) {
@@ -155,7 +163,7 @@ class LoginWidget extends StatelessWidget {
                                       controller: _emailController,
                                       fieldText: loginBloc.state
                                           ? 'Artist Email'
-                                          : 'User email',
+                                          : 'User Email',
                                       icon: Icons.mail,
                                       loginBloc: loginBloc,
                                     );

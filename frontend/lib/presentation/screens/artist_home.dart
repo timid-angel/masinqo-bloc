@@ -8,8 +8,10 @@ import 'package:masinqo/temp/models/albums.dart';
 
 class ArtistHomePage extends StatefulWidget {
   final List<Album> albumData;
+  final String token;
 
-  const ArtistHomePage({super.key, required this.albumData});
+  const ArtistHomePage({super.key, required this.albumData, required this.token});
+
   @override
   ArtistHomePageState createState() => ArtistHomePageState();
 }
@@ -67,7 +69,9 @@ class ArtistHomePageState extends State<ArtistHomePage> {
     showDialog(
       context: context,
       builder: (BuildContext context) {
-        return const CreateAlbumModal();
+        print(widget.token);
+        return CreateAlbumModal();
+        
       },
     );
   }

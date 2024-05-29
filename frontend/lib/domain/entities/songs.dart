@@ -8,10 +8,13 @@ class Song {
   });
 
   factory Song.fromJson(Map<String, dynamic> json) {
-    return Song(
-      name: json['name'],
-      filePath: json['filePath'],
+    // print("inn");
+    final s = Song(
+      name: json['name'] ?? '',
+      filePath: json['filePath'] ?? '',
     );
+    // print("outtt");
+    return s;
   }
 
   Map<String, dynamic> toJson() {

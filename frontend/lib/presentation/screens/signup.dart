@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import '../widgets/login_brand.dart';
 import '../core/theme/app_colors.dart';
-import '../widgets/admin_signup_textfield.dart';
+import '../widgets/signup_textfield.dart';
 import 'package:masinqo/application/auth/signup/artist_signup/artist_signup_bloc.dart';
 import 'package:masinqo/application/auth/signup/artist_signup/artist_signup_event.dart';
 import 'package:masinqo/application/auth/signup/artist_signup/artist_signup_state.dart';
@@ -128,191 +128,194 @@ class SignupWidget extends StatelessWidget {
             child: ValueListenableBuilder<bool>(
               valueListenable: _isArtist,
               builder: (context, isArtist, _) {
-                return Container(
-                  height: deviceHeight,
-                  decoration: BoxDecoration(
-                    image: DecorationImage(
-                      image: const AssetImage('assets/images/uncle.jpg'),
-                      fit: BoxFit.cover,
-                      opacity: 0.2,
-                      colorFilter: ColorFilter.mode(
-                        isArtist
-                            ? const Color.fromARGB(11, 0, 187, 212)
-                            : const Color.fromARGB(11, 164, 53, 183),
-                        BlendMode.color,
+                return Center(
+                  child: Container(
+                    height: deviceHeight,
+                    decoration: BoxDecoration(
+                      image: DecorationImage(
+                        image: const AssetImage('assets/images/uncle.jpg'),
+                        fit: BoxFit.cover,
+                        opacity: 0.2,
+                        colorFilter: ColorFilter.mode(
+                          isArtist
+                              ? const Color.fromARGB(11, 0, 187, 212)
+                              : const Color.fromARGB(11, 164, 53, 183),
+                          BlendMode.color,
+                        ),
                       ),
                     ),
-                  ),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: <Widget>[
-                      Container(
-                        decoration: const BoxDecoration(
-                          borderRadius: BorderRadius.all(Radius.circular(12)),
-                        ),
-                        child: Padding(
-                          padding: const EdgeInsets.all(22.0),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: <Widget>[
-                              const Brand(
-                                text: 'Masinqo',
-                                size: 50,
-                              ),
-                              const SizedBox(height: 12),
-                              CustomTextField(
-                                hintText: "Username",
-                                controller: _usernameController,
-                                isArtist: isArtist,
-                                prefixIcon: Icon(
-                                  Icons.person,
-                                  color: isArtist
-                                      ? AppColors.artist2
-                                      : AppColors.listener4,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: <Widget>[
+                        Container(
+                          decoration: const BoxDecoration(
+                            borderRadius: BorderRadius.all(Radius.circular(12)),
+                          ),
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 22.0, vertical: 11),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: <Widget>[
+                                const Brand(
+                                  text: 'Masinqo',
+                                  size: 50,
                                 ),
-                              ),
-                              const SizedBox(height: 12),
-                              CustomTextField(
-                                hintText: "Email",
-                                controller: _emailController,
-                                isArtist: isArtist,
-                                prefixIcon: Icon(
-                                  Icons.mail,
-                                  color: isArtist
-                                      ? AppColors.artist2
-                                      : AppColors.listener4,
-                                ),
-                              ),
-                              const SizedBox(height: 12),
-                              CustomTextField(
-                                hintText: "Password",
-                                controller: _passwordController,
-                                isArtist: isArtist,
-                                obscureText: true,
-                                prefixIcon: Icon(
-                                  Icons.lock,
-                                  color: isArtist
-                                      ? AppColors.artist2
-                                      : AppColors.listener4,
-                                ),
-                              ),
-                              const SizedBox(height: 12),
-                              CustomTextField(
-                                hintText: "Confirm Password",
-                                controller: _confirmPasswordController,
-                                isArtist: isArtist,
-                                obscureText: true,
-                                prefixIcon: Icon(
-                                  Icons.lock,
-                                  color: isArtist
-                                      ? AppColors.artist2
-                                      : AppColors.listener4,
-                                ),
-                              ),
-                              const SizedBox(height: 20),
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceAround,
-                                children: <Widget>[
-                                  TextButton(
-                                    onPressed: () {
-                                      _isArtist.value = true;
-                                    },
-                                    style: ButtonStyle(
-                                      backgroundColor:
-                                          WidgetStateProperty.all<Color>(
-                                              Colors.transparent),
-                                      shape: WidgetStateProperty.all<
-                                          RoundedRectangleBorder>(
-                                        RoundedRectangleBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(5),
-                                          side: BorderSide(
-                                            color: isArtist
-                                                ? AppColors.artist2
-                                                : Colors.white,
-                                            width: 2,
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                    child: Text(
-                                      'Artist Signup',
-                                      style: TextStyle(
-                                        fontSize: 17,
-                                        fontWeight: FontWeight.w600,
-                                        color: isArtist
-                                            ? AppColors.artist2
-                                            : Colors.white,
-                                      ),
-                                    ),
-                                  ),
-                                  TextButton(
-                                    onPressed: () {
-                                      _isArtist.value = false;
-                                    },
-                                    style: ButtonStyle(
-                                      backgroundColor:
-                                          WidgetStateProperty.all<Color>(
-                                              Colors.transparent),
-                                      shape: WidgetStateProperty.all<
-                                          RoundedRectangleBorder>(
-                                        RoundedRectangleBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(5),
-                                          side: BorderSide(
-                                            color: isArtist
-                                                ? Colors.white
-                                                : AppColors.listener4,
-                                            width: 2,
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                    child: Text(
-                                      'Listener Signup',
-                                      style: TextStyle(
-                                        fontSize: 17,
-                                        fontWeight: FontWeight.w600,
-                                        color: isArtist
-                                            ? Colors.white
-                                            : const Color.fromARGB(
-                                                255, 193, 53, 217),
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                              const SizedBox(height: 20),
-                              ElevatedButton(
-                                onPressed: signupHandler(context),
-                                style: ButtonStyle(
-                                  backgroundColor:
-                                      WidgetStateProperty.all<Color>(
-                                    isArtist
+                                const SizedBox(height: 12),
+                                CustomTextField(
+                                  hintText: "Username",
+                                  controller: _usernameController,
+                                  isArtist: isArtist,
+                                  prefixIcon: Icon(
+                                    Icons.person,
+                                    color: isArtist
                                         ? AppColors.artist2
                                         : AppColors.listener4,
                                   ),
-                                  shape: WidgetStateProperty.all<
-                                      RoundedRectangleBorder>(
-                                    RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(5),
-                                    ),
+                                ),
+                                const SizedBox(height: 12),
+                                CustomTextField(
+                                  hintText: "Email",
+                                  controller: _emailController,
+                                  isArtist: isArtist,
+                                  prefixIcon: Icon(
+                                    Icons.mail,
+                                    color: isArtist
+                                        ? AppColors.artist2
+                                        : AppColors.listener4,
                                   ),
                                 ),
-                                child: const Text(
-                                  'Signup',
-                                  style: TextStyle(
-                                      color: Colors.white, fontSize: 18),
+                                const SizedBox(height: 12),
+                                CustomTextField(
+                                  hintText: "Password",
+                                  controller: _passwordController,
+                                  isArtist: isArtist,
+                                  obscureText: true,
+                                  prefixIcon: Icon(
+                                    Icons.lock,
+                                    color: isArtist
+                                        ? AppColors.artist2
+                                        : AppColors.listener4,
+                                  ),
                                 ),
-                              ),
-                            ],
+                                const SizedBox(height: 12),
+                                CustomTextField(
+                                  hintText: "Confirm Password",
+                                  controller: _confirmPasswordController,
+                                  isArtist: isArtist,
+                                  obscureText: true,
+                                  prefixIcon: Icon(
+                                    Icons.lock,
+                                    color: isArtist
+                                        ? AppColors.artist2
+                                        : AppColors.listener4,
+                                  ),
+                                ),
+                                const SizedBox(height: 20),
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceAround,
+                                  children: <Widget>[
+                                    TextButton(
+                                      onPressed: () {
+                                        _isArtist.value = true;
+                                      },
+                                      style: ButtonStyle(
+                                        backgroundColor:
+                                            WidgetStateProperty.all<Color>(
+                                                Colors.transparent),
+                                        shape: WidgetStateProperty.all<
+                                            RoundedRectangleBorder>(
+                                          RoundedRectangleBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(5),
+                                            side: BorderSide(
+                                              color: isArtist
+                                                  ? AppColors.artist2
+                                                  : Colors.white,
+                                              width: 2,
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                      child: Text(
+                                        'Artist Signup',
+                                        style: TextStyle(
+                                          fontSize: 17,
+                                          fontWeight: FontWeight.w600,
+                                          color: isArtist
+                                              ? AppColors.artist2
+                                              : Colors.white,
+                                        ),
+                                      ),
+                                    ),
+                                    TextButton(
+                                      onPressed: () {
+                                        _isArtist.value = false;
+                                      },
+                                      style: ButtonStyle(
+                                        backgroundColor:
+                                            WidgetStateProperty.all<Color>(
+                                                Colors.transparent),
+                                        shape: WidgetStateProperty.all<
+                                            RoundedRectangleBorder>(
+                                          RoundedRectangleBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(5),
+                                            side: BorderSide(
+                                              color: isArtist
+                                                  ? Colors.white
+                                                  : AppColors.listener4,
+                                              width: 2,
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                      child: Text(
+                                        'Listener Signup',
+                                        style: TextStyle(
+                                          fontSize: 17,
+                                          fontWeight: FontWeight.w600,
+                                          color: isArtist
+                                              ? Colors.white
+                                              : const Color.fromARGB(
+                                                  255, 193, 53, 217),
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                const SizedBox(height: 20),
+                                ElevatedButton(
+                                  onPressed: signupHandler(context),
+                                  style: ButtonStyle(
+                                    backgroundColor:
+                                        WidgetStateProperty.all<Color>(
+                                      isArtist
+                                          ? AppColors.artist2
+                                          : AppColors.listener4,
+                                    ),
+                                    shape: WidgetStateProperty.all<
+                                        RoundedRectangleBorder>(
+                                      RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(5),
+                                      ),
+                                    ),
+                                  ),
+                                  child: const Text(
+                                    'Signup',
+                                    style: TextStyle(
+                                        color: Colors.white, fontSize: 18),
+                                  ),
+                                ),
+                              ],
+                            ),
                           ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                 );
               },

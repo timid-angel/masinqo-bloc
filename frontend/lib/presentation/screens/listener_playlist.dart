@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:masinqo/domain/entities/playlist.dart';
 import 'package:masinqo/presentation/core/theme/app_colors.dart';
-import 'package:masinqo/temp/models/playlist.dart';
+
 import 'package:masinqo/presentation/widgets/listener_appbar.dart';
 import 'package:masinqo/presentation/widgets/listener_drawer.dart';
 import 'package:masinqo/presentation/widgets/listener_playlist_albumart.dart';

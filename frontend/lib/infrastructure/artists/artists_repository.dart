@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'package:dartz/dartz.dart';
-import 'package:masinqo/core.dart';
 import 'package:http/http.dart' as http;
+import 'package:masinqo/core.dart';
 import 'package:masinqo/domain/artists/artists_repository_interface.dart';
 import 'package:masinqo/infrastructure/artists/artists_data_source.dart';
 import 'package:masinqo/infrastructure/artists/artists_dto.dart';
@@ -12,6 +12,7 @@ class ArtistsRepository implements ArtistsRepositoryInterface {
   final String token;
 
   ArtistsRepository({required this.token});
+
   @override
   Future<Either<ArtistFailure, Success>> addAlbum(
       CreateAlbumDTO albumDto) async {
@@ -34,8 +35,7 @@ class ArtistsRepository implements ArtistsRepositoryInterface {
       body["type"] = "Album";
     }
 
-    http.StreamedResponse response =
-        await ArtistsDataSource(token: token).addAlbum(
+    http.StreamedResponse response = await ArtistsDataSource(token: token).addAlbum(
       body,
       albumDto.albumArt,
     );

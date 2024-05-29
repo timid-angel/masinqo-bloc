@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:masinqo/temp/models/albums.dart';
-import 'package:masinqo/temp/models/songs.dart';
+import 'package:masinqo/domain/entities/songs.dart';
+
 import 'package:masinqo/presentation/widgets/listener_album_songtile.dart';
+import '../../domain/entities/albums.dart';
 import '../../temp/audio_manager/listener_audio_manager.dart';
 
 class AlbumTracksWidget extends StatelessWidget {

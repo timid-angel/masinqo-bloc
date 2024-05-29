@@ -18,6 +18,7 @@ class CreateAlbumDTO {
   final String description;
   final String type;
   final String albumArt;
+  final String token;
 
   CreateAlbumDTO({
     required this.type,
@@ -25,6 +26,7 @@ class CreateAlbumDTO {
     required this.genre,
     required this.description,
     required this.albumArt,
+    required this.token
   });
 }
 

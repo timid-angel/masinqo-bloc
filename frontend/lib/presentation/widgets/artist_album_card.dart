@@ -41,10 +41,11 @@ class AlbumCard extends StatelessWidget {
                   width: deviceWidth * 0.5,
                   height: deviceWidth * 0.5,
                   decoration: BoxDecoration(
-                    image: DecorationImage(
-                      fit: BoxFit.cover,
-                      image: AssetImage(album.albumArt),
-                    ),
+                    image: album.albumArt.isNotEmpty
+                        ? DecorationImage(
+                            fit: BoxFit.cover,
+                            image: AssetImage(album.albumArt))
+                        : null,
                     borderRadius: const BorderRadius.only(
                       topLeft: Radius.circular(8),
                       bottomLeft: Radius.circular(8),

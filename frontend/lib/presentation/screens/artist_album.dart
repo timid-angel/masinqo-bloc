@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:masinqo/temp/models/albums.dart';
+import 'package:masinqo/domain/entities/albums.dart';
+
 import '../widgets/artist_add_song_modal.dart';
 import '../widgets/artist_edit_album_modal.dart';
 import '../widgets/artist_drawer.dart';
@@ -84,12 +85,19 @@ class ArtistsAlbumPageState extends State<ArtistsAlbumPage> {
                 borderRadius: BorderRadius.circular(20.0),
                 child: Stack(
                   children: [
-                    Image.asset(
-                      widget.album.albumArt,
-                      fit: BoxFit.cover,
-                      width: double.infinity,
-                      height: double.infinity,
-                    ),
+                    widget.album.albumArt.isNotEmpty
+                        ? Image.asset(
+                            widget.album.albumArt,
+                            fit: BoxFit.cover,
+                            width: double.infinity,
+                            height: double.infinity,
+                          )
+                        : Image.asset(
+                            "assets/images/black.png",
+                            fit: BoxFit.cover,
+                            width: double.infinity,
+                            height: double.infinity,
+                          ),
                     Positioned(
                       bottom: 10.0,
                       right: 10.0,
@@ -179,8 +187,6 @@ class ArtistsAlbumPageState extends State<ArtistsAlbumPage> {
                             return DeleteConfirmationDialog(
                               title:
                                   'Are you sure you want to delete this album?',
-                              content:
-                                  'Deleting it will erase all of your songs.',
                               onConfirm: () {
                                 Navigator.pop(context);
                               },
@@ -231,7 +237,7 @@ class ArtistsAlbumPageState extends State<ArtistsAlbumPage> {
                     audioManager: _audioManager,
                     songNumber: index + 1,
                     songName: widget.album.songs[index].name,
-                    artistName: widget.album.songs[index].album.artist.name,
+                    artistName: widget.album.songs[index].toString(),
                     imagePath: widget.album.albumArt,
                     songFilePath: widget.album.songs[index].filePath,
                   ),
