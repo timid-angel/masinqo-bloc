@@ -14,6 +14,7 @@ class ArtistAuthState {
 }
 
 class ListenerAuthState {
+  String token = "";
   List<String> errors = [];
   bool isLoading = false;
 

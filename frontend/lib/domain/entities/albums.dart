@@ -20,28 +20,31 @@ class Album {
   });
 
   factory Album.fromJson(Map<String, dynamic> json) {
-    return Album(
+    final r = Album(
       title: json['title'] ?? '',
-      albumArt: json['albumArt'] ?? '',
-      description: json['description'],
+      albumArt: json['albumArtPath'] ?? '',
+      description: json['description'] ?? '',
       genre: json['genre'] ?? '',
-      date: DateTime.parse(json['date'] ?? DateTime.now().toString()),
-      artist: json['artist'],
+      date: DateTime.parse(json['date'] ?? DateTime.now()),
+      artist: json['artist'] ?? "",
       songs: (json['songs'] as List<dynamic>)
           .map((songJson) => Song.fromJson(songJson))
           .toList(),
     );
+    print("Ad");
+    print(r);
+    return r;
   }
 
   Map<String, dynamic> toJson() {
     return {
       'title': title,
-      'albumArt': albumArt,
+      'albumArtPath': albumArt,
       'description': description,
       'genre': genre,
-      'date': date,
+      'date': date.toIso8601String(),
       'artist': artist,
-      'songs': songs,
+      'songs': songs.map((song) => song.toJson()).toList(),
     };
   }
 }

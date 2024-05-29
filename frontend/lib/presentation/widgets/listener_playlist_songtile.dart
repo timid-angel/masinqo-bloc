@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:masinqo/temp/models/songs.dart';
+import 'package:masinqo/domain/entities/songs.dart';
+
 import '../../temp/audio_manager/listener_audio_manager.dart';
 
 class PlaylistSongTileWidget extends StatelessWidget {
@@ -35,10 +36,10 @@ class PlaylistSongTileWidget extends StatelessWidget {
                   height: deviceWidth * 0.14,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(5),
-                    image: DecorationImage(
-                      fit: BoxFit.cover,
-                      image: AssetImage(song.album.albumArt),
-                    ),
+                    // image: DecorationImage(
+                    //   fit: BoxFit.cover,
+                    //   image: AssetImage(song.album.albumArt),
+                    // ),
                   ),
                 ),
                 const SizedBox(width: 15),
@@ -58,8 +59,13 @@ class PlaylistSongTileWidget extends StatelessWidget {
                     ),
                     SizedBox(
                       width: deviceWidth * 0.52,
+                      // child: Text(
+                      //   song.album.artist.name,
+                      //   maxLines: 1,
+                      //   overflow: TextOverflow.ellipsis,
+                      // ),
                       child: Text(
-                        song.album.artist.name,
+                        song.toString(),
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
                       ),
