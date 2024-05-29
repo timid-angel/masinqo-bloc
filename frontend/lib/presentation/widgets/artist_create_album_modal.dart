@@ -5,18 +5,33 @@ import 'dart:io';
 import 'package:masinqo/application/artists/create_album/create_albums_bloc.dart';
 import 'package:masinqo/application/artists/create_album/create_albums_event.dart';
 import 'package:masinqo/application/artists/create_album/create_albums_state.dart';
+import 'package:masinqo/application/auth/artist_auth_bloc.dart';
 import 'package:masinqo/infrastructure/artists/artists_repository.dart';
+import 'package:masinqo/application/auth/auth_state.dart';
 
-class CreateAlbumModal extends StatefulWidget {
-  final String token;
-
-  const CreateAlbumModal({Key? key, required this.token}) : super(key: key);
-
+class CreateAlbumModal extends StatelessWidget {
   @override
-  CreateAlbumModalState createState() => CreateAlbumModalState();
+  Widget build(BuildContext context) {
+    return BlocBuilder<ArtistAuthBloc, ArtistAuthState>(
+      builder: (context, authState) {
+        return BlocProvider(
+          create: (context) => AlbumBloc(
+            artistsRepository: ArtistsRepository(token: authState.token),
+            artistAuthBloc: context.read<ArtistAuthBloc>(),
+          ),
+          child: _CreateAlbumModalContent(),
+        );
+      },
+    );
+  }
 }
 
-class CreateAlbumModalState extends State<CreateAlbumModal> {
+class _CreateAlbumModalContent extends StatefulWidget {
+  @override
+  _CreateAlbumModalContentState createState() => _CreateAlbumModalContentState();
+}
+
+class _CreateAlbumModalContentState extends State<_CreateAlbumModalContent> {
   late TextEditingController _nameController;
   late TextEditingController _genreController;
   late TextEditingController _descriptionController;
@@ -31,7 +46,7 @@ class CreateAlbumModalState extends State<CreateAlbumModal> {
     _genreController = TextEditingController();
     _descriptionController = TextEditingController();
     _type = 'Album';
-    _albumBloc = AlbumBloc(artistsRepository: ArtistsRepository(token: widget.token)); 
+    _albumBloc = context.read<AlbumBloc>();
   }
 
   @override
@@ -54,69 +69,67 @@ class CreateAlbumModalState extends State<CreateAlbumModal> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => _albumBloc,
-      child: BlocListener<AlbumBloc, AlbumState>(
-        listener: (context, state) {
-          if (state is AlbumSuccess) {
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(content: Text(state.message)),
-            );
-          } else if (state is AlbumFailure) {
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(content: Text(state.errorMessage)),
-            );
-          }
-        },
-        child: AlertDialog(
-          backgroundColor: Colors.black,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(10),
-            side: const BorderSide(
-              color: Colors.white,
-              width: 1,
-            ),
+    return BlocListener<AlbumBloc, AlbumState>(
+      listener: (context, state) {
+        if (state is AlbumSuccess) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(content: Text(state.message)),
+          );
+        } else if (state is AlbumFailure) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(content: Text(state.errorMessage)),
+          );
+        }
+      },
+      child: AlertDialog(
+        backgroundColor: Colors.black,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(10),
+          side: const BorderSide(
+            color: Colors.white,
+            width: 1,
           ),
-          content: SingleChildScrollView(
-            child: SizedBox(
-              width: double.maxFinite,
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      const Text(
-                        'Create Album',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 18,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                      IconButton(
-                        onPressed: () {},
-                        icon: const Icon(
-                          Icons.add_circle,
-                          color: Color(0xFF39DCF3),
-                        ),
-                      ),
-                    ],
-                  ),
-                  const SizedBox(height: 10),
-                  TextField(
-                    controller: _nameController,
-                    decoration: const InputDecoration(
-                      hintText: 'Album name',
-                      hintStyle: TextStyle(color: Colors.grey),
-                      focusedBorder: UnderlineInputBorder(
-                        borderSide: BorderSide(color: Color(0xFF39DCF3)),
+        ),
+        content: SingleChildScrollView(
+          child: SizedBox(
+            width: double.maxFinite,
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    const Text(
+                      'Create Album',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
                       ),
                     ),
-                    style: const TextStyle(color: Colors.white),
+                    IconButton(
+                      onPressed: () {},
+                      icon: const Icon(
+                        Icons.add_circle,
+                        color: Color(0xFF39DCF3),
+                      ),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 10),
+                TextField(
+                  controller: _nameController,
+                  decoration: const InputDecoration(
+                    hintText: 'Album name',
+                    hintStyle: TextStyle(color: Colors.grey),
+                    focusedBorder: UnderlineInputBorder(
+                      borderSide: BorderSide(color: Color(0xFF39DCF3)),
+                    ),
                   ),
-                  const SizedBox(height: 10),
+                  style: const TextStyle(color: Colors.white),
+                ),
+                 const SizedBox(height: 10),
                   TextField(
                     controller: _genreController,
                     decoration: const InputDecoration(
@@ -206,8 +219,7 @@ class CreateAlbumModalState extends State<CreateAlbumModal> {
                       style: TextStyle(color: Colors.black),
                     ),
                   ),
-                ],
-              ),
+              ],
             ),
           ),
         ),

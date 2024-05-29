@@ -7,6 +7,7 @@ class AdminAuthState {
 }
 
 class ArtistAuthState {
+  String token = "";
   List<String> errors = [];
   bool isLoading = false;
 

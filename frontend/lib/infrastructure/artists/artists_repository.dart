@@ -1,17 +1,15 @@
 import 'dart:convert';
 import 'package:dartz/dartz.dart';
-import 'package:masinqo/core.dart';
 import 'package:http/http.dart' as http;
+import 'package:masinqo/core.dart';
 import 'package:masinqo/domain/artists/artists_repository_interface.dart';
 import 'package:masinqo/infrastructure/artists/artists_data_source.dart';
 import 'package:masinqo/infrastructure/artists/artists_dto.dart';
 import 'package:masinqo/infrastructure/artists/artists_failure.dart';
 import 'package:masinqo/infrastructure/artists/artists_success.dart';
-import 'package:cookie_jar/cookie_jar.dart';
 
 class ArtistsRepository implements ArtistsRepositoryInterface {
   final String token;
-  final CookieJar cookieJar = CookieJar();
 
   ArtistsRepository({required this.token});
 
@@ -40,7 +38,6 @@ class ArtistsRepository implements ArtistsRepositoryInterface {
     http.StreamedResponse response = await ArtistsDataSource(token: token).addAlbum(
       body,
       albumDto.albumArt,
-      cookieJar, 
     );
 
     if (response.statusCode != 201) {

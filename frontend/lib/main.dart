@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:masinqo/application/auth/listener_auth_bloc.dart';
+import 'package:masinqo/application/auth/artist_auth_bloc.dart';
 import 'package:masinqo/domain/entities/playlist.dart';
 import 'package:masinqo/presentation/core/theme/app_theme_data.dart';
 import 'package:masinqo/presentation/screens/admin_home.dart';
@@ -35,10 +36,15 @@ final _router = GoRouter(
       builder: (context, state) => SignupWidget(),
     ),
     GoRoute(
-      name: "artist",
-      path: '/artist',
-      builder: (context, state) => const ArtistHomePage(albumData: []),
-    ),
+  name: "artist",
+  path: '/artist:token', 
+  builder: (context, state) => ArtistHomePage(
+    albumData: [],
+    token: state.pathParameters["token"] as String,
+  ),
+),
+
+
     GoRoute(
       name: "listener",
       path: '/listener:token',
@@ -116,9 +122,11 @@ void main() {
   runApp(
     MultiBlocProvider(
       providers: [
-        // to reloccate later
         BlocProvider<ListenerAuthBloc>(
           create: (context) => ListenerAuthBloc(),
+        ),
+         BlocProvider<ArtistAuthBloc>(
+          create: (context) => ArtistAuthBloc(),
         ),
       ],
       child: MaterialApp.router(
