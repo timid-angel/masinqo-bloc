@@ -1,3 +1,5 @@
 abstract class Success {}
 
-abstract class Failure {}
+abstract class Failure {
+  String? get message => null;
+}

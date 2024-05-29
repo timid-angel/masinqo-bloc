@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:masinqo/temp/models/playlist.dart';
+import 'package:masinqo/domain/entities/playlist.dart';
 
 class LibraryPlaylistCard extends StatelessWidget {
   const LibraryPlaylistCard({
@@ -18,18 +18,18 @@ class LibraryPlaylistCard extends StatelessWidget {
     String firstArt = "assets/images/black.png";
     String secondArt = "assets/images/black.png";
 
-    if (playlist.songs.length >= 2) {
-      firstArt = playlist.songs[0].album.albumArt;
-      secondArt = playlist.songs[1].album.albumArt;
-      for (int i = 0; i < playlist.songs.length; i++) {
-        if (playlist.songs[i].album.albumArt != firstArt) {
-          secondArt = playlist.songs[i].album.albumArt;
-          break;
-        }
-      }
-    } else if (playlist.songs.length == 1) {
-      firstArt = playlist.songs[0].album.albumArt;
-    }
+    // if (playlist.songs.length >= 2) {
+    //   firstArt = playlist.songs[0].album.albumArt;
+    //   secondArt = playlist.songs[1].album.albumArt;
+    //   for (int i = 0; i < playlist.songs.length; i++) {
+    //     if (playlist.songs[i].album.albumArt != firstArt) {
+    //       secondArt = playlist.songs[i].album.albumArt;
+    //       break;
+    //     }
+    //   }
+    // } else if (playlist.songs.length == 1) {
+    //   firstArt = playlist.songs[0].album.albumArt;
+    // }
 
     banner = Row(
       children: [

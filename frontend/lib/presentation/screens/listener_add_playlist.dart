@@ -1,13 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:masinqo/application/listener/listener_playlist/playlist_bloc.dart';
+import 'package:masinqo/application/listener/listener_playlist/playlist_events.dart';
 import 'package:masinqo/presentation/core/theme/app_colors.dart';
 import 'package:masinqo/presentation/widgets/modal_button.dart';
 import 'package:masinqo/presentation/widgets/modal_heading.dart';
 import 'package:masinqo/presentation/widgets/modal_textfield.dart';
 
 class AddPlaylistWidget extends StatelessWidget {
+  final String token;
   final TextEditingController nameController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
-  AddPlaylistWidget({super.key});
+  AddPlaylistWidget({super.key, required this.token});
 
   @override
   Widget build(BuildContext context) {
@@ -60,6 +64,12 @@ class AddPlaylistWidget extends StatelessWidget {
                           text: 'Create Playlist',
                           onPressed: () {
                             if (_formKey.currentState!.validate()) {
+                              BlocProvider.of<PlaylistBloc>(context).add(
+                                CreatePlaylists(
+                                  token: token,
+                                  name: nameController.text,
+                                ),
+                              );
                               ScaffoldMessenger.of(context).showSnackBar(
                                 const SnackBar(
                                   backgroundColor: Colors.green,

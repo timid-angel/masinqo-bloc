@@ -20,6 +20,7 @@ class ListenerAuthBloc extends Bloc<ListenerAuthEvent, ListenerAuthState> {
         ListenerAuthState newState = ListenerAuthState();
         await SecureStorageService().writeToken(r.token);
         token = r.token; // Store token securely
+        newState.token = r.token;
         emit(newState);
       });
     });

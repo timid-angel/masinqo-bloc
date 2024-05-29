@@ -15,3 +15,7 @@ class GetSongsSuccess extends ArtistsSuccessImpl {
 
   GetSongsSuccess({required this.songs});
 }
+
+
+
+

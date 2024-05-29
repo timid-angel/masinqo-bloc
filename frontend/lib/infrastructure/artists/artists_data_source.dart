@@ -1,3 +1,5 @@
+import 'dart:async';
+import 'package:cookie_jar/cookie_jar.dart';
 import 'package:http/http.dart' as http;
 import 'package:masinqo/infrastructure/core/url.dart';
 
@@ -10,7 +12,7 @@ class ArtistsDataSource {
       Map<String, String> body, String filePath) async {
     var headers = {'Cookie': 'accessToken=$token'};
     var request = http.MultipartRequest(
-        'PATCH', Uri.parse('http://localhost:3000/artists/update'));
+        'PATCH', Uri.parse('$url/artists/update'));
 
     request.fields.addAll(body);
     request.headers.addAll(headers);
@@ -32,19 +34,31 @@ class ArtistsDataSource {
   }
 
   Future<http.StreamedResponse> addAlbum(
-      Map<String, String> body, String albumArt) async {
+      Map<String, String> body, String albumArt, CookieJar? cookieJar) async {
     var request = http.MultipartRequest('POST', Uri.parse("$url/albums"));
     request.fields.addAll(body);
 
     final httpImage = await http.MultipartFile.fromPath("albumArt", albumArt);
 
     request.files.add(httpImage);
-    request.headers["Cookie"] = "accessToken=$token";
+if (cookieJar != null) {
+  final uri = Uri.parse("$url/albums");
+  final cookies = await cookieJar.loadForRequest(uri); // await here
+  final cookieString = cookies.map((cookie) => '${cookie.name}=${cookie.value}').join('; ');
+  request.headers['Cookie'] = cookieString;
+} else {
+  // If no CookieJar is provided, use the accessToken
+  request.headers["Cookie"] = "accessToken=$token";
+}
+
+
+
     request.headers["Content-Type"] = 'multipart/form-data';
     http.StreamedResponse response = await request.send();
 
     return response;
   }
+
 
   Future<http.Response> updateAlbum(
       String albumId, Map<String, String> body) async {

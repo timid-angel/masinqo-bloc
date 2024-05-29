@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:masinqo/temp/models/albums.dart';
+import 'package:masinqo/domain/entities/albums.dart';
+
 import '../widgets/artist_add_song_modal.dart';
 import '../widgets/artist_edit_album_modal.dart';
 import '../widgets/artist_drawer.dart';
@@ -229,7 +230,7 @@ class ArtistsAlbumPageState extends State<ArtistsAlbumPage> {
                     audioManager: _audioManager,
                     songNumber: index + 1,
                     songName: widget.album.songs[index].name,
-                    artistName: widget.album.songs[index].album.artist.name,
+                    artistName: widget.album.songs[index].toString(),
                     imagePath: widget.album.albumArt,
                     songFilePath: widget.album.songs[index].filePath,
                   ),

@@ -8,8 +8,18 @@ class ListenerPlaylistRepository implements PlaylistRepository {
   ListenerPlaylistRepository(this.listenerPlaylistService);
 
   @override
-  Future<List<Playlist>> getPlaylists() async {
-    return await listenerPlaylistService.getPlaylists();
+  Future<List<Playlist>> getPlaylists(String token) async {
+    return await listenerPlaylistService.getPlaylists(token);
+  }
+
+  @override
+  Future<void> addPlaylist(String playlistName, String token) async {
+    await listenerPlaylistService.addPlaylist(playlistName, token);
+  }
+
+  @override
+  Future<void> editPlaylist(String id, String name, String token) async {
+    await listenerPlaylistService.editPlaylist(id, name, token);
   }
 }
 

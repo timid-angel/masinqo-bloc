@@ -9,13 +9,13 @@ import 'package:masinqo/infrastructure/admin/admin_artists/admin_artists_failure
 import 'package:masinqo/infrastructure/admin/admin_artists/admin_artists_success.dart';
 
 class AdminArtistsRepository implements AdminArtistRepositoryInterface {
-  final String token;
+  final String? token;
 
   AdminArtistsRepository({required this.token});
   @override
   Future<Either<ArtistFetchFailure, ArtistFetchSuccess>> getArtists() async {
     http.Response response =
-        await AdminArtistsDatasource(token: token).getArtists();
+        await AdminArtistsDatasource(token: token!).getArtists();
 
     if (!(response.statusCode == 200)) {
       final Map res = jsonDecode(response.body);
@@ -43,7 +43,7 @@ class AdminArtistsRepository implements AdminArtistRepositoryInterface {
   Future<Either<ArtistDeleteFailure, ArtistDeleteSuccess>> deleteArtist(
       ArtistID artist) async {
     http.Response response =
-        await AdminArtistsDatasource(token: token).deleteArtist(artist.id);
+        await AdminArtistsDatasource(token: token!).deleteArtist(artist.id);
 
     if (!(response.statusCode == 200)) {
       final Map res = jsonDecode(response.body);
@@ -58,7 +58,7 @@ class AdminArtistsRepository implements AdminArtistRepositoryInterface {
       changeStatus(ArtistStatus artist) async {
     String op = artist.newBannedStatus ? "unban" : "ban";
     http.Response response =
-        await AdminArtistsDatasource(token: token).changeStatus(op, artist.id);
+        await AdminArtistsDatasource(token: token!).changeStatus(op, artist.id);
 
     if (response.statusCode > 299) {
       final Map res = jsonDecode(response.body);

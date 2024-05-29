@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:masinqo/temp/models/playlist.dart';
+import 'package:masinqo/domain/entities/playlist.dart';
 
 class PlaylistAlbumArt extends StatelessWidget {
   const PlaylistAlbumArt({
@@ -19,10 +19,10 @@ class PlaylistAlbumArt extends StatelessWidget {
       margin: const EdgeInsets.symmetric(vertical: 20),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(7),
-        image: DecorationImage(
-          fit: BoxFit.cover,
-          image: AssetImage(playlist.songs[1].album.albumArt),
-        ),
+        // image: DecorationImage(
+        //   fit: BoxFit.cover,
+        //   image: AssetImage(playlist.songs[1].album.albumArt),
+        // ),
       ),
     );
   }

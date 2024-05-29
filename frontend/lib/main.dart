@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:masinqo/application/auth/listener_auth_bloc.dart';
+import 'package:masinqo/domain/entities/playlist.dart';
 import 'package:masinqo/presentation/core/theme/app_theme_data.dart';
 import 'package:masinqo/presentation/screens/admin_home.dart';
 import 'package:masinqo/presentation/screens/admin_login.dart';
@@ -13,9 +16,10 @@ import 'package:masinqo/presentation/screens/listener_profile.dart';
 import 'package:masinqo/presentation/screens/login.dart';
 import 'package:masinqo/presentation/screens/signup.dart';
 import 'package:go_router/go_router.dart';
-import 'package:masinqo/temp/models/albums.dart';
-import 'package:masinqo/temp/models/playlist.dart';
+
 import 'package:masinqo/temp/models/route_models/listener_homepage_data.dart';
+
+import 'domain/entities/albums.dart';
 
 final _router = GoRouter(
   initialLocation: "/login",
@@ -28,7 +32,7 @@ final _router = GoRouter(
     GoRoute(
       name: "signup",
       path: '/signup',
-      builder: (context, state) =>  SignupWidget(),
+      builder: (context, state) => SignupWidget(),
     ),
     GoRoute(
       name: "artist",
@@ -37,10 +41,13 @@ final _router = GoRouter(
     ),
     GoRoute(
       name: "listener",
-      path: '/listener',
+      path: '/listener:token',
       builder: (context, state) => ListenerWidget(
-          arguments:
-              ListenerHomePageData(albums: [], favorites: [], playlists: [])),
+          arguments: ListenerHomePageData(
+              albums: [],
+              favorites: [],
+              playlists: [],
+              token: state.pathParameters["token"] as String)),
     ),
     GoRoute(
       name: "admin",
@@ -82,7 +89,10 @@ final _router = GoRouter(
     GoRoute(
       name: "listener_new_playlist",
       path: '/listener/new_playlist',
-      builder: (context, state) => AddPlaylistWidget(),
+      builder: (context, state) {
+        final token = state.extra as String;
+        return AddPlaylistWidget(token: token);
+      },
     ),
     GoRoute(
       name: "artist_profile",
@@ -104,9 +114,17 @@ final _router = GoRouter(
 
 void main() {
   runApp(
-    MaterialApp.router(
-        debugShowCheckedModeBanner: false,
-        theme: AppThemeData.listnerTheme,
-        routerConfig: _router),
+    MultiBlocProvider(
+      providers: [
+        // to reloccate later
+        BlocProvider<ListenerAuthBloc>(
+          create: (context) => ListenerAuthBloc(),
+        ),
+      ],
+      child: MaterialApp.router(
+          debugShowCheckedModeBanner: false,
+          theme: AppThemeData.listnerTheme,
+          routerConfig: _router),
+    ),
   );
 }

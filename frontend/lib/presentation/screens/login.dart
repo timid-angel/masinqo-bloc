@@ -78,7 +78,8 @@ class LoginWidget extends StatelessWidget {
               if (listenerAuthBloc.state.errors.isEmpty &&
                   !listenerAuthBloc.state.isLoading &&
                   listenerAuthBloc.token.isNotEmpty) {
-                context.go("/listener");
+                context.goNamed("listener",
+                    pathParameters: {"token": state.token});
               }
 
               if (listenerAuthBloc.state.errors.isNotEmpty) {
