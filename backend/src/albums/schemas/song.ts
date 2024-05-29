@@ -1,4 +1,4 @@
 export interface Song {
-    name: string,
-    filePath: string
+  name: string;
+  filePath: string;
 }
