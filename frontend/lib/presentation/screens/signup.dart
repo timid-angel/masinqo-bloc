@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import '../widgets/login_brand.dart';
 import '../core/theme/app_colors.dart';
-import '../widgets/admin_signup_textfield.dart';
+import '../widgets/signup_textfield.dart';
 import 'package:masinqo/application/auth/signup/artist_signup/artist_signup_bloc.dart';
 import 'package:masinqo/application/auth/signup/artist_signup/artist_signup_event.dart';
 import 'package:masinqo/application/auth/signup/artist_signup/artist_signup_state.dart';

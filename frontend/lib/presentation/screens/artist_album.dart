@@ -179,8 +179,6 @@ class ArtistsAlbumPageState extends State<ArtistsAlbumPage> {
                             return DeleteConfirmationDialog(
                               title:
                                   'Are you sure you want to delete this album?',
-                              content:
-                                  'Deleting it will erase all of your songs.',
                               onConfirm: () {
                                 Navigator.pop(context);
                               },
