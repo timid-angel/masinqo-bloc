@@ -89,12 +89,12 @@ void main() {
   MockArtistsRepository mockArtistsRepository = MockArtistsRepository();
 
   final testAlbumDto = CreateAlbumDTO(
-    title: 'Test Title',
-    albumArt: 'Test Album Art',
-    genre: 'Test Genre',
-    description: 'Test Description',
-    type: 'Test Type',
-  );
+      title: 'Test Title',
+      albumArt: 'Test Album Art',
+      genre: 'Test Genre',
+      description: 'Test Description',
+      type: 'Test Type',
+      token: 'valid_token');
 
   test('should add album when fields are not empty', () async {
     when(mockArtistsRepository.addAlbum(testAlbumDto)).thenAnswer(

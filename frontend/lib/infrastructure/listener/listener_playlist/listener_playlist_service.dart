@@ -13,7 +13,6 @@ class ListenerPlaylistService {
     final response = await http.get(Uri.parse('$baseUrl/playlists'), headers: {
       "Cookie": token,
     });
-    print(response.body);
 
     // print(response.body);
     if (response.statusCode == 200) {
