@@ -285,6 +285,7 @@ export class AlbumsService {
     album.songs.push({
       name: song.name,
       filePath: '',
+      albumArt: album.albumArtPath,
     });
     await album.save();
     return await this.uploadSong(id, file, album.songs.length - 1);
@@ -344,6 +345,7 @@ export class AlbumsService {
         document.songs[songIndex] = {
           name: document.songs[songIndex].name,
           filePath: songPath,
+          albumArt: document.albumArtPath,
         };
         await document.save();
         return document.songs;
