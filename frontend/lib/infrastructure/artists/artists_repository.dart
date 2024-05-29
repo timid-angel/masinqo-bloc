@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:dartz/dartz.dart';
 import 'package:masinqo/core.dart';
 import 'package:http/http.dart' as http;
