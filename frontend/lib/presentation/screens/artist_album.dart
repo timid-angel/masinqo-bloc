@@ -85,12 +85,19 @@ class ArtistsAlbumPageState extends State<ArtistsAlbumPage> {
                 borderRadius: BorderRadius.circular(20.0),
                 child: Stack(
                   children: [
-                    Image.asset(
-                      widget.album.albumArt,
-                      fit: BoxFit.cover,
-                      width: double.infinity,
-                      height: double.infinity,
-                    ),
+                    widget.album.albumArt.isNotEmpty
+                        ? Image.asset(
+                            widget.album.albumArt,
+                            fit: BoxFit.cover,
+                            width: double.infinity,
+                            height: double.infinity,
+                          )
+                        : Image.asset(
+                            "assets/images/black.png",
+                            fit: BoxFit.cover,
+                            width: double.infinity,
+                            height: double.infinity,
+                          ),
                     Positioned(
                       bottom: 10.0,
                       right: 10.0,

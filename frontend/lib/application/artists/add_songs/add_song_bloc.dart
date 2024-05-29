@@ -2,7 +2,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:dartz/dartz.dart';
 import 'package:masinqo/core.dart';
 import 'package:masinqo/domain/artists/artists_repository_interface.dart';
-import 'package:masinqo/infrastructure/artists/artists_dto.dart';
 import './add_songs_event.dart';
 import './add_songs_state.dart';
 
@@ -11,7 +10,6 @@ class SongBloc extends Bloc<SongEvent, SongState> {
 
   SongBloc({required this.artistsRepository}) : super(SongInitial());
 
- 
   Stream<SongState> mapEventToState(SongEvent event) async* {
     if (event is AddSongEvent) {
       yield* _mapAddSongEventToState(event);
@@ -21,12 +19,10 @@ class SongBloc extends Bloc<SongEvent, SongState> {
   Stream<SongState> _mapAddSongEventToState(AddSongEvent event) async* {
     yield SongLoading();
 
-    final createSongDto = CreateSongDTO(
-      songName: event.songName,
-      albumId: event.albumId,
-    );
+    final createSongDto = event.songDto;
 
-    final Either<Failure, Success> result = await artistsRepository.addSong(createSongDto, event.songFilePath);
+    final Either<Failure, Success> result =
+        await artistsRepository.addSong(createSongDto, event.songFilePath);
 
     yield* result.fold(
       (failure) async* {

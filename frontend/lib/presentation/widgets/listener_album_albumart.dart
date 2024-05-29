@@ -20,7 +20,9 @@ class AlbumArt extends StatelessWidget {
         borderRadius: BorderRadius.circular(7),
         image: DecorationImage(
           fit: BoxFit.cover,
-          image: AssetImage(albumArt),
+          image: albumArt.isNotEmpty
+              ? AssetImage(albumArt)
+              : const AssetImage("assets/images/black.png"),
         ),
       ),
     );

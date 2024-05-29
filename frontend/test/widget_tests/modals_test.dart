@@ -4,6 +4,7 @@ import 'package:masinqo/presentation/widgets/artist_add_song_modal.dart';
 import 'package:masinqo/presentation/widgets/artist_create_album_modal.dart';
 import 'package:masinqo/presentation/widgets/artist_edit_album_modal.dart';
 import 'package:masinqo/presentation/widgets/delete_confirmation_modal.dart';
+import 'package:masinqo/presentation/widgets/modal_heading.dart';
 
 void main() {
   group("Modals Test", () {
@@ -25,7 +26,8 @@ void main() {
   });
 
   testWidgets("Create Album Modal Test", (tester) async {
-    await tester.pumpWidget(const MaterialApp(home: CreateAlbumModal()));
+    await tester
+        .pumpWidget(const MaterialApp(home: CreateAlbumModal(token: "")));
 
     final titleFinder = find.text("Create Album");
     final hint1TextFinder = find.text("Album name");
@@ -88,5 +90,22 @@ void main() {
     expect(text2Finder, findsOneWidget);
     expect(titleFinder, findsOneWidget);
     expect(textBtnFinder, findsExactly(2));
+  });
+
+  testWidgets("Modal Heading Test", (tester) async {
+    await tester.pumpWidget(
+      const MaterialApp(
+        home: ModalHeadingWidget(
+          title: "test_title",
+          icon: Icons.text_snippet,
+        ),
+      ),
+    );
+
+    final titleFinder = find.text("test_title");
+    final iconFinder = find.byIcon(Icons.text_snippet);
+
+    expect(titleFinder, findsOneWidget);
+    expect(iconFinder, findsOneWidget);
   });
 }

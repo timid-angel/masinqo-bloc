@@ -3,7 +3,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:masinqo/presentation/widgets/artist_app_bar.dart';
 
 void main() {
-  testWidgets("Artist App Bart Test", (tester) async {
+  testWidgets("Artist App Bar Test", (tester) async {
     await tester.pumpWidget(
       const MaterialApp(
         home: Scaffold(body: ArtistAppBar()),
