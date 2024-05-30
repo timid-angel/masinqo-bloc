@@ -11,7 +11,6 @@ class ListenerPlaylistCollection {
     if (token.isEmpty) {
       throw Exception('Invalid token');
     }
-
     final res = await ListenerPlaylistRepository(ListenerPlaylistService())
         .getPlaylists(token);
     return res;
@@ -33,5 +32,14 @@ class ListenerPlaylistCollection {
 
     await ListenerPlaylistRepository(ListenerPlaylistService())
         .editPlaylist(id, name, token);
+  }
+
+  Future<void> deletePlaylist(String id, String token) async {
+    if (token.isEmpty) {
+      throw Exception('Invalid token');
+    }
+
+    await ListenerPlaylistRepository(ListenerPlaylistService())
+        .deletePlaylist(id, token);
   }
 }

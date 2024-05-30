@@ -1,6 +1,7 @@
 import 'package:masinqo/domain/entities/songs.dart';
 
 class Playlist {
+  String? id;
   String name;
   DateTime creationDate;
   String description;
@@ -8,6 +9,7 @@ class Playlist {
   List<Song> songs;
 
   Playlist({
+    required this.id,
     required this.name,
     required this.creationDate,
     required this.owner,
@@ -16,7 +18,9 @@ class Playlist {
   });
 
   factory Playlist.fromJson(Map<String, dynamic> json) {
+    // print("form json ${json['_id']}");
     return Playlist(
+      id: json['_id'] ?? '',
       name: json['name'] ?? '',
       creationDate:
           DateTime.parse(json['creationDate'] ?? DateTime.now().toString()),
@@ -30,6 +34,7 @@ class Playlist {
 
   Map<String, dynamic> toJson() {
     return {
+      'id': id,
       'name': name,
       'creationDate': creationDate,
       'owner': owner,

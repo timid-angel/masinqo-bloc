@@ -21,6 +21,7 @@ class PlaylistBloc extends Bloc<PlaylistEvent, PlaylistState> {
     });
 
     on<CreatePlaylists>((event, emit) async {
+      // print("event name is ${event.name}");
       try {
         await playlistRepository.addPlaylist(event.name, event.token);
         final playlists = await playlistRepository.getPlaylists(event.token);
@@ -31,9 +32,21 @@ class PlaylistBloc extends Bloc<PlaylistEvent, PlaylistState> {
     });
 
     on<EditPlaylists>((event, emit) async {
+      // print("event name is ${event.name}");
+      // print(event.id);
       try {
         await playlistRepository.editPlaylist(
             event.id, event.name, event.token);
+        final playlists = await playlistRepository.getPlaylists(event.token);
+        emit(LoadedPlaylist(playlists));
+      } catch (e) {
+        emit(ErrorPlaylist(e.toString()));
+      }
+    });
+
+    on<DeletePlaylists>((event, emit) async {
+      try {
+        await playlistRepository.deletePlaylist(event.id, event.token);
         final playlists = await playlistRepository.getPlaylists(event.token);
         emit(LoadedPlaylist(playlists));
       } catch (e) {

@@ -1,6 +1,7 @@
 import 'package:masinqo/domain/entities/songs.dart';
 
 class Album {
+  final String id;
   final String title;
   final String albumArt;
   final List<Song> songs;
@@ -8,9 +9,9 @@ class Album {
   final String description;
   final String genre;
   final DateTime date;
-  final String id;
 
   Album({
+    required this.id,
     required this.title,
     required this.albumArt,
     required this.songs,
@@ -18,21 +19,21 @@ class Album {
     required this.genre,
     required this.date,
     required this.artist,
-    required this.id,
   });
 
   factory Album.fromJson(Map<String, dynamic> json) {
     final r = Album(
-        title: json['title'] ?? '',
-        albumArt: json['albumArtPath'] ?? '',
-        description: json['description'] ?? '',
-        genre: json['genre'] ?? '',
-        date: DateTime.parse(json['date'] ?? DateTime.now()),
-        artist: json['artist'] ?? "",
-        songs: (json['songs'] as List<dynamic>)
-            .map((songJson) => Song.fromJson(songJson))
-            .toList(),
-        id: json["_id"] ?? "");
+      id: json['_id'] ?? '',
+      title: json['title'] ?? '',
+      albumArt: json['albumArtPath'] ?? '',
+      description: json['description'] ?? '',
+      genre: json['genre'] ?? '',
+      date: DateTime.parse(json['date'] ?? DateTime.now()),
+      artist: json['artist'] ?? "",
+      songs: (json['songs'] as List<dynamic>)
+          .map((songJson) => Song.fromJson(songJson))
+          .toList(),
+    );
     // print("Ad");
     // print(r);
     return r;
@@ -40,6 +41,7 @@ class Album {
 
   Map<String, dynamic> toJson() {
     return {
+      'id': id,
       'title': title,
       'albumArtPath': albumArt,
       'description': description,

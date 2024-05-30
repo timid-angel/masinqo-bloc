@@ -64,7 +64,9 @@ class _ListenerWidgetState extends State<ListenerWidget> {
             },
             body: TabBarView(
               children: [
-                const ListenerHome(),
+                ListenerHome(
+                  token: token,
+                ),
                 ListenerFavorites(
                   token: token,
                 ),

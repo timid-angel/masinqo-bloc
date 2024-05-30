@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:masinqo/application/listener/listener_favorite/favorite_bloc.dart';
 import 'package:masinqo/application/listener/listener_favorite/favorite_events.dart';
 import 'package:masinqo/application/listener/listener_favorite/favorite_state.dart';
+import 'package:masinqo/presentation/screens/listener_home.dart';
 import 'package:masinqo/presentation/widgets/listener_favorite_album.dart';
 
 class ListenerFavorites extends StatelessWidget {
@@ -46,7 +47,14 @@ class ListenerFavorites extends StatelessWidget {
                           .map(
                             (a) => GestureDetector(
                               onTap: () {
-                                context.pushNamed("listener_album", extra: a);
+                                final arguments = AlbumNavigationArgument(
+                                  token: token,
+                                  album: a,
+                                  favoriteBloc:
+                                      BlocProvider.of<FavoriteBloc>(context),
+                                );
+                                context.pushNamed("listener_album",
+                                    extra: arguments);
                               },
                               child: ListenerFavoriteAlbumCard(album: a),
                             ),

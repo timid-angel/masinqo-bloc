@@ -4,19 +4,26 @@ import 'package:go_router/go_router.dart';
 import 'package:masinqo/application/listener/listener_album/album_bloc.dart';
 import 'package:masinqo/application/listener/listener_album/album_events.dart';
 import 'package:masinqo/application/listener/listener_album/album_state.dart';
+import 'package:masinqo/application/listener/listener_favorite/favorite_bloc.dart';
+import 'package:masinqo/application/listener/listener_favorite/favorite_events.dart';
+
+import 'package:masinqo/domain/entities/albums.dart';
 
 import 'package:masinqo/presentation/widgets/listener_home_album.dart';
 
 class ListenerHome extends StatelessWidget {
   const ListenerHome({
     super.key,
+    required this.token,
   });
-
+  final String token;
   // final List<Album> albums;
 
   @override
   Widget build(BuildContext context) {
     BlocProvider.of<AlbumBloc>(context).add(FetchAlbums());
+    BlocProvider.of<FavoriteBloc>(context).add(FetchFavorites(token: token));
+
     return SafeArea(
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 2),
@@ -41,8 +48,14 @@ class ListenerHome extends StatelessWidget {
                       itemCount: state.albums.length,
                       itemBuilder: (context, index) => GestureDetector(
                         onTap: () {
-                          context.pushNamed("listener_album",
-                              extra: state.albums[index]);
+                          final arguments = AlbumNavigationArgument(
+                            token: token,
+                            album: state.albums[index],
+                            favoriteBloc:
+                                BlocProvider.of<FavoriteBloc>(context),
+                          );
+
+                          context.pushNamed("listener_album", extra: arguments);
                         },
                         child: ListenerHomeAlbumCard(
                           album: state.albums[index],
@@ -63,4 +76,16 @@ class ListenerHome extends StatelessWidget {
       ),
     );
   }
+}
+
+class AlbumNavigationArgument {
+  final String token;
+  final Album album;
+  final FavoriteBloc favoriteBloc;
+
+  AlbumNavigationArgument({
+    required this.token,
+    required this.album,
+    required this.favoriteBloc,
+  });
 }

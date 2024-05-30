@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:masinqo/application/listener/listener_playlist/playlist_bloc.dart';
 import 'package:masinqo/application/listener/listener_playlist/playlist_events.dart';
 import 'package:masinqo/application/listener/listener_playlist/playlist_state.dart';
+import 'package:masinqo/domain/entities/playlist.dart';
 import 'package:masinqo/presentation/core/theme/app_colors.dart';
 import 'package:masinqo/presentation/widgets/listener_library_playlist.dart';
 
@@ -36,7 +37,11 @@ class ListenerLibrary extends StatelessWidget {
                   ),
                   IconButton(
                     onPressed: () {
-                      context.pushNamed("listener_new_playlist", extra: token);
+                      final arguments = PlaylistNavigationExtras(
+                          token: token,
+                          playlistBloc: BlocProvider.of<PlaylistBloc>(context));
+                      context.pushNamed("listener_new_playlist",
+                          extra: arguments);
                     },
                     icon: const Icon(Icons.add_circle,
                         color: AppColors.listener2),
@@ -59,8 +64,13 @@ class ListenerLibrary extends StatelessWidget {
                           .map(
                             (p) => GestureDetector(
                               onTap: () {
+                                final arguments = PlaylistNavigationArgument(
+                                    token: token,
+                                    playlist: p,
+                                    playlistBloc:
+                                        BlocProvider.of<PlaylistBloc>(context));
                                 context.pushNamed("listener_playlist",
-                                    extra: p);
+                                    extra: arguments);
                               },
                               child: LibraryPlaylistCard(playlist: p),
                             ),
@@ -82,4 +92,22 @@ class ListenerLibrary extends StatelessWidget {
       ),
     );
   }
+}
+
+class PlaylistNavigationExtras {
+  final String token;
+  final PlaylistBloc playlistBloc;
+
+  PlaylistNavigationExtras({required this.token, required this.playlistBloc});
+}
+
+class PlaylistNavigationArgument {
+  final String token;
+  final Playlist playlist;
+  final PlaylistBloc playlistBloc;
+
+  PlaylistNavigationArgument(
+      {required this.token,
+      required this.playlist,
+      required this.playlistBloc});
 }
