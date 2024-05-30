@@ -28,7 +28,7 @@ class LibraryPlaylistCard extends StatelessWidget {
     //     }
     //   }
     // } else if (playlist.songs.length == 1) {
-    //   firstArt = playlist.songs[0].album.albumArt;
+    //   firstArt = playlist.songs[0].albumArt;
     // }
 
     banner = Row(
