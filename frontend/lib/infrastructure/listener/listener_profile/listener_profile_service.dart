@@ -2,9 +2,11 @@ import 'dart:convert';
 
 import 'package:http/http.dart' as http;
 import 'package:masinqo/domain/entities/profile.dart';
+import 'package:masinqo/infrastructure/core/url.dart';
 
 class ListenerProfileService {
-  final String baseUrl = "http://localhost:3000";
+  // final String baseUrl = "http://localhost:3000";
+  final String baseUrl = Domain.url;
   // final String token;
   ListenerProfileService();
 
