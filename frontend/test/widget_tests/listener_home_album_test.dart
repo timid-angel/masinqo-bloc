@@ -17,6 +17,7 @@ void main() {
               albumArt: "",
               artist: "",
               songs: [],
+              id: '',
             ),
           ),
         ),

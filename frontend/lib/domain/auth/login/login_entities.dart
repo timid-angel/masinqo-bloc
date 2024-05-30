@@ -104,9 +104,8 @@ class ArtistAuthEntity {
         .artistLogin(ArtistLoginDTO(email: email, password: password));
 
     return res.fold((l) {
-      loginFailure.messages.add(l.message == "Conflict"
-          ? "Incorrect email or password"
-          : "Connection Error");
+      loginFailure.messages.add(
+          l.message == "Conflict" ? "Incorrect email or password" : l.message);
       return Left(loginFailure);
     }, (r) {
       return Right(LoginSuccess(token: r.token));

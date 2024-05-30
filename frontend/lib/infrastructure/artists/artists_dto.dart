@@ -37,7 +37,7 @@ class CreateSongDTO {
 
 class UpdateArtistInformatioDTO {
   final String name;
-  final String email;
+  String email;
   final String password;
   final String profilePictureFilePath;
 

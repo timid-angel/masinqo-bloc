@@ -18,7 +18,8 @@ void main() {
               description: "test_desc",
               genre: "test_genre",
               date: DateTime.now(),
-              artist: "test_owner"),
+              artist: "test_owner",
+              id: ''),
         ),
       ),
     );

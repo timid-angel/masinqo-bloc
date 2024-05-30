@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:masinqo/application/artists/home_page/artist_home_bloc.dart';
 import 'package:masinqo/application/auth/listener_auth_bloc.dart';
 import 'package:masinqo/application/auth/artist_auth_bloc.dart';
 import 'package:masinqo/domain/entities/playlist.dart';
@@ -17,6 +18,7 @@ import 'package:masinqo/presentation/screens/listener_profile.dart';
 import 'package:masinqo/presentation/screens/login.dart';
 import 'package:masinqo/presentation/screens/signup.dart';
 import 'package:go_router/go_router.dart';
+import 'package:masinqo/presentation/widgets/artist_album_card.dart';
 
 import 'domain/entities/albums.dart';
 
@@ -94,15 +96,16 @@ final _router = GoRouter(
     GoRoute(
       name: "artist_profile",
       path: '/artist/profile',
-      builder: (context, state) => const ArtistProfile(),
+      builder: (context, state) {
+        return ArtistProfile(artistHomeBloc: state.extra as ArtistHomeBloc);
+      },
     ),
     GoRoute(
       name: "artist_album",
       path: '/artist/album',
       builder: (context, state) {
-        final args = state.extra as Album;
         return ArtistsAlbumPage(
-          album: args,
+          blocTransferObject: state.extra as BlocTransferObject,
         );
       },
     ),

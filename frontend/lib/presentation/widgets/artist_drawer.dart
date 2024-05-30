@@ -6,14 +6,8 @@ import 'package:masinqo/application/artists/home_page/artist_home_state.dart';
 import 'package:masinqo/infrastructure/core/url.dart';
 
 class ArtistDrawer extends StatelessWidget {
-  final String email;
-  final String username;
-  final String profilePicture;
-  const ArtistDrawer(
-      {super.key,
-      required this.email,
-      required this.username,
-      required this.profilePicture});
+  final ArtistHomeBloc artistHomeBloc;
+  const ArtistDrawer({super.key, required this.artistHomeBloc});
 
   @override
   Widget build(BuildContext context) {
@@ -41,13 +35,14 @@ class ArtistDrawer extends StatelessWidget {
                             width: 2,
                           ),
                         ),
-                        child: const CircleAvatar(
-                          backgroundImage: NetworkImage("${Domain.url}/{}"),
+                        child: CircleAvatar(
+                          backgroundImage: NetworkImage(
+                              "${Domain.url}/${artistHomeBloc.state.profilePicture}"),
                         ),
                       ),
                       const SizedBox(height: 10),
                       Text(
-                        username,
+                        artistHomeBloc.state.name,
                         textAlign: TextAlign.center,
                         style: const TextStyle(
                           color: Colors.white,
@@ -70,7 +65,7 @@ class ArtistDrawer extends StatelessWidget {
                 style: TextStyle(color: Colors.white),
               ),
               onTap: () {
-                context.pushNamed("artist_profile");
+                context.pushNamed("artist_profile", extra: artistHomeBloc);
               },
             ),
             ListTile(

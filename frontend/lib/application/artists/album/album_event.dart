@@ -1,21 +1,27 @@
-import 'package:masinqo/infrastructure/artists/artists_dto.dart';
+import 'package:flutter/material.dart';
+import 'package:masinqo/application/artists/home_page/artist_home_bloc.dart';
 
 abstract class AlbumEvent {}
 
 class AddSongEvent extends AlbumEvent {
-  final CreateSongDTO songDto;
+  final String songName;
   final String songFilePath;
 
   AddSongEvent({
-    required this.songDto,
+    required this.songName,
     required this.songFilePath,
   });
 }
 
 class DeleteAlbumEvent extends AlbumEvent {
   final String albumId;
+  final ArtistHomeBloc artistHomeBloc;
+  final BuildContext context;
 
-  DeleteAlbumEvent({required this.albumId});
+  DeleteAlbumEvent(
+      {required this.albumId,
+      required this.artistHomeBloc,
+      required this.context});
 }
 
 class DeleteSongEvent extends AlbumEvent {
@@ -26,7 +32,10 @@ class DeleteSongEvent extends AlbumEvent {
 }
 
 class AlbumUpdateEvent extends AlbumEvent {
-  final UpdateAlbumDTO updateAlbumDTO;
+  final String title;
+  final String genre;
+  final String description;
 
-  AlbumUpdateEvent({required this.updateAlbumDTO});
+  AlbumUpdateEvent(
+      {required this.title, required this.genre, required this.description});
 }

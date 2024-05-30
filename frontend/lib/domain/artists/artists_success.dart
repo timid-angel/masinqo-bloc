@@ -1,4 +1,5 @@
 import 'package:masinqo/core.dart';
+import 'package:masinqo/domain/entities/albums.dart';
 
 abstract class ArtistEntityS implements Success {}
 
@@ -28,4 +29,10 @@ class GetArtistInformationSuccess extends ArtistEntityS {
     required this.profilePicture,
     required this.albums,
   });
+}
+
+class AddAlbumSuccessD {
+  final Album album;
+
+  AddAlbumSuccessD({required this.album});
 }

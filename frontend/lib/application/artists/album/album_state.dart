@@ -1,8 +1,11 @@
 class Song {
   final String name;
-  // final String filePath;
+  final String filePath;
 
-  Song({required this.name});
+  Song({
+    required this.name,
+    required this.filePath,
+  });
 }
 
 class AlbumState {
@@ -15,6 +18,7 @@ class AlbumState {
   final DateTime date;
   bool isDeleted;
   String error;
+  final String albumId;
 
   AlbumState({
     required this.title,
@@ -26,5 +30,6 @@ class AlbumState {
     required this.artist,
     required this.error,
     this.isDeleted = false,
+    required this.albumId,
   });
 }

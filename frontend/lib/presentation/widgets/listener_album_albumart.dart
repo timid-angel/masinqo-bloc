@@ -22,7 +22,7 @@ class AlbumArt extends StatelessWidget {
         image: DecorationImage(
           fit: BoxFit.cover,
           image: NetworkImage(albumArt.isNotEmpty
-              ? "${Domain.url}/${albumArt}"
+              ? "${Domain.url}/$albumArt"
               : "${Domain.url}/local / album_art_placeholder.jpg"),
         ),
       ),

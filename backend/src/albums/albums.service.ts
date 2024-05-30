@@ -97,7 +97,7 @@ export class AlbumsService {
     if (!artist) {
       throw new BadRequestException('Cookie not found');
     }
-    console.log(artist);
+
     const album = await this.albumModel.find({ artist: artist._id.toString() });
     return album;
   }

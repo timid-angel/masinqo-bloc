@@ -24,10 +24,11 @@ class AlbumBloc extends Bloc<AlbumEvent, AlbumState> {
       final result =
           await ArtistsRepository(token: token).addAlbum(createAlbumDto);
 
-      // Handle the result
       result.fold(
         (l) => emit(AlbumFailure(l.message)),
-        (r) => emit(const AlbumSuccess('Album added successfully')),
+        (r) {
+          emit(const AlbumSuccess('Album added successfully'));
+        },
       );
     });
   }

@@ -1,27 +1,30 @@
-import 'package:equatable/equatable.dart';
-
-class ArtistHomeState extends Equatable {
+class ArtistHomeState {
   final String name;
   final String email;
   final String profilePicture;
-  final List albums;
-  const ArtistHomeState(
+  List albums;
+  ArtistHomeState(
       {required this.name,
       required this.email,
       required this.profilePicture,
       required this.albums});
-
-  @override
-  List<Object?> get props => [];
 }
 
-class ArtistHomeFailure extends ArtistHomeState {
+class ArtistHomeFailureState extends ArtistHomeState {
   final String errorMessage;
-  const ArtistHomeFailure({
+  ArtistHomeFailureState({
     required super.name,
     required super.email,
     required super.profilePicture,
     required super.albums,
     required this.errorMessage,
   });
+}
+
+class ArtistHomeSuccessState extends ArtistHomeState {
+  ArtistHomeSuccessState(
+      {required super.name,
+      required super.email,
+      required super.profilePicture,
+      required super.albums});
 }

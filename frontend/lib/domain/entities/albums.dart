@@ -8,6 +8,7 @@ class Album {
   final String description;
   final String genre;
   final DateTime date;
+  final String id;
 
   Album({
     required this.title,
@@ -17,20 +18,21 @@ class Album {
     required this.genre,
     required this.date,
     required this.artist,
+    required this.id,
   });
 
   factory Album.fromJson(Map<String, dynamic> json) {
     final r = Album(
-      title: json['title'] ?? '',
-      albumArt: json['albumArtPath'] ?? '',
-      description: json['description'] ?? '',
-      genre: json['genre'] ?? '',
-      date: DateTime.parse(json['date'] ?? DateTime.now()),
-      artist: json['artist'] ?? "",
-      songs: (json['songs'] as List<dynamic>)
-          .map((songJson) => Song.fromJson(songJson))
-          .toList(),
-    );
+        title: json['title'] ?? '',
+        albumArt: json['albumArtPath'] ?? '',
+        description: json['description'] ?? '',
+        genre: json['genre'] ?? '',
+        date: DateTime.parse(json['date'] ?? DateTime.now()),
+        artist: json['artist'] ?? "",
+        songs: (json['songs'] as List<dynamic>)
+            .map((songJson) => Song.fromJson(songJson))
+            .toList(),
+        id: json["_id"] ?? "");
     // print("Ad");
     // print(r);
     return r;
@@ -45,6 +47,7 @@ class Album {
       'date': date.toIso8601String(),
       'artist': artist,
       'songs': songs.map((song) => song.toJson()).toList(),
+      '_id': id,
     };
   }
 }

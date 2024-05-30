@@ -22,7 +22,6 @@ class ArtistAuthBloc extends Bloc<ArtistAuthEvent, ArtistAuthState> {
         await SecureStorageService().writeToken(r.token);
         newState.token = r.token;
         emit(newState);
-         print("Artist Token: ${state.token}");
       });
     });
 
@@ -32,7 +31,6 @@ class ArtistAuthBloc extends Bloc<ArtistAuthEvent, ArtistAuthState> {
       newState.errors = state.errors;
       emit(newState);
     });
-    
 
     on<ResetErrorsArtists>(
         (event, emit) => emit(ArtistAuthState(isLoading: state.isLoading)));

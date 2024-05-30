@@ -1,24 +1,31 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:image_picker/image_picker.dart';
 import 'dart:io';
 import 'package:masinqo/application/artists/create_album/create_albums_bloc.dart';
 import 'package:masinqo/application/artists/create_album/create_albums_event.dart';
 import 'package:masinqo/application/artists/create_album/create_albums_state.dart';
+import 'package:masinqo/application/artists/home_page/artist_home_bloc.dart';
+import 'package:masinqo/application/artists/home_page/artist_home_event.dart';
 import 'package:masinqo/application/auth/artist_auth_bloc.dart';
 import 'package:masinqo/application/auth/auth_state.dart';
 
 class CreateAlbumModal extends StatelessWidget {
   final String token;
+  final ArtistHomeBloc artistHomeBloc;
 
-  const CreateAlbumModal({super.key, required this.token});
+  const CreateAlbumModal(
+      {super.key, required this.token, required this.artistHomeBloc});
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<ArtistAuthBloc, ArtistAuthState>(
       builder: (context, authState) {
         return BlocProvider(
           create: (context) => AlbumBloc(token: token),
-          child: _CreateAlbumModalContent(),
+          child: _CreateAlbumModalContent(
+            artistHomeBloc: artistHomeBloc,
+          ),
         );
       },
     );
@@ -26,6 +33,9 @@ class CreateAlbumModal extends StatelessWidget {
 }
 
 class _CreateAlbumModalContent extends StatefulWidget {
+  final ArtistHomeBloc artistHomeBloc;
+
+  const _CreateAlbumModalContent({required this.artistHomeBloc});
   @override
   _CreateAlbumModalContentState createState() =>
       _CreateAlbumModalContentState();
@@ -78,6 +88,8 @@ class _CreateAlbumModalContentState extends State<_CreateAlbumModalContent> {
               backgroundColor: const Color.fromARGB(255, 34, 126, 25),
             ),
           );
+          widget.artistHomeBloc.add(GetArtistInformation());
+          context.pop();
         } else if (state is AlbumFailure) {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(

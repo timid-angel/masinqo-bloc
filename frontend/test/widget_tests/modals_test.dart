@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:masinqo/application/artists/home_page/artist_home_bloc.dart';
 import 'package:masinqo/presentation/widgets/artist_add_song_modal.dart';
 import 'package:masinqo/presentation/widgets/artist_create_album_modal.dart';
 import 'package:masinqo/presentation/widgets/artist_edit_album_modal.dart';
@@ -26,8 +27,11 @@ void main() {
   });
 
   testWidgets("Create Album Modal Test", (tester) async {
-    await tester
-        .pumpWidget(const MaterialApp(home: CreateAlbumModal(token: "")));
+    await tester.pumpWidget(MaterialApp(
+        home: CreateAlbumModal(
+      token: "",
+      artistHomeBloc: ArtistHomeBloc(token: ""),
+    )));
 
     final titleFinder = find.text("Create Album");
     final hint1TextFinder = find.text("Album name");
