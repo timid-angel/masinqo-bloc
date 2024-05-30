@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
-import 'package:masinqo/temp/models/albums.dart';
-import '../../temp/data/artist_data.dart';
+import 'package:masinqo/domain/entities/albums.dart';
 
 class AlbumCard extends StatelessWidget {
   const AlbumCard({
@@ -14,9 +13,7 @@ class AlbumCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    String artistName = artistData.last.name;
     double deviceWidth = MediaQuery.of(context).size.width;
-
     return GestureDetector(
       onTap: () {
         context.pushNamed("artist_album", extra: album);
@@ -58,7 +55,7 @@ class AlbumCard extends StatelessWidget {
                 flex: 3,
                 child: Padding(
                   padding: const EdgeInsets.symmetric(vertical: 8.0),
-                  child: _buildDetailsColumn(artistName),
+                  child: _buildDetailsColumn(album.artist),
                 ),
               ),
             ],

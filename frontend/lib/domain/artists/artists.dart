@@ -9,6 +9,17 @@ class ArtistEntity {
 
   ArtistEntity({required this.token});
 
+  Future<Either<ArtistEntityFailure, GetArtistInformationSuccess>>
+      getArtistInformation() async {
+    final res = await ArtistsRepository(token: token).getArtistInformation();
+
+    return res.fold((l) {
+      return Left(ArtistEntityFailure(message: l.message));
+    }, (r) {
+      return Right(r);
+    });
+  }
+
   Future<Either<ArtistEntityFailure, ArtistEntitySuccess>> addAlbum(
       CreateAlbumDTO albumDto) async {
     if (token.isEmpty) {

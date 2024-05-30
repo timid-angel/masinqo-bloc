@@ -4,32 +4,43 @@ import 'package:masinqo/infrastructure/core/url.dart';
 
 class ArtistsDataSource {
   final String url = Domain.url;
-  final String token;
-  ArtistsDataSource({required this.token});
+  String token;
+  ArtistsDataSource({required this.token}) {
+    if (token.startsWith("accessToken=")) {
+      token = token.split("=")[1];
+    }
+  }
 
+  Future<http.Response> getArtistInformation() async {
+    http.Response response =
+        await http.get(Uri.parse("$url/artists/info"), headers: {
+      "Cookie": "accessToken=$token",
+    });
 
-    Future<http.StreamedResponse> addAlbum(
-    Map<String, String> body, String albumArt) async {
-  var request = http.MultipartRequest('POST', Uri.parse("$url/albums"));
-  request.fields.addAll(body);
+    return response;
+  }
 
-  final httpImage = await http.MultipartFile.fromPath("albumArt", albumArt);
+  Future<http.StreamedResponse> addAlbum(
+      Map<String, String> body, String albumArt) async {
+    var request = http.MultipartRequest('POST', Uri.parse("$url/albums"));
+    request.fields.addAll(body);
 
-  request.files.add(httpImage);
-  request.headers["Cookie"] = "accessToken=$token";
+    final httpImage = await http.MultipartFile.fromPath("albumArt", albumArt);
 
-  request.headers["Content-Type"] = 'multipart/form-data';
-  http.StreamedResponse response = await request.send();
+    request.files.add(httpImage);
+    request.headers["Cookie"] = "accessToken=$token";
 
-  return response;
-}
+    request.headers["Content-Type"] = 'multipart/form-data';
+    http.StreamedResponse response = await request.send();
 
+    return response;
+  }
 
   Future<http.StreamedResponse> updateArtistInfo(
       Map<String, String> body, String filePath) async {
     var headers = {'Cookie': 'accessToken=$token'};
-    var request = http.MultipartRequest(
-        'PATCH', Uri.parse('$url/artists/update'));
+    var request =
+        http.MultipartRequest('PATCH', Uri.parse('$url/artists/update'));
 
     request.fields.addAll(body);
     request.headers.addAll(headers);
@@ -49,8 +60,6 @@ class ArtistsDataSource {
 
     return response;
   }
-
-
 
   Future<http.Response> updateAlbum(
       String albumId, Map<String, String> body) async {

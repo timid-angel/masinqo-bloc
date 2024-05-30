@@ -3,6 +3,7 @@ import 'package:dartz/dartz.dart';
 import 'package:http/http.dart' as http;
 import 'package:masinqo/core.dart';
 import 'package:masinqo/domain/artists/artists_repository_interface.dart';
+import 'package:masinqo/domain/artists/artists_success.dart';
 import 'package:masinqo/infrastructure/artists/artists_data_source.dart';
 import 'package:masinqo/infrastructure/artists/artists_dto.dart';
 import 'package:masinqo/infrastructure/artists/artists_failure.dart';
@@ -19,14 +20,22 @@ class ArtistsRepository implements ArtistsRepositoryInterface {
     Map<String, String> body = <String, String>{};
     if (albumDto.title.isNotEmpty) {
       body["title"] = albumDto.title;
+    } else {
+      return Left(ArtistFailure(message: "Title is too short"));
     }
 
     if (albumDto.genre.isNotEmpty) {
       body["genre"] = albumDto.genre;
+    } else {
+      return Left(ArtistFailure(message: "Genre can not be empty"));
     }
 
     if (albumDto.description.isNotEmpty) {
       body["description"] = albumDto.description;
+    }
+
+    if (albumDto.albumArt.isEmpty) {
+      return Left(ArtistFailure(message: "An album art is required"));
     }
 
     if (albumDto.type.isNotEmpty) {
@@ -35,7 +44,8 @@ class ArtistsRepository implements ArtistsRepositoryInterface {
       body["type"] = "Album";
     }
 
-    http.StreamedResponse response = await ArtistsDataSource(token: token).addAlbum(
+    http.StreamedResponse response =
+        await ArtistsDataSource(token: token).addAlbum(
       body,
       albumDto.albumArt,
     );
@@ -165,6 +175,24 @@ class ArtistsRepository implements ArtistsRepositoryInterface {
     }
 
     return Right(ArtistsSuccess());
+  }
+
+  @override
+  Future<Either<ArtistFailure, GetArtistInformationSuccess>>
+      getArtistInformation() async {
+    http.Response response =
+        await ArtistsDataSource(token: token).getArtistInformation();
+
+    final res = jsonDecode(response.body);
+    if (response.statusCode != 200) {
+      return Left(ArtistFailure(message: res["message"]));
+    }
+
+    return Right(GetArtistInformationSuccess(
+        name: res["name"],
+        email: res["email"],
+        profilePicture: res["profilePicture"],
+        albums: res["albums"]));
   }
 }
 

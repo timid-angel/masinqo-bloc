@@ -1,19 +1,19 @@
 class Song {
   String name;
   String filePath;
+  String albumArt;
 
   Song({
     required this.name,
     required this.filePath,
+    required this.albumArt,
   });
 
   factory Song.fromJson(Map<String, dynamic> json) {
-    // print("inn");
     final s = Song(
-      name: json['name'] ?? '',
-      filePath: json['filePath'] ?? '',
-    );
-    // print("outtt");
+        name: json['name'] ?? '',
+        filePath: json['filePath'] ?? '',
+        albumArt: json['albumArt'] ?? '');
     return s;
   }
 
@@ -21,6 +21,7 @@ class Song {
     return {
       'name': name,
       'filePath': filePath,
+      'albumArt': albumArt,
     };
   }
 }

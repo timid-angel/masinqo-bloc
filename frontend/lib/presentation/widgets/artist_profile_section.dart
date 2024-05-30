@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
-import '../../temp/data/artist_data.dart';
+import 'package:masinqo/infrastructure/core/url.dart';
 
 class ArtistProfileSection extends StatelessWidget {
-  const ArtistProfileSection({super.key});
+  final String artistName;
+  final String profilePicture;
+  const ArtistProfileSection(
+      {super.key, required this.artistName, required this.profilePicture});
 
   @override
   Widget build(BuildContext context) {
-    String artistName = artistData.last.name;
-
     return SingleChildScrollView(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -19,9 +20,8 @@ class ArtistProfileSection extends StatelessWidget {
             decoration: BoxDecoration(
               shape: BoxShape.circle,
               border: Border.all(color: const Color(0xFF39DCF3), width: 4),
-              image: const DecorationImage(
-                image:
-                    AssetImage('assets/sample_profile_picture/weyes_blood.jpg'),
+              image: DecorationImage(
+                image: NetworkImage('${Domain.url}/$profilePicture'),
               ),
             ),
           ),

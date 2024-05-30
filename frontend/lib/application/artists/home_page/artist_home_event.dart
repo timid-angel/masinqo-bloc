@@ -1,13 +1,13 @@
 import 'package:equatable/equatable.dart';
 
-abstract class UpdateArtistEvent extends Equatable {
-  const UpdateArtistEvent();
+abstract class ArtistHomeEvent extends Equatable {
+  const ArtistHomeEvent();
 
   @override
   List<Object?> get props => [];
 }
 
-class UpdateArtistInformation extends UpdateArtistEvent {
+class UpdateArtistInformation extends ArtistHomeEvent {
   final String name;
   final String email;
   final String password;
@@ -21,6 +21,7 @@ class UpdateArtistInformation extends UpdateArtistEvent {
   });
 
   @override
-  List<Object?> get props =>
-      [name, email, password, profilePictureFilePath];
+  List<Object?> get props => [name, email, password, profilePictureFilePath];
 }
+
+class GetArtistInformation extends ArtistHomeEvent {}

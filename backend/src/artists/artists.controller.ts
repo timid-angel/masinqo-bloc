@@ -11,6 +11,11 @@ export class ArtistsController {
         private artistService: ArtistsService
     ) { }
 
+    @Get("/info")
+    async getOneArtist(@Req() req: Request) {
+        return this.artistService.getOneArtist(req);
+    }
+
     @Get()
     async getArtists(@Req() req: Request) {
         return this.artistService.getArtists(req)

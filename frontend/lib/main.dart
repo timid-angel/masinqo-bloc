@@ -34,15 +34,12 @@ final _router = GoRouter(
       builder: (context, state) => SignupWidget(),
     ),
     GoRoute(
-  name: "artist",
-  path: '/artist:token', 
-  builder: (context, state) => ArtistHomePage(
-    albumData: [],
-    token: state.pathParameters["token"] as String,
-  ),
-),
-
-
+      name: "artist",
+      path: '/artist:token',
+      builder: (context, state) => ArtistHomePage(
+        token: state.pathParameters["token"] as String,
+      ),
+    ),
     GoRoute(
       name: "listener",
       path: '/listener:token',
@@ -119,7 +116,7 @@ void main() {
         BlocProvider<ListenerAuthBloc>(
           create: (context) => ListenerAuthBloc(),
         ),
-         BlocProvider<ArtistAuthBloc>(
+        BlocProvider<ArtistAuthBloc>(
           create: (context) => ArtistAuthBloc(),
         ),
       ],

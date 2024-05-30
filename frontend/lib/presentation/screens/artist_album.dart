@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:masinqo/application/artists/home_page/artist_home_bloc.dart';
+import 'package:masinqo/application/artists/home_page/artist_home_state.dart';
 import 'package:masinqo/domain/entities/albums.dart';
 
 import '../widgets/artist_add_song_modal.dart';
@@ -42,7 +45,12 @@ class ArtistsAlbumPageState extends State<ArtistsAlbumPage> {
     return Scaffold(
       key: _scaffoldKey,
       appBar: ArtistAppBar(scaffoldKey: _scaffoldKey),
-      endDrawer: const ArtistDrawer(),
+      endDrawer: BlocBuilder<ArtistHomeBloc, ArtistHomeState>(
+          builder: (context, state) => ArtistDrawer(
+                email: state.email,
+                profilePicture: state.profilePicture,
+                username: state.name,
+              )),
       backgroundColor: Colors.black,
       body: SingleChildScrollView(
         child: Column(

@@ -13,4 +13,5 @@ abstract class ArtistsRepositoryInterface {
   Future<Either<Failure, Success>> removeSong(String albumId, String songName);
   Future<Either<Failure, Success>> updateInformation(
       UpdateArtistInformatioDTO artist);
+  Future<Either<Failure, Success>> getArtistInformation();
 }
