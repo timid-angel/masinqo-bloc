@@ -114,6 +114,20 @@ class ArtistEntity {
     );
   }
 
+  Future<Either<ArtistEntityFailure, ArtistEntitySuccess>> removeAlbum(
+      String albumId) async {
+    final res = await ArtistsRepository(token: token).deleteAlbum(albumId);
+
+    return res.fold(
+      (l) {
+        return Left(ArtistEntityFailure(message: l.message));
+      },
+      (r) {
+        return Right(ArtistEntitySuccess());
+      },
+    );
+  }
+
   Future<Either<ArtistEntityFailure, ArtistEntitySuccess>> updateAlbum(
       UpdateAlbumDTO updateDto) async {
     final res = await ArtistsRepository(token: token).updateAlbum(updateDto);
