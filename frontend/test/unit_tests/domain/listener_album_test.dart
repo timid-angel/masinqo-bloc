@@ -30,6 +30,7 @@ void main() {
 
       final mockAlbums = [
         Album(
+          id: '1',
           title: 'Album 1',
           albumArt: 'album1.jpg',
           songs: [],
@@ -39,6 +40,7 @@ void main() {
           artist: 'Artist 1',
         ),
         Album(
+          id: '2',
           title: 'Album 2',
           albumArt: 'album2.jpg',
           songs: [],

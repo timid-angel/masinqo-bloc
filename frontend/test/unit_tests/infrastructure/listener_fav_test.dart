@@ -11,6 +11,7 @@ class MockListenerFavService extends Mock implements ListenerFavService {
         Invocation.method(#getFavorites, [token]),
         returnValue: Future.value([
           Album(
+            id: '1',
             title: 'Favorite Album',
             albumArt: 'favorite_album.jpg',
             songs: [],
@@ -46,6 +47,7 @@ void main() {
 
       when(mockService.getFavorites('token')).thenAnswer((_) async => [
             Album(
+              id: '1',
               title: 'Favorite Album',
               albumArt: 'favorite_album.jpg',
               songs: [],

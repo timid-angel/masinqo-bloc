@@ -39,6 +39,7 @@ void main() {
 
       when(mockRepository.getFavorites('valid_token')).thenAnswer((_) async => [
             Album(
+              id: '1',
               title: 'Album 1',
               albumArt: 'album1.jpg',
               songs: [],

@@ -42,6 +42,7 @@ void main() {
       // Add a stub for getPlaylists
       when(mockRepository.getPlaylists('valid_token')).thenAnswer((_) async => [
             Playlist(
+              id: '1',
               name: 'Playlist 1',
               description: 'Description for Playlist 1',
               owner: 'Artist 1',

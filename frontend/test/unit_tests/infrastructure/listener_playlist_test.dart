@@ -11,6 +11,7 @@ class MockListenerPlaylistService extends Mock
         Invocation.method(#getPlaylists, [token]),
         returnValue: Future.value([
           Playlist(
+            id: '1',
             creationDate: DateTime.now(),
             owner: 'Artist 1',
             description: 'Description for Playlist 1',
@@ -18,6 +19,7 @@ class MockListenerPlaylistService extends Mock
             songs: [],
           ),
           Playlist(
+            id: '2',
             creationDate: DateTime.now(),
             owner: 'Artist 2',
             description: 'Description for Playlist 1',
@@ -53,6 +55,7 @@ void main() {
 
       when(mockService.getPlaylists('token')).thenAnswer((_) async => [
             Playlist(
+              id: '1',
               creationDate: DateTime.now(),
               owner: 'Artist 1',
               description: 'Description for Playlist 1',
@@ -60,6 +63,7 @@ void main() {
               songs: [],
             ),
             Playlist(
+              id: '2',
               creationDate: DateTime.now(),
               owner: 'Artist 2',
               description: 'Description for Playlist 1',
