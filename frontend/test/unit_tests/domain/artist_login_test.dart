@@ -1,45 +1,58 @@
+import 'package:flutter_test/flutter_test.dart';
+import 'package:mockito/annotations.dart';
 import 'package:dartz/dartz.dart';
 import 'package:mockito/mockito.dart';
-import 'package:test/test.dart';
-import 'package:http/http.dart' as http;
-import 'package:masinqo/infrastructure/auth/artist/artist_login_datasource.dart';
-import 'package:masinqo/infrastructure/auth/artist/artist_login_dto.dart';
-import 'package:masinqo/infrastructure/auth/artist/artist_login_repository.dart';
-import 'package:masinqo/infrastructure/auth/login_failure.dart';
 import 'package:masinqo/infrastructure/auth/login_success.dart';
+import 'artist_login_test.mocks.dart';
+import 'package:masinqo/domain/auth/login/login_entities.dart';
+import 'package:masinqo/infrastructure/auth/artist/artist_login_repository.dart';
+import 'package:masinqo/domain/auth/login/login_failure.dart';
+import 'package:masinqo/domain/auth/login/login_success.dart';
 
-class MockArtistLoginDataSource extends Mock implements ArtistLoginDataSource {}
+@GenerateMocks([ArtistLoginRepository])
+class MockArtistEntity extends Mock implements ArtistAuthEntity {
+  MockArtistEntity(
+      {required String email,
+      required String password,
+      required ArtistLoginRepository repository});
+}
 
 void main() {
-  MockArtistLoginDataSource mockDataSource;
-  ArtistLoginRepository artistLoginRepository;
+  group('ArtistAuthEntity', () {
+    test('returns LoginFailure when email is invalid', () async {
+      final authEntity =
+          ArtistAuthEntity(email: 'invalid', password: 'password123');
 
-  mockDataSource = MockArtistLoginDataSource();
-  artistLoginRepository = ArtistLoginRepository();
+      final result = await authEntity.loginArtist();
 
-  test('should return LoginRequestFailure when status code is not 200',
-      () async {
-    final loginDto =
-        ArtistLoginDTO(email: 'test@example.com', password: 'password');
-    final http.Response failureResponse = http.Response('Unauthorized', 401);
-    when(mockDataSource.artistLogin(loginDto))
-        .thenAnswer((_) async => failureResponse);
+      expect(result.isLeft(), true);
+      expect(result.fold((l) => l, (r) => null), isA<LoginFailure>());
+    });
 
-    final result = await artistLoginRepository.artistLogin(loginDto);
-    expect(result, Left(LoginRequestFailure(message: 'Unauthorized')));
-    verify(mockDataSource.artistLogin(loginDto)).called(1);
-  });
+    test('returns LoginFailure when password is too short', () async {
+      final authEntity =
+          ArtistAuthEntity(email: 'test@example.com', password: '123');
 
-  test('should return LoginRequestSuccess when status code is 200', () async {
-    final loginDto =
-        ArtistLoginDTO(email: 'test@example.com', password: 'password');
-    final http.Response successResponse =
-        http.Response('Success', 200, headers: {'set-cookie': 'some_token'});
+      final result = await authEntity.loginArtist();
 
-    when(mockDataSource.artistLogin(loginDto))
-        .thenAnswer((_) async => successResponse);
-    final result = await artistLoginRepository.artistLogin(loginDto);
-    expect(result, Right(LoginRequestSuccess(token: 'some_token')));
-    verify(mockDataSource.artistLogin(loginDto)).called(1);
+      expect(result.isLeft(), true);
+      expect(result.fold((l) => l, (r) => null), isA<LoginFailure>());
+    });
+
+    test('returns LoginSuccess when email and password are valid', () async {
+      final mockRepo = MockArtistLoginRepository();
+      when(mockRepo.artistLogin(any)).thenAnswer(
+          (_) async => Right(LoginRequestSuccess(token: 'valid_token')));
+      final authEntity = MockArtistEntity(
+          email: 'test@example.com',
+          password: 'password123',
+          repository: mockRepo);
+
+      final result = await authEntity.loginArtist();
+
+      expect(result.isRight(), true);
+      expect(result.fold((l) => null, (r) => r), isA<LoginSuccess>());
+      verify(mockRepo.artistLogin(any)).called(1);
+    });
   });
 }
