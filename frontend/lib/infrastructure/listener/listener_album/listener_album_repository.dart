@@ -9,7 +9,7 @@ class ListenerAlbumRepository implements AlbumRepository {
   @override
   Future<List<Album>> getAlbums() async {
     final ress = await listenerAlbumService.getAlbums();
-    print(ress);
+    // print(ress);
     return ress;
   }
 }

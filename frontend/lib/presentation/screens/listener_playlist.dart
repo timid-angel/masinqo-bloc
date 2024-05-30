@@ -85,7 +85,9 @@ class PlaylistWidget extends StatelessWidget {
             ],
           ),
         ),
-        endDrawer: const ListenerDrawer(),
+        endDrawer: ListenerDrawer(
+          token: token,
+        ),
       ),
     );
   }
