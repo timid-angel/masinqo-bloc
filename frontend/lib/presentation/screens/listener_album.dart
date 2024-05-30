@@ -92,7 +92,9 @@ class _AlbumWidgetState extends State<AlbumWidget> {
             ],
           ),
         ),
-        endDrawer: const ListenerDrawer(),
+        endDrawer: ListenerDrawer(
+          token: widget.token,
+        ),
       ),
     );
   }
