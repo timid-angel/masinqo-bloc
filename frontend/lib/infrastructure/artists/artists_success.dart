@@ -1,4 +1,5 @@
 import 'package:masinqo/core.dart';
+import 'package:masinqo/domain/entities/albums.dart';
 
 abstract class ArtistsSuccessImpl implements Success {}
 
@@ -16,6 +17,8 @@ class GetSongsSuccess extends ArtistsSuccessImpl {
   GetSongsSuccess({required this.songs});
 }
 
+class AddAlbumSuccess extends ArtistsSuccessImpl {
+  final Album album;
 
-
-
+  AddAlbumSuccess({required this.album});
+}

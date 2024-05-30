@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:masinqo/domain/entities/albums.dart';
-import 'package:masinqo/domain/entities/songs.dart';
+import 'package:masinqo/application/artists/album/album_bloc.dart';
+import 'package:masinqo/application/artists/album/album_state.dart';
+import 'package:masinqo/application/artists/home_page/artist_home_bloc.dart';
 import 'package:masinqo/presentation/screens/artist_album.dart';
 import 'package:masinqo/presentation/widgets/artist_add_song_modal.dart';
+import 'package:masinqo/presentation/widgets/artist_album_card.dart';
 import 'package:masinqo/presentation/widgets/artist_app_bar.dart';
 import 'package:masinqo/presentation/widgets/artist_edit_album_modal.dart';
 import 'package:masinqo/presentation/widgets/delete_confirmation_modal.dart';
@@ -14,17 +16,21 @@ void main() {
       await tester.pumpWidget(
         MaterialApp(
           home: ArtistsAlbumPage(
-            album: Album(
-              title: "test_title",
-              songs: [
-                Song(name: "song1", filePath: ""),
-                Song(name: "song2", filePath: ""),
-              ],
-              albumArt: "",
-              genre: "test_genre",
-              description: "test_desc",
-              date: DateTime.now(),
-              artist: "",
+            blocTransferObject: BlocTransferObject(
+              albumBloc: AlbumBloc(
+                token: "",
+                album: AlbumState(
+                    albumArt: "",
+                    title: '',
+                    songs: [],
+                    description: '',
+                    genre: '',
+                    date: DateTime.now(),
+                    artist: '',
+                    error: '',
+                    albumId: ''),
+              ),
+              artistHomeBloc: ArtistHomeBloc(token: ""),
             ),
           ),
         ),
@@ -47,17 +53,21 @@ void main() {
       await tester.pumpWidget(
         MaterialApp(
           home: ArtistsAlbumPage(
-            album: Album(
-              title: "test_title",
-              songs: [
-                Song(name: "song1", filePath: ""),
-                Song(name: "song2", filePath: ""),
-              ],
-              albumArt: "",
-              genre: "test_genre",
-              description: "test_desc",
-              date: DateTime.now(),
-              artist: "",
+            blocTransferObject: BlocTransferObject(
+              albumBloc: AlbumBloc(
+                token: "",
+                album: AlbumState(
+                    albumArt: "",
+                    title: '',
+                    songs: [],
+                    description: '',
+                    genre: '',
+                    date: DateTime.now(),
+                    artist: '',
+                    error: '',
+                    albumId: ''),
+              ),
+              artistHomeBloc: ArtistHomeBloc(token: ""),
             ),
           ),
         ),
@@ -72,17 +82,21 @@ void main() {
       await tester.pumpWidget(
         MaterialApp(
           home: ArtistsAlbumPage(
-            album: Album(
-              title: "test_title",
-              songs: [
-                Song(name: "song1", filePath: ""),
-                Song(name: "song2", filePath: ""),
-              ],
-              albumArt: "",
-              genre: "test_genre",
-              description: "test_desc",
-              date: DateTime.now(),
-              artist: "",
+            blocTransferObject: BlocTransferObject(
+              albumBloc: AlbumBloc(
+                token: "",
+                album: AlbumState(
+                    albumArt: "",
+                    title: '',
+                    songs: [],
+                    description: '',
+                    genre: '',
+                    date: DateTime.now(),
+                    artist: '',
+                    error: '',
+                    albumId: ''),
+              ),
+              artistHomeBloc: ArtistHomeBloc(token: ""),
             ),
           ),
         ),

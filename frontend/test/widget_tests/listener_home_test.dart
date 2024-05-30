@@ -17,7 +17,9 @@ void main() {
                       albumCollection: ListenerAlbumCollection(),
                     ))
           ],
-          child: const ListenerHome(),
+          child: const ListenerHome(
+            token: '',
+          ),
         ),
       ),
     ));

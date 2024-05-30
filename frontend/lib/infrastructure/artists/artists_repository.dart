@@ -3,6 +3,8 @@ import 'package:dartz/dartz.dart';
 import 'package:http/http.dart' as http;
 import 'package:masinqo/core.dart';
 import 'package:masinqo/domain/artists/artists_repository_interface.dart';
+import 'package:masinqo/domain/artists/artists_success.dart';
+import 'package:masinqo/domain/entities/albums.dart';
 import 'package:masinqo/infrastructure/artists/artists_data_source.dart';
 import 'package:masinqo/infrastructure/artists/artists_dto.dart';
 import 'package:masinqo/infrastructure/artists/artists_failure.dart';
@@ -10,23 +12,30 @@ import 'package:masinqo/infrastructure/artists/artists_success.dart';
 
 class ArtistsRepository implements ArtistsRepositoryInterface {
   final String token;
-
   ArtistsRepository({required this.token});
 
   @override
-  Future<Either<ArtistFailure, Success>> addAlbum(
+  Future<Either<ArtistFailure, AddAlbumSuccess>> addAlbum(
       CreateAlbumDTO albumDto) async {
     Map<String, String> body = <String, String>{};
     if (albumDto.title.isNotEmpty) {
       body["title"] = albumDto.title;
+    } else {
+      return Left(ArtistFailure(message: "Title is too short"));
     }
 
     if (albumDto.genre.isNotEmpty) {
       body["genre"] = albumDto.genre;
+    } else {
+      return Left(ArtistFailure(message: "Genre can not be empty"));
     }
 
     if (albumDto.description.isNotEmpty) {
       body["description"] = albumDto.description;
+    }
+
+    if (albumDto.albumArt.isEmpty) {
+      return Left(ArtistFailure(message: "An album art is required"));
     }
 
     if (albumDto.type.isNotEmpty) {
@@ -35,17 +44,19 @@ class ArtistsRepository implements ArtistsRepositoryInterface {
       body["type"] = "Album";
     }
 
-    http.StreamedResponse response = await ArtistsDataSource(token: token).addAlbum(
+    http.StreamedResponse response =
+        await ArtistsDataSource(token: token).addAlbum(
       body,
       albumDto.albumArt,
     );
 
+    final pres = await response.stream.bytesToString();
+    final res = jsonDecode(pres);
     if (response.statusCode != 201) {
-      return Left(
-          ArtistFailure(message: await response.stream.bytesToString()));
+      return Left(ArtistFailure(message: res['message']));
     }
 
-    return Right(ArtistsSuccess());
+    return Right(AddAlbumSuccess(album: Album.fromJson(res)));
   }
 
   @override
@@ -55,8 +66,8 @@ class ArtistsRepository implements ArtistsRepositoryInterface {
         .addSong(songDto.albumId, songDto.songName, songFilePath);
 
     if (response.statusCode != 201) {
-      return Left(
-          ArtistFailure(message: await response.stream.bytesToString()));
+      final res = jsonDecode(await response.stream.bytesToString());
+      return Left(ArtistFailure(message: res["message"]));
     }
 
     return Right(ArtistsSuccess());
@@ -68,7 +79,8 @@ class ArtistsRepository implements ArtistsRepositoryInterface {
         await ArtistsDataSource(token: token).deleteAlbum(albumId);
 
     if (response.statusCode != 200) {
-      return Left(ArtistFailure(message: response.body));
+      final res = jsonDecode(response.body);
+      return Left(ArtistFailure(message: res["message"]));
     }
 
     return Right(ArtistsSuccess());
@@ -78,8 +90,9 @@ class ArtistsRepository implements ArtistsRepositoryInterface {
   Future<Either<ArtistFailure, GetAlbumsSuccess>> getAlbums() async {
     http.Response response = await ArtistsDataSource(token: token).getAlbums();
 
+    final res = jsonDecode(response.body);
     if (response.statusCode != 200) {
-      return Left(ArtistFailure(message: response.body));
+      return Left(ArtistFailure(message: res["message"]));
     }
 
     return Right(GetAlbumsSuccess(albums: jsonDecode(response.body)));
@@ -92,7 +105,8 @@ class ArtistsRepository implements ArtistsRepositoryInterface {
         await ArtistsDataSource(token: token).getSongs(albumId);
 
     if (response.statusCode != 200) {
-      return Left(ArtistFailure(message: response.body));
+      final res = jsonDecode(response.body);
+      return Left(ArtistFailure(message: res["message"]));
     }
     Map album = jsonDecode(response.body);
     return Right(GetSongsSuccess(songs: album["songs"]));
@@ -105,7 +119,8 @@ class ArtistsRepository implements ArtistsRepositoryInterface {
         await ArtistsDataSource(token: token).deleteSong(albumId, songName);
 
     if (response.statusCode != 200) {
-      return Left(ArtistFailure(message: response.body));
+      final res = jsonDecode(response.body);
+      return Left(ArtistFailure(message: res["message"]));
     }
 
     return Right(ArtistsSuccess());
@@ -131,7 +146,8 @@ class ArtistsRepository implements ArtistsRepositoryInterface {
         .updateAlbum(updateDto.albumId, body);
 
     if (response.statusCode != 200) {
-      return Left(ArtistFailure(message: response.body));
+      final res = jsonDecode(response.body);
+      return Left(ArtistFailure(message: res["message"]));
     }
 
     return Right(ArtistsSuccess());
@@ -160,18 +176,36 @@ class ArtistsRepository implements ArtistsRepositoryInterface {
     );
 
     if (response.statusCode != 200) {
-      return Left(
-          ArtistFailure(message: await response.stream.bytesToString()));
+      final res = jsonDecode(await response.stream.bytesToString());
+      return Left(ArtistFailure(message: res["message"]));
     }
 
     return Right(ArtistsSuccess());
+  }
+
+  @override
+  Future<Either<ArtistFailure, GetArtistInformationSuccess>>
+      getArtistInformation() async {
+    http.Response response =
+        await ArtistsDataSource(token: token).getArtistInformation();
+
+    final res = jsonDecode(response.body);
+    if (response.statusCode != 200) {
+      return Left(ArtistFailure(message: res["message"]));
+    }
+
+    return Right(GetArtistInformationSuccess(
+        name: res["name"],
+        email: res["email"],
+        profilePicture: res["profilePicture"],
+        albums: res["albums"]));
   }
 }
 
 // void main() async {
 //   final ArtistsRepository artistRepo = ArtistsRepository(
 //       token:
-//           "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2NTI5YzBmNTEwZTU4ZGRlYmJkYTk1MSIsInJvbGUiOjEsImlhdCI6MTcxNjY5OTM3MCwiZXhwIjoxNzE2Nzg1NzcwfQ.hptWAQD0UigjLi4yOtv4YpAte45If_UDNHhu1EHmyLE");
+//           "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2NTg5YTM5Mzk2OWVmNmM1NGExZTZlNSIsInJvbGUiOjEsImlhdCI6MTcxNzA4NDE5OSwiZXhwIjoxNzE3MTcwNTk5fQ.doyQoUFRJv5PCzIgB02vlH5v1YnpJKnXMUPJLhCHBk4");
 
   // get albums
   // final res = await artistRepo.getAlbums();
@@ -193,7 +227,7 @@ class ArtistsRepository implements ArtistsRepositoryInterface {
   // res.fold((l) {
   //   print(l.message);
   // }, (r) {
-  //   print(r);
+  //   print(r.album);
   // });
 
   // update albums
@@ -210,7 +244,7 @@ class ArtistsRepository implements ArtistsRepositoryInterface {
   // });
 
   // // delete albums
-  // final res = await artistRepo.deleteAlbum("6652cbc78fed1d2eef050c47");
+  // final res = await artistRepo.deleteAlbum("6658aa97f4c2f42da2bb976d");
 
   // res.fold((l) {
   //   print(l.message);

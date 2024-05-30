@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:masinqo/application/listener/listener_profile/profile_bloc.dart';
+import 'package:masinqo/domain/listener/listener_profile.dart';
 import 'package:masinqo/presentation/screens/listener_profile.dart';
 import 'package:masinqo/presentation/widgets/profile_mgmt_section_title.dart';
 
@@ -7,8 +10,12 @@ void main() {
   group('Artist Profile Test', () {
     testWidgets('Artist Profile Widget Test', (tester) async {
       await tester.pumpWidget(
-        const MaterialApp(
-          home: ListenerProfile(),
+        MaterialApp(
+          home: ListenerProfile(
+            token: '',
+            profileBloc:
+                ProfileBloc(profileRepository: ListenerProfileCollection()),
+          ),
         ),
       );
 
@@ -21,9 +28,12 @@ void main() {
 
     testWidgets('Rounded Input Field Test', (tester) async {
       await tester.pumpWidget(
-        const MaterialApp(
+        MaterialApp(
           home: Scaffold(
-            body: RoundedInputField(placeholder: "Enter new username"),
+            body: RoundedInputField(
+              placeholder: "Enter new username",
+              controller: TextEditingController(),
+            ),
           ),
         ),
       );
@@ -34,9 +44,13 @@ void main() {
 
     testWidgets("Listener Profile Image Test", (tester) async {
       await tester.pumpWidget(
-        const MaterialApp(
+        MaterialApp(
           home: Scaffold(
-            body: ListenerProfile(),
+            body: ListenerProfile(
+              token: '',
+              profileBloc:
+                  ProfileBloc(profileRepository: ListenerProfileCollection()),
+            ),
           ),
         ),
       );

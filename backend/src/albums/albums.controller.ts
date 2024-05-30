@@ -77,7 +77,6 @@ export class AlbumsController {
 
     @Put(':id')
     async updateAlbum(@Param('id') id: string, @Req() req: Request) {
-        console.log(req.body)
         return await this.albumService.updateById(id, req)
     }
 

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:masinqo/application/listener/listener_playlist/playlist_bloc.dart';
 import 'package:masinqo/domain/entities/playlist.dart';
+import 'package:masinqo/domain/listener/listener_playlist.dart';
 import 'package:masinqo/presentation/screens/listener_playlist.dart';
 import 'package:masinqo/presentation/widgets/listener_appbar.dart';
 import 'package:masinqo/presentation/widgets/listener_playlist_albumart.dart';
@@ -19,7 +21,10 @@ void main() {
             description: "test_desc",
             owner: "test_owner",
             songs: [],
+            id: '',
           ),
+          token: '',
+          bloc: PlaylistBloc(playlistRepository: ListenerPlaylistCollection()),
         ),
       ),
     );

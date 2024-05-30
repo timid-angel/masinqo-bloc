@@ -1,6 +1,7 @@
 import 'package:masinqo/domain/entities/songs.dart';
 
 class Album {
+  final String id;
   final String title;
   final String albumArt;
   final List<Song> songs;
@@ -10,6 +11,7 @@ class Album {
   final DateTime date;
 
   Album({
+    required this.id,
     required this.title,
     required this.albumArt,
     required this.songs,
@@ -21,6 +23,7 @@ class Album {
 
   factory Album.fromJson(Map<String, dynamic> json) {
     final r = Album(
+      id: json['_id'] ?? '',
       title: json['title'] ?? '',
       albumArt: json['albumArtPath'] ?? '',
       description: json['description'] ?? '',
@@ -38,6 +41,7 @@ class Album {
 
   Map<String, dynamic> toJson() {
     return {
+      'id': id,
       'title': title,
       'albumArtPath': albumArt,
       'description': description,
@@ -45,6 +49,7 @@ class Album {
       'date': date.toIso8601String(),
       'artist': artist,
       'songs': songs.map((song) => song.toJson()).toList(),
+      '_id': id,
     };
   }
 }

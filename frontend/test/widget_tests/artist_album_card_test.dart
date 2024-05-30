@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:masinqo/application/artists/album/album_state.dart';
+import 'package:masinqo/application/artists/home_page/artist_home_bloc.dart';
 import 'package:masinqo/presentation/widgets/artist_album_card.dart';
-import 'package:masinqo/temp/models/albums.dart';
-import 'package:masinqo/temp/models/artists.dart';
 
 void main() {
   testWidgets("Artist Album Card test", (tester) async {
@@ -10,19 +10,18 @@ void main() {
       MaterialApp(
         home: Scaffold(
           body: AlbumCard(
-            album: Album(
+            album: AlbumState(
                 title: "test_title",
                 description: "test_desc",
                 genre: "test_genre",
                 date: DateTime.now(),
                 albumArt: "",
-                artist: Artist(
-                    name: "",
-                    email: "",
-                    password: "",
-                    albums: [],
-                    profilePicture: ""),
-                songs: []),
+                songs: [],
+                artist: '',
+                error: '',
+                albumId: ''),
+            token: '',
+            artistHomeBloc: ArtistHomeBloc(token: ""),
           ),
         ),
       ),

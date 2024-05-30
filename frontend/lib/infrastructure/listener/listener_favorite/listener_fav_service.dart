@@ -2,9 +2,11 @@ import 'dart:convert';
 
 import 'package:http/http.dart' as http;
 import 'package:masinqo/domain/entities/albums.dart';
+import 'package:masinqo/infrastructure/core/url.dart';
 
 class ListenerFavService {
-  final String baseUrl = "http://localhost:3000";
+  // final String baseUrl = "http://localhost:3000";
+  final String baseUrl = Domain.url;
   // final String token;
   ListenerFavService();
 
@@ -13,7 +15,7 @@ class ListenerFavService {
         await http.get(Uri.parse('$baseUrl/listener/favorites'), headers: {
       "Cookie": token,
     });
-    // print(response.body);
+    // print("response.body${response.body}");
     if (response.statusCode == 200) {
       Iterable lists = json.decode(response.body);
       return List<Album>.from(lists.map((model) => Album.fromJson(model)));
@@ -23,12 +25,15 @@ class ListenerFavService {
   }
 
   Future<void> addFavorite(String id, String token) async {
-    final response = await http.post(Uri.parse('$baseUrl/listener/favorites'),
-        headers: {
-          "Cookie": token,
-          "Content-Type": "application/json",
-        },
-        body: jsonEncode({"id": id}));
+    final response =
+        await http.post(Uri.parse('$baseUrl/listener/favorites/$id'),
+            headers: {
+              "Cookie": token,
+              "Content-Type": "application/json",
+            },
+            body: jsonEncode({"id": id}));
+    // print("fav service");
+    // print(response.body);
     if (response.statusCode != 200) {
       throw Exception('Failed to add favorite');
     }

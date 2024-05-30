@@ -10,7 +10,8 @@ void main() {
         songs: [],
         creationDate: DateTime.now(),
         description: "",
-        owner: "");
+        owner: "",
+        id: '');
 
     await tester.pumpWidget(
         MaterialApp(home: LibraryPlaylistCard(playlist: mockPlaylist)));

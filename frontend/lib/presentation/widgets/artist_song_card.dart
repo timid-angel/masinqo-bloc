@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:masinqo/infrastructure/core/url.dart';
 import '../../temp/data/artist_data.dart';
 import '../../temp/audio_manager/artist_audio_manager.dart';
 
@@ -50,13 +51,20 @@ class SongCard extends StatelessWidget {
               height: 55,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(10.0),
-                image: imagePath.isNotEmpty
-                    ? DecorationImage(
-                        image: AssetImage(imagePath),
-                        fit: BoxFit.cover,
-                      )
-                    : null,
               ),
+              child: imagePath.isNotEmpty
+                  ? Image.network(
+                      "${Domain.url}/$imagePath",
+                      fit: BoxFit.cover,
+                      width: double.infinity,
+                      height: double.infinity,
+                    )
+                  : Image.asset(
+                      "assets/images/black.png",
+                      fit: BoxFit.cover,
+                      width: double.infinity,
+                      height: double.infinity,
+                    ),
             ),
             const SizedBox(width: 10.0),
             Flexible(

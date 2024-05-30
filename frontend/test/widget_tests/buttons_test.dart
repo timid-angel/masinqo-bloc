@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:masinqo/application/auth/login_page_bloc.dart';
+import 'package:masinqo/application/listener/listener_playlist/playlist_bloc.dart';
+import 'package:masinqo/domain/listener/listener_playlist.dart';
 import 'package:masinqo/presentation/widgets/admin_login_button.dart';
 import 'package:masinqo/presentation/widgets/listener_playlist_buttons.dart';
 import 'package:masinqo/presentation/widgets/login_options.dart';
@@ -41,9 +43,13 @@ void main() {
 
   testWidgets("Playlist Buttons Test", (tester) async {
     final testTarget = PlaylistButtonsWidget(
-        editController: () {},
-        deleteController: () {},
-        playlistName: "test_plname");
+      bloc: PlaylistBloc(playlistRepository: ListenerPlaylistCollection()),
+      editController: () {},
+      deleteController: () {},
+      playlistName: "test_plname",
+      id: '',
+      token: '',
+    );
     await tester.pumpWidget(
       MaterialApp(
         home: testTarget,

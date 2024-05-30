@@ -46,6 +46,20 @@ export class ArtistsService {
         return this.artistModel.find({}).select("-password -__v")
     }
 
+    async getOneArtist(req: Request) {
+        const artist = await this.parseToken(req, this.artistModel, 1);
+        if (!artist) {
+            throw new UnauthorizedException("Invalid token - Artist not found");
+        }
+        const res = {};
+        res["name"] = artist.name;
+        res["email"] = artist.email;
+        res["profilePicture"] = artist.profilePicture;
+        res["albums"] = await this.albumModel.find({artist: artist._id.valueOf()});
+
+        return res;
+    }
+
     async updateArtistAdmin(id: string, req: Request) {
         await this.parseToken(req, this.adminModel, 0)
         if (!ObjectId.isValid(id)) {
@@ -78,6 +92,10 @@ export class ArtistsService {
         }
 
         if ("email" in reqBody && reqBody["email"].length > 0) {
+            const cand = await this.artistModel.find({email: reqBody["email"]});
+            if (cand.length > 0) {
+                throw new BadRequestException("There is an email with that account")
+            }
             artist["email"] = reqBody["email"]
         }
 

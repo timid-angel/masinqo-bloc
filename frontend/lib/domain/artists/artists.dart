@@ -1,4 +1,6 @@
 import 'package:dartz/dartz.dart';
+import 'package:email_validator/email_validator.dart';
+import 'package:masinqo/application/artists/album/album_state.dart';
 import 'package:masinqo/domain/artists/artists_failure.dart';
 import 'package:masinqo/domain/artists/artists_success.dart';
 import 'package:masinqo/infrastructure/artists/artists_dto.dart';
@@ -9,7 +11,18 @@ class ArtistEntity {
 
   ArtistEntity({required this.token});
 
-  Future<Either<ArtistEntityFailure, ArtistEntitySuccess>> addAlbum(
+  Future<Either<ArtistEntityFailure, GetArtistInformationSuccess>>
+      getArtistInformation() async {
+    final res = await ArtistsRepository(token: token).getArtistInformation();
+
+    return res.fold((l) {
+      return Left(ArtistEntityFailure(message: l.message));
+    }, (r) {
+      return Right(r);
+    });
+  }
+
+  Future<Either<ArtistEntityFailure, AddAlbumSuccessD>> addAlbum(
       CreateAlbumDTO albumDto) async {
     if (token.isEmpty) {
       return Left(ArtistEntityFailure(message: "Invalid token"));
@@ -31,12 +44,12 @@ class ArtistEntity {
     return res.fold((l) {
       return Left(ArtistEntityFailure(message: l.message));
     }, (r) {
-      return Right(ArtistEntitySuccess());
+      return Right(AddAlbumSuccessD(album: r.album));
     });
   }
 
   Future<Either<ArtistEntityFailure, ArtistEntitySuccess>> addSong(
-      CreateSongDTO songDto, String songFilePath) async {
+      CreateSongDTO songDto, String songFilePath, List<Song> songs) async {
     if (songFilePath.isEmpty) {
       return Left(ArtistEntityFailure(message: "Song must have an audio file"));
     }
@@ -48,6 +61,12 @@ class ArtistEntity {
 
     if (songDto.songName.isEmpty) {
       return Left(ArtistEntityFailure(message: "Song must have a name"));
+    }
+
+    for (final song in songs) {
+      if (song.name.trim() == songDto.songName.trim()) {
+        Left(ArtistEntityFailure(message: "Songs must have a unique name"));
+      }
     }
 
     final res =
@@ -103,6 +122,20 @@ class ArtistEntity {
     );
   }
 
+  Future<Either<ArtistEntityFailure, ArtistEntitySuccess>> removeAlbum(
+      String albumId) async {
+    final res = await ArtistsRepository(token: token).deleteAlbum(albumId);
+
+    return res.fold(
+      (l) {
+        return Left(ArtistEntityFailure(message: l.message));
+      },
+      (r) {
+        return Right(ArtistEntitySuccess());
+      },
+    );
+  }
+
   Future<Either<ArtistEntityFailure, ArtistEntitySuccess>> updateAlbum(
       UpdateAlbumDTO updateDto) async {
     final res = await ArtistsRepository(token: token).updateAlbum(updateDto);
@@ -118,7 +151,26 @@ class ArtistEntity {
   }
 
   Future<Either<ArtistEntityFailure, ArtistEntitySuccess>> updateInformation(
-      UpdateArtistInformatioDTO artist) async {
+      UpdateArtistInformatioDTO artist,
+      String confirmPassword,
+      String oldEmail) async {
+    if (artist.name.length < 4) {
+      return Left(ArtistEntityFailure(
+          message: "Name must be longer than 4 characters"));
+    }
+
+    if (!EmailValidator.validate(artist.email)) {
+      return Left(ArtistEntityFailure(message: "Invalid Email"));
+    }
+
+    if (artist.email == oldEmail) {
+      artist.email = "";
+    }
+
+    if (artist.password != confirmPassword) {
+      return Left(ArtistEntityFailure(message: "Passwords don't match"));
+    }
+
     final res = await ArtistsRepository(token: token).updateInformation(artist);
 
     return res.fold(

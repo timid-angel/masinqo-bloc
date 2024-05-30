@@ -6,7 +6,11 @@ void main() {
   testWidgets("Artist Profile Section Test", (tester) async {
     await tester.pumpWidget(
       const MaterialApp(
-        home: Scaffold(body: ArtistProfileSection()),
+        home: Scaffold(
+            body: ArtistProfileSection(
+          artistName: '',
+          profilePicture: '',
+        )),
       ),
     );
 

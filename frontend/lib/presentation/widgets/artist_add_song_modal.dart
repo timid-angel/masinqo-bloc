@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:file_picker/file_picker.dart';
+import 'package:go_router/go_router.dart';
+import 'package:masinqo/application/artists/album/album_bloc.dart';
+import 'package:masinqo/application/artists/album/album_event.dart';
 
 class AddSongModal extends StatefulWidget {
-  const AddSongModal({super.key});
+  final AlbumBloc albumBloc;
+  const AddSongModal({super.key, required this.albumBloc});
 
   @override
   AddSongModalState createState() => AddSongModalState();
@@ -83,7 +87,9 @@ class AddSongModalState extends State<AddSongModal> {
               onPressed: () {
                 final String songName = _songNameController.text.trim();
                 if (songName.isNotEmpty && _filePath.isNotEmpty) {
-                  Navigator.pop(context);
+                  widget.albumBloc.add(AddSongEvent(
+                      songName: songName, songFilePath: _filePath));
+                  context.pop();
                 } else {
                   ScaffoldMessenger.of(context).showSnackBar(
                     const SnackBar(

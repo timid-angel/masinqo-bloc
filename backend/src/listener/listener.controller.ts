@@ -1,14 +1,28 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, Req } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+  Req,
+} from '@nestjs/common';
 import { ListenerService } from './listener.service';
-import { Request } from 'express'
+import { Request } from 'express';
 
 @Controller('listener')
 export class ListenerController {
-  constructor(private readonly listenerService: ListenerService) { }
+  constructor(private readonly listenerService: ListenerService) {}
 
   @Get()
   findAll(@Req() req: Request) {
     return this.listenerService.findAll(req);
+  }
+
+  @Get('/info')
+  async getOneListener(@Req() req: Request) {
+    return this.listenerService.getOneListener(req);
   }
 
   @Patch('update')
@@ -21,18 +35,18 @@ export class ListenerController {
     return this.listenerService.remove(req, id);
   }
 
-  @Get("/favorites")
+  @Get('/favorites')
   getFavorites(@Req() req: Request) {
-    return this.listenerService.getFavorites(req)
+    return this.listenerService.getFavorites(req);
   }
 
-  @Post("/favorites/:id")
+  @Post('/favorites/:id')
   addFavorite(@Param('id') id: string, @Req() req: Request) {
-    return this.listenerService.addFavorite(req, id)
+    return this.listenerService.addFavorite(req, id);
   }
 
-  @Delete("/favorites/:id")
+  @Delete('/favorites/:id')
   removeFavorite(@Param('id') id: string, @Req() req: Request) {
-    return this.listenerService.removeFavorite(req, id)
+    return this.listenerService.removeFavorite(req, id);
   }
 }

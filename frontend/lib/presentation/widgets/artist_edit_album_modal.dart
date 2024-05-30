@@ -1,41 +1,27 @@
 import 'package:flutter/material.dart';
-import 'package:file_picker/file_picker.dart';
-import 'dart:io';
+import 'package:go_router/go_router.dart';
+import 'package:masinqo/application/artists/album/album_bloc.dart';
+import 'package:masinqo/application/artists/album/album_event.dart';
+import 'package:masinqo/application/artists/home_page/artist_home_bloc.dart';
+import 'package:masinqo/application/artists/home_page/artist_home_event.dart';
+import 'package:masinqo/presentation/core/theme/app_colors.dart';
 
-class EditSongModal extends StatefulWidget {
-  final String currentAlbumName;
-  final String currentGenre;
-  final String currentDescription;
-  final String currentThumbnailPath;
+class EditSongModal extends StatelessWidget {
+  late final TextEditingController titleController;
+  late final TextEditingController genreController;
+  late final TextEditingController descriptionController;
+  final AlbumBloc albumBloc;
+  final ArtistHomeBloc artistHomeBloc;
 
-  const EditSongModal({
+  EditSongModal({
     super.key,
-    required this.currentAlbumName,
-    required this.currentGenre,
-    required this.currentDescription,
-    required this.currentThumbnailPath,
-  });
-
-  @override
-  EditSongModalState createState() => EditSongModalState();
-}
-
-class EditSongModalState extends State<EditSongModal> {
-  late String _newThumbnailPath;
-
-  @override
-  void initState() {
-    super.initState();
-    _newThumbnailPath = widget.currentThumbnailPath;
-  }
-
-  Future<void> _pickNewThumbnail() async {
-    final result = await FilePicker.platform.pickFiles(type: FileType.image);
-    if (result != null) {
-      setState(() {
-        _newThumbnailPath = result.files.single.path!;
-      });
-    }
+    required this.albumBloc,
+    required this.artistHomeBloc,
+  }) {
+    titleController = TextEditingController(text: albumBloc.state.title);
+    genreController = TextEditingController(text: albumBloc.state.genre);
+    descriptionController =
+        TextEditingController(text: albumBloc.state.description);
   }
 
   @override
@@ -65,63 +51,94 @@ class EditSongModalState extends State<EditSongModal> {
                 ),
               ),
               const SizedBox(height: 10.0),
-              GestureDetector(
-                onTap: _pickNewThumbnail,
-                child: _newThumbnailPath.isNotEmpty &&
-                        File(_newThumbnailPath).existsSync()
-                    ? Image.file(
-                        File(_newThumbnailPath),
-                        fit: BoxFit.cover,
-                        width: double.infinity,
-                        height: MediaQuery.of(context).size.height * 0.2,
-                      )
-                    : widget.currentThumbnailPath.isNotEmpty
-                        ? Image.asset(
-                            widget.currentThumbnailPath,
-                            fit: BoxFit.cover,
-                            width: double.infinity,
-                            height: MediaQuery.of(context).size.height * 0.2,
-                          )
-                        : const Placeholder(),
+              const Align(
+                alignment: Alignment.centerLeft,
+                child: Text(
+                  "Album Name",
+                  textAlign: TextAlign.left,
+                  style: TextStyle(fontSize: 18, color: AppColors.artist2),
+                ),
               ),
-              const SizedBox(height: 10.0),
+              const SizedBox(height: 2.0),
               TextFormField(
-                initialValue: widget.currentAlbumName,
+                controller: titleController,
                 decoration: const InputDecoration(
                   hintText: 'Enter new album name',
                   hintStyle: TextStyle(color: Colors.grey),
-                  focusedBorder: UnderlineInputBorder(
+                  border: OutlineInputBorder(),
+                  focusedBorder: OutlineInputBorder(
                     borderSide: BorderSide(color: Color(0xFF39DCF3)),
                   ),
                 ),
                 style: const TextStyle(color: Colors.white),
               ),
+              const SizedBox(height: 15.0),
+              const Align(
+                alignment: Alignment.centerLeft,
+                child: Text(
+                  "Genre",
+                  textAlign: TextAlign.left,
+                  style: TextStyle(fontSize: 18, color: AppColors.artist2),
+                ),
+              ),
+              const SizedBox(height: 2.0),
               TextFormField(
-                initialValue: widget.currentGenre,
+                controller: genreController,
                 decoration: const InputDecoration(
                   hintText: 'Enter new genre',
                   hintStyle: TextStyle(color: Colors.grey),
-                  focusedBorder: UnderlineInputBorder(
+                  border: OutlineInputBorder(),
+                  focusedBorder: OutlineInputBorder(
                     borderSide: BorderSide(color: Color(0xFF39DCF3)),
                   ),
                 ),
                 style: const TextStyle(color: Colors.white),
               ),
+              const SizedBox(height: 15.0),
+              const Align(
+                alignment: Alignment.centerLeft,
+                child: Text(
+                  "Description",
+                  textAlign: TextAlign.left,
+                  style: TextStyle(fontSize: 18, color: AppColors.artist2),
+                ),
+              ),
+              const SizedBox(height: 2.0),
               TextFormField(
-                initialValue: widget.currentDescription,
+                controller: descriptionController,
                 decoration: const InputDecoration(
                   hintText: 'Enter new description',
                   hintStyle: TextStyle(color: Colors.grey),
-                  focusedBorder: UnderlineInputBorder(
+                  border: OutlineInputBorder(),
+                  focusedBorder: OutlineInputBorder(
                     borderSide: BorderSide(color: Color(0xFF39DCF3)),
                   ),
                 ),
                 style: const TextStyle(color: Colors.white),
               ),
-              const SizedBox(height: 10.0),
+              const SizedBox(height: 20.0),
               ElevatedButton(
                 onPressed: () {
-                  Navigator.pop(context);
+                  albumBloc.add(
+                    AlbumUpdateEvent(
+                      description: descriptionController.text,
+                      genre: genreController.text,
+                      title: titleController.text,
+                    ),
+                  );
+                  artistHomeBloc.add(HomeAlbumUpdateEvent(
+                    description: descriptionController.text,
+                    genre: genreController.text,
+                    title: titleController.text,
+                    albumId: albumBloc.state.albumId,
+                  ));
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(
+                      content: Text("Edited Album Successfully"),
+                      backgroundColor: Color.fromARGB(255, 34, 126, 25),
+                    ),
+                  );
+                  context.pop();
                 },
                 child: const Text(
                   'Save Changes',

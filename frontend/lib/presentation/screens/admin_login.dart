@@ -47,7 +47,7 @@ class AdminLogin extends StatelessWidget {
             ScaffoldMessenger.of(context).showSnackBar(
               const SnackBar(
                 content: Text("Connection Error"),
-                backgroundColor: Color.fromARGB(255, 150, 53, 53),
+                backgroundColor: Color.fromARGB(255, 212, 47, 47),
               ),
             );
           } else {
