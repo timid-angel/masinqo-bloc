@@ -1,11 +1,13 @@
 import 'dart:convert';
 
 import 'package:http/http.dart' as http;
+import 'package:masinqo/infrastructure/core/url.dart';
 
 import '../../../domain/entities/playlist.dart';
 
 class ListenerPlaylistService {
-  final String baseUrl = "http://localhost:3000";
+  // final String baseUrl = "http://localhost:3000";
+  final String baseUrl = Domain.url;
   // final String token;
   ListenerPlaylistService();
 
