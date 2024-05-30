@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:masinqo/application/artists/album/album_bloc.dart';
+import 'package:masinqo/application/artists/album/album_state.dart';
 import 'package:masinqo/application/artists/home_page/artist_home_bloc.dart';
 import 'package:masinqo/presentation/widgets/artist_add_song_modal.dart';
 import 'package:masinqo/presentation/widgets/artist_create_album_modal.dart';
@@ -10,7 +12,24 @@ import 'package:masinqo/presentation/widgets/modal_heading.dart';
 void main() {
   group("Modals Test", () {
     testWidgets("Add Song Modal Test", (tester) async {
-      await tester.pumpWidget(const MaterialApp(home: AddSongModal()));
+      await tester.pumpWidget(
+        MaterialApp(
+          home: AddSongModal(
+            albumBloc: AlbumBloc(
+                album: AlbumState(
+                    albumArt: "",
+                    title: '',
+                    songs: [],
+                    description: '',
+                    genre: '',
+                    date: DateTime.now(),
+                    artist: '',
+                    error: '',
+                    albumId: ''),
+                token: ''),
+          ),
+        ),
+      );
 
       final titleFinder = find.text("Add Song");
       final hintTextFinder = find.text("Enter song name");
@@ -50,12 +69,21 @@ void main() {
 
   testWidgets("Edit Song Modal Test", (tester) async {
     await tester.pumpWidget(
-      const MaterialApp(
+      MaterialApp(
         home: EditSongModal(
-          currentAlbumName: 'old_test_name',
-          currentGenre: 'old_test_genre',
-          currentDescription: 'old_test_description',
-          currentThumbnailPath: '',
+          albumBloc: AlbumBloc(
+              token: "",
+              album: AlbumState(
+                  albumArt: "",
+                  title: '',
+                  songs: [],
+                  description: '',
+                  genre: '',
+                  date: DateTime.now(),
+                  artist: '',
+                  error: '',
+                  albumId: '')),
+          artistHomeBloc: ArtistHomeBloc(token: ""),
         ),
       ),
     );

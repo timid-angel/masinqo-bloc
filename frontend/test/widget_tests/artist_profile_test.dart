@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:masinqo/application/artists/home_page/artist_home_bloc.dart';
 import 'package:masinqo/presentation/screens/artist_profile.dart';
 import 'package:masinqo/presentation/widgets/profile_mgmt_section_title.dart';
 
@@ -7,8 +9,10 @@ void main() {
   group('Artist Profile Test', () {
     testWidgets('Artist Profile UI', (tester) async {
       await tester.pumpWidget(
-        const MaterialApp(
-          home: ArtistProfile(),
+        MaterialApp(
+          home: ArtistProfile(
+            artistHomeBloc: ArtistHomeBloc(token: ""),
+          ),
         ),
       );
 
@@ -21,9 +25,12 @@ void main() {
 
     testWidgets('Rounded Input Field Test', (tester) async {
       await tester.pumpWidget(
-        const MaterialApp(
+        MaterialApp(
           home: Scaffold(
-            body: RoundedInputField(placeholder: "Enter new username"),
+            body: RoundedInputField(
+              placeholder: "Enter new username",
+              controller: TextEditingController(text: ""),
+            ),
           ),
         ),
       );

@@ -1,10 +1,3 @@
-// class AlbumsState {
-//   List albums;
-//   String errorMessages;
-
-//   AlbumsState({this.errorMessages = "", required this.albums});
-// }
-
 import 'package:equatable/equatable.dart';
 
 abstract class AlbumState extends Equatable {

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:masinqo/application/auth/login_page_bloc.dart';
+import 'package:masinqo/application/listener/listener_playlist/playlist_bloc.dart';
+import 'package:masinqo/domain/listener/listener_playlist.dart';
 import 'package:masinqo/presentation/widgets/admin_login_button.dart';
 import 'package:masinqo/presentation/widgets/listener_playlist_buttons.dart';
 import 'package:masinqo/presentation/widgets/login_options.dart';
@@ -39,28 +41,32 @@ void main() {
     expect(textFinder, findsOneWidget);
   });
 
-  // testWidgets("Playlist Buttons Test", (tester) async {
-  //   final testTarget = PlaylistButtonsWidget(
-  //       editController: () {},
-  //       deleteController: () {},
-  //       playlistName: "test_plname");
-  //   await tester.pumpWidget(
-  //     MaterialApp(
-  //       home: testTarget,
-  //     ),
-  //   );
+  testWidgets("Playlist Buttons Test", (tester) async {
+    final testTarget = PlaylistButtonsWidget(
+      bloc: PlaylistBloc(playlistRepository: ListenerPlaylistCollection()),
+      editController: () {},
+      deleteController: () {},
+      playlistName: "test_plname",
+      id: '',
+      token: '',
+    );
+    await tester.pumpWidget(
+      MaterialApp(
+        home: testTarget,
+      ),
+    );
 
-  //   final editFinder = find.text("Edit");
-  //   final deleteFinder = find.text("Delete");
-  //   final initialPl =
-  //       find.text('Are you sure you want to delete this playlist?');
-  //   await tester.tap(deleteFinder);
-  //   await tester.pump();
-  //   final finalPl = find.text('Are you sure you want to delete this playlist?');
+    final editFinder = find.text("Edit");
+    final deleteFinder = find.text("Delete");
+    final initialPl =
+        find.text('Are you sure you want to delete this playlist?');
+    await tester.tap(deleteFinder);
+    await tester.pump();
+    final finalPl = find.text('Are you sure you want to delete this playlist?');
 
-  //   expect(initialPl, findsOneWidget);
-  //   expect(finalPl, findsOneWidget);
-  //   expect(editFinder, findsOneWidget);
-  //   expect(deleteFinder, findsOneWidget);
-  // });
+    expect(initialPl, findsOneWidget);
+    expect(finalPl, findsOneWidget);
+    expect(editFinder, findsOneWidget);
+    expect(deleteFinder, findsOneWidget);
+  });
 }
