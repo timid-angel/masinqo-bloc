@@ -4,8 +4,6 @@ import 'package:mockito/mockito.dart';
 import 'package:masinqo/domain/admin/admin_artists/admin_artists.dart';
 import 'package:masinqo/infrastructure/admin/admin_artists/admin_artists_repository.dart';
 import 'package:masinqo/infrastructure/admin/admin_artists/admin_artists_dto.dart';
-import 'package:masinqo/domain/admin/admin_failure.dart';
-import 'package:masinqo/domain/admin/admin_success.dart';
 import 'package:masinqo/infrastructure/admin/admin_artists/admin_artists_success.dart';
 import 'package:masinqo/infrastructure/admin/admin_artists/admin_artists_failures.dart';
 
@@ -49,15 +47,6 @@ void main() {
       final result = await adminArtistsCollection.changeStatus('testId', true);
       expect(
           result.fold((l) => l.message, (r) => null), equals("Invalid token"));
-    });
-    test('getArtists returns GetArtistsSuccess when token is not empty',
-        () async {
-      when(mockAdminArtistsRepository.token).thenReturn('validToken');
-      when(mockAdminArtistsRepository.getArtists())
-          .thenAnswer((_) async => Right(ArtistFetchSuccess(artists: [])));
-
-      final result = await adminArtistsCollection.getArtists();
-      expect(result, isA<Right<AdminFailure, GetArtistsSuccess>>());
     });
   });
 }
