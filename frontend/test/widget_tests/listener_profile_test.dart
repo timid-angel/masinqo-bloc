@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:masinqo/application/listener/listener_profile/profile_bloc.dart';
 import 'package:masinqo/domain/listener/listener_profile.dart';

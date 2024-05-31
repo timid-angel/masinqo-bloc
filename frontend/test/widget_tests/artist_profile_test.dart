@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:masinqo/application/artists/home_page/artist_home_bloc.dart';
 import 'package:masinqo/presentation/screens/artist_profile.dart';

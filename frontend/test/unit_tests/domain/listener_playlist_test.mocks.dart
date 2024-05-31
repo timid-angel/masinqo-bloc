@@ -100,6 +100,23 @@ class MockListenerPlaylistService extends _i1.Mock
         returnValue: _i4.Future<void>.value(),
         returnValueForMissingStub: _i4.Future<void>.value(),
       ) as _i4.Future<void>);
+
+  @override
+  _i4.Future<void> deletePlaylist(
+    String? id,
+    String? token,
+  ) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #deletePlaylist,
+          [
+            id,
+            token,
+          ],
+        ),
+        returnValue: _i4.Future<void>.value(),
+        returnValueForMissingStub: _i4.Future<void>.value(),
+      ) as _i4.Future<void>);
 }
 
 /// A class which mocks [ListenerPlaylistRepository].
@@ -160,6 +177,23 @@ class MockListenerPlaylistRepository extends _i1.Mock
           [
             id,
             name,
+            token,
+          ],
+        ),
+        returnValue: _i4.Future<void>.value(),
+        returnValueForMissingStub: _i4.Future<void>.value(),
+      ) as _i4.Future<void>);
+
+  @override
+  _i4.Future<void> deletePlaylist(
+    String? id,
+    String? token,
+  ) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #deletePlaylist,
+          [
+            id,
             token,
           ],
         ),

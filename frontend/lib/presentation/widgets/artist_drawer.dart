@@ -36,8 +36,12 @@ class ArtistDrawer extends StatelessWidget {
                           ),
                         ),
                         child: CircleAvatar(
-                          backgroundImage: NetworkImage(
-                              "${Domain.url}/${artistHomeBloc.state.profilePicture}"),
+                          backgroundImage: artistHomeBloc
+                                  .state.profilePicture.isNotEmpty
+                              ? NetworkImage(
+                                  "${Domain.url}/${artistHomeBloc.state.profilePicture}")
+                              : const NetworkImage(
+                                  "${Domain.url}/local/artist_placeholder.jpg"),
                         ),
                       ),
                       const SizedBox(height: 10),
