@@ -79,13 +79,12 @@ export class ArtistsService {
         if (file) {
             if (artist.profilePicture.length > 0) {
                 const filePath = artist.profilePicture
-                if (!existsSync(filePath)) {
-                    throw new NotFoundException('File not found');
-                }
-                try {
-                    unlinkSync(filePath);
-                } catch (error) {
-                    console.error('Error deleting song:', error);
+                if (existsSync(filePath)) {
+                    try {
+                        unlinkSync(filePath);
+                    } catch (error) {
+                        console.error('Error deleting old picture:', error);
+                    }
                 }
             }
             artist.profilePicture = file.path
