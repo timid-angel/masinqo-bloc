@@ -56,6 +56,7 @@ class AddSongModalState extends State<AddSongModal> {
             ),
             const SizedBox(height: 10.0),
             TextField(
+              key:const Key("song_name_field"),
               controller: _songNameController,
               decoration: const InputDecoration(
                 hintText: 'Enter song name',
@@ -68,6 +69,7 @@ class AddSongModalState extends State<AddSongModal> {
             ),
             const SizedBox(height: 10.0),
             ElevatedButton(
+               key:const Key("song_file_path_field"),
               onPressed: _pickSong,
               style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.transparent,

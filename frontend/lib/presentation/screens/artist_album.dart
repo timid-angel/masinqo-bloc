@@ -224,6 +224,7 @@ class ArtistsAlbumPageState extends State<ArtistsAlbumPage> {
                           ),
                         ),
                         TextButton.icon(
+                          key: const Key("delete_album_button"),
                           onPressed: () {
                             showDialog(
                               context: context,
