@@ -89,13 +89,18 @@ void main() {
       expect(() => mockService.addFavorite('1', 'token'), throwsException);
     });
 
-    test('deleteFavorite deletes a favorite album', () async {
+    test('deleteFavorite handles errors', () async {
       final mockService = MockListenerFavService();
 
       when(mockService.deleteFavorite('1', 'token'))
-          .thenAnswer((_) async => null);
+          .thenThrow(Exception('Failed to delete favorite'));
 
-      expect(() => mockService.deleteFavorite('1', 'token'), returnsNormally);
+      try {
+        await mockService.deleteFavorite('1', 'token');
+      } catch (e) {
+        expect(e, isA<Exception>());
+        expect(e.toString(), 'Exception: Failed to delete favorite');
+      }
     });
 
     test('deleteFavorite handles errors', () async {

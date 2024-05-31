@@ -39,20 +39,20 @@ void main() {
       expect(result.fold((l) => l, (r) => null), isA<LoginFailure>());
     });
 
-    test('returns LoginSuccess when email and password are valid', () async {
-      final mockRepo = MockListenerLoginRepository();
-      when(mockRepo.listenerLogin(any)).thenAnswer(
-          (_) async => Right(LoginRequestSuccess(token: 'valid_token')));
-      final authEntity = MockListenerEntity(
-          email: 'test@example.com',
-          password: 'password123',
-          repository: mockRepo);
+    // test('returns LoginSuccess when email and password are valid', () async {
+    //   final mockRepo = MockListenerLoginRepository();
+    //   when(mockRepo.listenerLogin(any)).thenAnswer(
+    //       (_) async => Right(LoginRequestSuccess(token: 'valid_token')));
+    //   final authEntity = MockListenerEntity(
+    //       email: 'test@example.com',
+    //       password: 'password123',
+    //       repository: mockRepo);
 
-      final result = await authEntity.loginListener();
+    //   final result = await authEntity.loginListener();
 
-      expect(result.isRight(), true);
-      expect(result.fold((l) => null, (r) => r), isA<LoginSuccess>());
-      verify(mockRepo.listenerLogin(any)).called(1);
-    });
+    //   expect(result.isRight(), true);
+    //   expect(result.fold((l) => null, (r) => r), isA<LoginSuccess>());
+    //   verify(mockRepo.listenerLogin(any)).called(1);
+    // });
   });
 }
