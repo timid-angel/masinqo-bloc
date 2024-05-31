@@ -1,0 +1,72 @@
+import 'package:bloc_test/bloc_test.dart';
+import 'package:dartz/dartz.dart';
+import 'package:masinqo/application/admin/admin_listeners_bloc.dart';
+import 'package:masinqo/application/admin/admin_listeners_event.dart';
+import 'package:masinqo/application/admin/admin_listeners_state.dart';
+import 'package:masinqo/domain/admin/admin_listeners/admin_listeners.dart';
+import 'package:masinqo/domain/admin/admin_listeners/listener_failure.dart';
+import 'package:masinqo/infrastructure/admin/admin_listeners_repository.dart';
+import 'package:mocktail/mocktail.dart';
+import 'package:test/test.dart';
+
+// Mock classes
+class MockAdminListenersRepository extends Mock implements AdminListenersRepository {}
+
+void main() {
+  late MockAdminListenersRepository mockAdminListenersRepository;
+  late AdminListenersBloc adminListenersBloc;
+
+  setUp(() {
+    mockAdminListenersRepository = MockAdminListenersRepository();
+    adminListenersBloc = AdminListenersBloc(adminListenersRepo: mockAdminListenersRepository);
+  });
+
+  tearDown(() {
+    adminListenersBloc.close();
+  });
+
+  group('AdminListenersBloc', () {
+    final List<AdminListener> initialListeners = [
+      AdminListener(id: '1', name: 'Listener 1'),
+      AdminListener(id: '2', name: 'Listener 2'),
+    ];
+
+    test('initial state is correct', () {
+      expect(adminListenersBloc.state, AdminListenersState(listeners: []));
+    });
+
+    blocTest<AdminListenersBloc, AdminListenersState>(
+      'emits [AdminListenersState] with updated listeners when successful deletion',
+      build: () {
+        when(() => mockAdminListenersRepository.deleteListener(any(), any()))
+            .thenAnswer((_) async => Right(unit));
+        return adminListenersBloc;
+      },
+      act: (bloc) {
+        bloc.emit(AdminListenersState(listeners: initialListeners));
+        return bloc.add(DeleteListener(listenerId: '1', token: 'token'));
+      },
+      expect: () => [
+        AdminListenersState(listeners: initialListeners),
+        AdminListenersState(listeners: [AdminListener(id: '2', name: 'Listener 2')]),
+      ],
+    );
+
+    blocTest<AdminListenersBloc, AdminListenersState>(
+      'emits [AdminListenersState] with error message when deletion fails',
+      build: () {
+        when(() => mockAdminListenersRepository.deleteListener(any(), any()))
+            .thenAnswer((_) async => Left(ListenerFailure(message: 'Deletion failed')));
+        return adminListenersBloc;
+      },
+      act: (bloc) {
+        bloc.emit(AdminListenersState(listeners: initialListeners));
+        return bloc.add(DeleteListener(listenerId: '1', token: 'token'));
+      },
+      expect: () => [
+        AdminListenersState(listeners: initialListeners),
+        AdminListenersState(listeners: initialListeners, errorMessages: 'Deletion failed'),
+      ],
+    );
+  });
+}
