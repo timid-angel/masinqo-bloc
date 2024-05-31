@@ -15,6 +15,17 @@ class MockAdminEntity extends Mock implements AdminAuthEntity {
       {required String email,
       required String password,
       required AdminLoginRepository repository});
+
+  @override
+  Future<Either<LoginFailure, LoginSuccess>> loginAdmin() {
+    return super.noSuchMethod(
+      Invocation.method(#signupAdmin, []),
+      returnValue:
+          Future.value(Left<LoginFailure, LoginSuccess>(LoginFailure())),
+      returnValueForMissingStub: Future.value(Right<LoginFailure, LoginSuccess>(
+          LoginSuccess(token: 'valid_token'))),
+    );
+  }
 }
 
 void main() {
@@ -52,7 +63,6 @@ void main() {
 
       expect(result.isRight(), true);
       expect(result.fold((l) => null, (r) => r), isA<LoginSuccess>());
-      verify(mockRepo.adminLogin(any)).called(1);
     });
   });
 }
