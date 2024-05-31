@@ -181,10 +181,9 @@ class LoginWidget extends StatelessWidget {
                                       MainAxisAlignment.spaceAround,
                                   children: <Widget>[
                                     Flexible(
-                                    
                                       flex: 5,
                                       child: LoginOptionButton(
-                                          key:Key('asArtist'),
+                                        key: const Key('asArtist'),
                                         isArtist: loginBloc.state,
                                         primaryColor: AppColors.artist2,
                                         buttonText: 'Login as Artist',
@@ -196,7 +195,7 @@ class LoginWidget extends StatelessWidget {
                                     Flexible(
                                       flex: 6,
                                       child: LoginOptionButton(
-                                         key:Key('asListener'),
+                                        key: const Key('asListener'),
                                         isArtist: loginBloc.state,
                                         primaryColor: AppColors.listener2,
                                         buttonText: 'Login as Listener',

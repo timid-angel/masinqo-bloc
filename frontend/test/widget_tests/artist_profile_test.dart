@@ -1,12 +1,15 @@
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:masinqo/application/artists/home_page/artist_home_bloc.dart';
 import 'package:masinqo/presentation/screens/artist_profile.dart';
 import 'package:masinqo/presentation/widgets/profile_mgmt_section_title.dart';
+import 'http_override.dart';
 
 void main() {
   group('Artist Profile Test', () {
     testWidgets('Artist Profile UI', (tester) async {
+      HttpOverrides.global = MyHttpOverrides();
       await tester.pumpWidget(
         MaterialApp(
           home: ArtistProfile(
@@ -23,6 +26,7 @@ void main() {
     });
 
     testWidgets('Rounded Input Field Test', (tester) async {
+      HttpOverrides.global = MyHttpOverrides();
       await tester.pumpWidget(
         MaterialApp(
           home: Scaffold(

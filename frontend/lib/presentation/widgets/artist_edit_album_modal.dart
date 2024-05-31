@@ -61,7 +61,7 @@ class EditSongModal extends StatelessWidget {
               ),
               const SizedBox(height: 2.0),
               TextFormField(
-                key:Key('title_field'),
+                key: const Key('title_field'),
                 controller: titleController,
                 decoration: const InputDecoration(
                   hintText: 'Enter new album name',
@@ -84,7 +84,7 @@ class EditSongModal extends StatelessWidget {
               ),
               const SizedBox(height: 2.0),
               TextFormField(
-                key: Key('genre_field'),
+                key: const Key('genre_field'),
                 controller: genreController,
                 decoration: const InputDecoration(
                   hintText: 'Enter new genre',
@@ -107,7 +107,7 @@ class EditSongModal extends StatelessWidget {
               ),
               const SizedBox(height: 2.0),
               TextFormField(
-                key: Key('description_field'),
+                key: const Key('description_field'),
                 controller: descriptionController,
                 decoration: const InputDecoration(
                   hintText: 'Enter new description',
