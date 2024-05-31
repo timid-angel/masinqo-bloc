@@ -28,7 +28,7 @@ class MockListenerFavService extends Mock implements ListenerFavService {
         Invocation.method(#addFavorite, [id, token]),
         returnValue: Future.value(None),
         returnValueForMissingStub:
-            Future.error(Exception('Failed to add favorite')),
+            Future.value(Exception('Failed to add favorite')),
       );
 
   @override
@@ -36,7 +36,7 @@ class MockListenerFavService extends Mock implements ListenerFavService {
         Invocation.method(#deleteFavorite, [id, token]),
         returnValue: Future.value(null),
         returnValueForMissingStub:
-            Future.error(Exception('Failed to delete favorite')),
+            Future.value(Exception('Failed to delete favorite')),
       );
 }
 
