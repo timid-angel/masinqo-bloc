@@ -88,5 +88,7 @@ class AlbumBloc extends Bloc<AlbumEvent, AlbumState> {
             pathParameters: {"token": event.artistHomeBloc.token});
       });
     });
+
+    
   }
 }

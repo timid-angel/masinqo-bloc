@@ -165,6 +165,7 @@ class SignupWidget extends StatelessWidget {
                                 ),
                                 const SizedBox(height: 12),
                                 CustomTextField(
+                                  key:const Key('username_field'),
                                   hintText: "Username",
                                   controller: _usernameController,
                                   isArtist: isArtist,
@@ -177,6 +178,7 @@ class SignupWidget extends StatelessWidget {
                                 ),
                                 const SizedBox(height: 12),
                                 CustomTextField(
+                                  key:const Key('email_field'),
                                   hintText: "Email",
                                   controller: _emailController,
                                   isArtist: isArtist,
@@ -189,6 +191,7 @@ class SignupWidget extends StatelessWidget {
                                 ),
                                 const SizedBox(height: 12),
                                 CustomTextField(
+                                  key:const Key('password_field'),
                                   hintText: "Password",
                                   controller: _passwordController,
                                   isArtist: isArtist,
@@ -202,6 +205,7 @@ class SignupWidget extends StatelessWidget {
                                 ),
                                 const SizedBox(height: 12),
                                 CustomTextField(
+                                  key:const Key('confirm_password_field'),
                                   hintText: "Confirm Password",
                                   controller: _confirmPasswordController,
                                   isArtist: isArtist,
@@ -219,6 +223,7 @@ class SignupWidget extends StatelessWidget {
                                       MainAxisAlignment.spaceAround,
                                   children: <Widget>[
                                     TextButton(
+                                      key: Key('Artist_op'),
                                       onPressed: () {
                                         _isArtist.value = true;
                                       },
@@ -252,6 +257,7 @@ class SignupWidget extends StatelessWidget {
                                       ),
                                     ),
                                     TextButton(
+                                      key: Key('Listener_op'),
                                       onPressed: () {
                                         _isArtist.value = false;
                                       },
@@ -289,6 +295,7 @@ class SignupWidget extends StatelessWidget {
                                 ),
                                 const SizedBox(height: 20),
                                 ElevatedButton(
+                                  key:Key('signup_button'),
                                   onPressed: signupHandler(context),
                                   style: ButtonStyle(
                                     backgroundColor:
