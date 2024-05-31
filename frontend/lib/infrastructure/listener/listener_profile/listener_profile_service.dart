@@ -18,7 +18,6 @@ class ListenerProfileService {
         "Content-Type": "application/json"
       },
     );
-    print("get response.body: ${response.body}");
     if (response.statusCode == 200) {
       return Profile.fromJson(json.decode(response.body));
     } else {
@@ -36,8 +35,6 @@ class ListenerProfileService {
       },
       body: jsonEncode({"name": name, "email": email, "password": password}),
     );
-    print("edit fav service");
-    print(response.statusCode);
     if (response.statusCode != 200) {
       throw Exception('Failed to load profile');
     }

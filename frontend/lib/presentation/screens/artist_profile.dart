@@ -75,12 +75,18 @@ class ArtistProfileState extends State<ArtistProfile> {
                         width: 160,
                         height: 160,
                         decoration: BoxDecoration(
-                            shape: BoxShape.circle,
-                            border: Border.all(
-                                color: const Color(0xFF39DCF3), width: 4),
-                            image: DecorationImage(
-                                image: NetworkImage(
-                                    "${Domain.url}/${widget.artistHomeBloc.state.profilePicture}"))),
+                          shape: BoxShape.circle,
+                          border: Border.all(
+                              color: const Color(0xFF39DCF3), width: 4),
+                          image: DecorationImage(
+                            image: widget.artistHomeBloc.state.profilePicture
+                                    .isNotEmpty
+                                ? NetworkImage(
+                                    "${Domain.url}/${widget.artistHomeBloc.state.profilePicture}")
+                                : const NetworkImage(
+                                    "${Domain.url}/local/artist_placeholder.jpg"),
+                          ),
+                        ),
                         child: ClipOval(
                           child: profilePicture(),
                         ),
