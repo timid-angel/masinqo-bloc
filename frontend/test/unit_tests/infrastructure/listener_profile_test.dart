@@ -30,7 +30,7 @@ class MockListenerProfileService extends Mock
         Invocation.method(#editProfile, [token, name, email, password]),
         returnValue: Future.value(null),
         returnValueForMissingStub:
-            Future.error(Exception('Failed to edit profile')),
+            Future.value(Exception('Failed to edit profile')),
       );
 }
 
@@ -88,6 +88,11 @@ void main() {
           () => mockService.editProfile('token', 'User 1 edited',
               'user1edited@example.com', 'password1edited'),
           throwsException);
+
+      // when(mockService.getProfile('token'))
+      //     .thenThrow(Exception('Failed to load profile'));
+
+      // expect(() => mockService.getProfile('token'), throwsException);
     });
   });
 }

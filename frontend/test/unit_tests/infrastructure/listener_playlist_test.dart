@@ -35,7 +35,7 @@ class MockListenerPlaylistService extends Mock
         Invocation.method(#addPlaylist, [name, token]),
         returnValue: Future.value(0),
         returnValueForMissingStub:
-            Future.error(Exception('Failed to add playlist')),
+            Future.value(Exception('Failed to add playlist')),
       );
 
   @override
@@ -44,7 +44,7 @@ class MockListenerPlaylistService extends Mock
         Invocation.method(#editPlaylist, [id, name, token]),
         returnValue: Future.value(null),
         returnValueForMissingStub:
-            Future.error(Exception('Failed to edit playlist')),
+            Future.value(Exception('Failed to edit playlist')),
       );
 }
 

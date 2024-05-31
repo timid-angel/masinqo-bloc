@@ -1,4 +1,7 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:masinqo/application/listener/listener_playlist/playlist_bloc.dart';
 import 'package:masinqo/domain/entities/playlist.dart';
@@ -10,21 +13,29 @@ import 'package:masinqo/presentation/widgets/listener_playlist_buttons.dart';
 import 'package:masinqo/presentation/widgets/listener_playlist_headline.dart';
 import 'package:masinqo/presentation/widgets/listener_playlist_songlist.dart';
 
+import 'http_override.dart';
+
 void main() {
   testWidgets('Listener Playlist Test', (tester) async {
+    HttpOverrides.global = MyHttpOverrides();
     await tester.pumpWidget(
-      MaterialApp(
-        home: PlaylistWidget(
-          playlist: Playlist(
-            name: 'test_pl',
-            creationDate: DateTime.now(),
-            description: "test_desc",
-            owner: "test_owner",
-            songs: [],
-            id: '',
+      BlocProvider(
+        create: (context) =>
+            PlaylistBloc(playlistRepository: ListenerPlaylistCollection()),
+        child: MaterialApp(
+          home: PlaylistWidget(
+            playlist: Playlist(
+              name: 'test_pl',
+              creationDate: DateTime.now(),
+              description: "test_desc",
+              owner: "test_owner",
+              songs: [],
+              id: '',
+            ),
+            token: '',
+            bloc:
+                PlaylistBloc(playlistRepository: ListenerPlaylistCollection()),
           ),
-          token: '',
-          bloc: PlaylistBloc(playlistRepository: ListenerPlaylistCollection()),
         ),
       ),
     );

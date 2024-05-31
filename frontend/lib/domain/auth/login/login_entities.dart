@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'package:dartz/dartz.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:masinqo/domain/auth/login/login_failure.dart';
@@ -34,6 +35,10 @@ class AdminAuthEntity {
         .adminLogin(LoginDTO(email: email, password: password));
 
     return res.fold((l) {
+      if (l.message.startsWith('{"')) {
+        loginFailure.messages.add(jsonDecode(l.message)["message"]);
+        return Left(loginFailure);
+      }
       loginFailure.messages.add(l.message == "Conflict"
           ? "Incorrect email or password"
           : "Connection Error");
@@ -70,6 +75,10 @@ class ListenerAuthEntity {
         .listenerLogin(ListenerLoginDTO(email: email, password: password));
 
     return res.fold((l) {
+      if (l.message.startsWith('{"')) {
+        loginFailure.messages.add(jsonDecode(l.message)["message"]);
+        return Left(loginFailure);
+      }
       loginFailure.messages.add(l.message == "Conflict"
           ? "Incorrect email or password"
           : "Connection Error");
@@ -104,6 +113,10 @@ class ArtistAuthEntity {
         .artistLogin(ArtistLoginDTO(email: email, password: password));
 
     return res.fold((l) {
+      if (l.message.startsWith('{"')) {
+        loginFailure.messages.add(jsonDecode(l.message)["message"]);
+        return Left(loginFailure);
+      }
       loginFailure.messages.add(
           l.message == "Conflict" ? "Incorrect email or password" : l.message);
       return Left(loginFailure);
