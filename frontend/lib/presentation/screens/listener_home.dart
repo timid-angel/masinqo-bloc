@@ -6,23 +6,57 @@ import 'package:masinqo/application/listener/listener_album/album_events.dart';
 import 'package:masinqo/application/listener/listener_album/album_state.dart';
 import 'package:masinqo/application/listener/listener_favorite/favorite_bloc.dart';
 import 'package:masinqo/application/listener/listener_favorite/favorite_events.dart';
+import 'package:masinqo/application/listener/listener_playlist/playlist_bloc.dart';
+import 'package:masinqo/application/listener/listener_playlist/playlist_events.dart';
+import 'package:masinqo/application/listener/listener_playlist/playlist_state.dart';
+import 'package:masinqo/application/listener/listener_profile/profile_bloc.dart';
 
 import 'package:masinqo/domain/entities/albums.dart';
+import 'package:masinqo/domain/entities/playlist.dart';
 
 import 'package:masinqo/presentation/widgets/listener_home_album.dart';
 
-class ListenerHome extends StatelessWidget {
+class ListenerHome extends StatefulWidget {
   const ListenerHome({
     super.key,
     required this.token,
+    required this.profileBloc,
   });
   final String token;
-  // final List<Album> albums;
+  final ProfileBloc profileBloc;
+
+  @override
+  _ListenerHomeState createState() => _ListenerHomeState();
+}
+
+class _ListenerHomeState extends State<ListenerHome> {
+  List<Playlist> playlists = [];
+
+  @override
+  void initState() {
+    super.initState();
+    BlocProvider.of<AlbumBloc>(context).add(FetchAlbums());
+    BlocProvider.of<FavoriteBloc>(context)
+        .add(FetchFavorites(token: widget.token));
+    BlocProvider.of<PlaylistBloc>(context)
+        .add(FetchPlaylists(token: widget.token));
+
+    BlocProvider.of<PlaylistBloc>(context).stream.listen((state) {
+      if (state is LoadedPlaylist) {
+        setState(() {
+          playlists = state.playlists;
+        });
+      }
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     BlocProvider.of<AlbumBloc>(context).add(FetchAlbums());
-    BlocProvider.of<FavoriteBloc>(context).add(FetchFavorites(token: token));
+    BlocProvider.of<PlaylistBloc>(context)
+        .add(FetchPlaylists(token: widget.token));
+    BlocProvider.of<FavoriteBloc>(context)
+        .add(FetchFavorites(token: widget.token));
 
     return SafeArea(
       child: Container(
@@ -49,10 +83,14 @@ class ListenerHome extends StatelessWidget {
                       itemBuilder: (context, index) => GestureDetector(
                         onTap: () {
                           final arguments = AlbumNavigationArgument(
-                            token: token,
+                            token: widget.token,
                             album: state.albums[index],
                             favoriteBloc:
                                 BlocProvider.of<FavoriteBloc>(context),
+                            playlistBloc:
+                                BlocProvider.of<PlaylistBloc>(context),
+                            playlists: playlists,
+                            profileBloc: widget.profileBloc,
                           );
 
                           context.pushNamed("listener_album", extra: arguments);
@@ -82,10 +120,16 @@ class AlbumNavigationArgument {
   final String token;
   final Album album;
   final FavoriteBloc favoriteBloc;
+  final PlaylistBloc playlistBloc;
+  final List<Playlist> playlists;
+  final ProfileBloc profileBloc;
 
   AlbumNavigationArgument({
+    required this.playlists,
     required this.token,
     required this.album,
     required this.favoriteBloc,
+    required this.playlistBloc,
+    required this.profileBloc,
   });
 }

@@ -1,5 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:masinqo/application/listener/listener_playlist/playlist_bloc.dart';
+import 'package:masinqo/application/listener/listener_playlist/playlist_events.dart';
+import 'package:masinqo/domain/entities/playlist.dart';
 import 'package:masinqo/domain/entities/songs.dart';
+import 'package:masinqo/infrastructure/core/url.dart';
 
 import '../../temp/audio_manager/listener_audio_manager.dart';
 
@@ -9,9 +14,21 @@ class AlbumSongTileWidget extends StatelessWidget {
     required this.onAdd,
     required this.song,
     required this.audioManager,
+    required this.playlists,
+    required this.token,
+    required this.index,
+    required this.albumId,
+    required this.name,
+    required this.filePath,
   });
 
   final Song song;
+  final String filePath;
+  final String name;
+  final List<Playlist> playlists;
+  final String token;
+  final int index;
+  final String albumId;
   final AudioManager audioManager;
   final Function() onAdd;
 
@@ -36,10 +53,12 @@ class AlbumSongTileWidget extends StatelessWidget {
                   height: deviceWidth * 0.14,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(5),
-                    // image: DecorationImage(
-                    //   fit: BoxFit.cover,
-                    //   image: AssetImage(song.album.albumArt),
-                    // ),
+                    image: DecorationImage(
+                      fit: BoxFit.cover,
+                      image: NetworkImage(song.albumArt.isNotEmpty
+                          ? "${Domain.url}/${song.albumArt}"
+                          : "${Domain.url}/local / album_art_placeholder.jpg"),
+                    ),
                   ),
                 ),
                 const SizedBox(width: 15),
@@ -60,7 +79,7 @@ class AlbumSongTileWidget extends StatelessWidget {
                     SizedBox(
                       width: deviceWidth * 0.52,
                       child: Text(
-                        song.toString(),
+                        song.name, //its showing the song name twice here
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
                       ),
@@ -69,17 +88,30 @@ class AlbumSongTileWidget extends StatelessWidget {
                 ),
               ],
             ),
-            PopupMenuButton(
+            PopupMenuButton<Playlist>(
               icon: const Icon(Icons.add_circle),
               itemBuilder: (context) {
-                return [
-                  const PopupMenuItem(child: Text('Playlist 1')),
-                  const PopupMenuItem(child: Text('Playlist 2')),
-                  const PopupMenuItem(child: Text('Playlist 3')),
-                  const PopupMenuItem(child: Text('Playlist 4')),
-                ];
+                return playlists.map((playlist) {
+                  return PopupMenuItem<Playlist>(
+                    value: playlist,
+                    child: Text(playlist.name),
+                  );
+                }).toList();
               },
-            ),
+              onSelected: (playlist) {
+                final playlistBloc = BlocProvider.of<PlaylistBloc>(context);
+                playlistBloc.add(
+                  AddSongToPlaylist(
+                    id: playlist.id ?? "",
+                    albumId: albumId,
+                    token: token,
+                    index: index,
+                    name: name,
+                    filePath: filePath,
+                  ),
+                );
+              },
+            )
           ],
         ),
       ),

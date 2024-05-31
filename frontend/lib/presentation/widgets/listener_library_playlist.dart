@@ -19,11 +19,11 @@ class LibraryPlaylistCard extends StatelessWidget {
     String secondArt = "assets/images/black.png";
 
     // if (playlist.songs.length >= 2) {
-    //   firstArt = playlist.songs[0].album.albumArt;
-    //   secondArt = playlist.songs[1].album.albumArt;
+    //   firstArt = playlist.songs[0].albumArt;
+    //   secondArt = playlist.songs[1].albumArt;
     //   for (int i = 0; i < playlist.songs.length; i++) {
-    //     if (playlist.songs[i].album.albumArt != firstArt) {
-    //       secondArt = playlist.songs[i].album.albumArt;
+    //     if (playlist.songs[i].albumArt != firstArt) {
+    //       secondArt = playlist.songs[i].albumArt;
     //       break;
     //     }
     //   }

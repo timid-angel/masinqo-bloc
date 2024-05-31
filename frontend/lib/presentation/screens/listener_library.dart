@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:masinqo/application/listener/listener_playlist/playlist_bloc.dart';
 import 'package:masinqo/application/listener/listener_playlist/playlist_events.dart';
 import 'package:masinqo/application/listener/listener_playlist/playlist_state.dart';
+import 'package:masinqo/application/listener/listener_profile/profile_bloc.dart';
 import 'package:masinqo/domain/entities/playlist.dart';
 import 'package:masinqo/presentation/core/theme/app_colors.dart';
 import 'package:masinqo/presentation/widgets/listener_library_playlist.dart';
@@ -13,9 +14,11 @@ class ListenerLibrary extends StatelessWidget {
     super.key,
     // required this.playlists,
     required this.token,
+    required this.profileBloc,
   });
   final String token;
   // final List<Playlist> playlists;
+  final ProfileBloc profileBloc;
 
   @override
   Widget build(BuildContext context) {
@@ -65,10 +68,12 @@ class ListenerLibrary extends StatelessWidget {
                             (p) => GestureDetector(
                               onTap: () {
                                 final arguments = PlaylistNavigationArgument(
-                                    token: token,
-                                    playlist: p,
-                                    playlistBloc:
-                                        BlocProvider.of<PlaylistBloc>(context));
+                                  token: token,
+                                  playlist: p,
+                                  playlistBloc:
+                                      BlocProvider.of<PlaylistBloc>(context),
+                                  profileBloc: profileBloc,
+                                );
                                 context.pushNamed("listener_playlist",
                                     extra: arguments);
                               },
@@ -105,9 +110,11 @@ class PlaylistNavigationArgument {
   final String token;
   final Playlist playlist;
   final PlaylistBloc playlistBloc;
+  final ProfileBloc profileBloc;
 
   PlaylistNavigationArgument(
       {required this.token,
       required this.playlist,
-      required this.playlistBloc});
+      required this.playlistBloc,
+      required this.profileBloc});
 }

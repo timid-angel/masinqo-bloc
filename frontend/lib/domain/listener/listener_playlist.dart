@@ -25,6 +25,26 @@ class ListenerPlaylistCollection {
         .addPlaylist(playlistName, token);
   }
 
+  Future<void> addSongToPlaylist(String id, String albumId, String token,
+      int index, String name, String filePath) async {
+    if (token.isEmpty) {
+      throw Exception('Invalid token');
+    }
+
+    await ListenerPlaylistRepository(ListenerPlaylistService())
+        .addSongToPlaylist(id, albumId, token, index, name, filePath);
+  }
+
+  Future<void> deleteSongFromPlaylist(String id, String albumId, String token,
+      int index, String name, String filePath) async {
+    if (token.isEmpty) {
+      throw Exception('Invalid token');
+    }
+
+    await ListenerPlaylistRepository(ListenerPlaylistService())
+        .deleteSongFromPlaylist(id, albumId, token, index, name, filePath);
+  }
+
   Future<void> editPlaylist(String id, String name, String token) async {
     if (token.isEmpty) {
       throw Exception('Invalid token');

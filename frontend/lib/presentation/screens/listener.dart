@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:masinqo/application/listener/listener_album/album_bloc.dart';
 import 'package:masinqo/application/listener/listener_favorite/favorite_bloc.dart';
 import 'package:masinqo/application/listener/listener_playlist/playlist_bloc.dart';
+import 'package:masinqo/application/listener/listener_profile/profile_bloc.dart';
 import 'package:masinqo/domain/listener/listener_album.dart';
 import 'package:masinqo/domain/listener/listener_favorite.dart';
 import 'package:masinqo/domain/listener/listener_playlist.dart';
@@ -49,7 +50,7 @@ class _ListenerWidgetState extends State<ListenerWidget> {
         BlocProvider(
           create: (BuildContext context) =>
               FavoriteBloc(favoriteRepository: ListenerFavCollection()),
-        )
+        ),
       ],
       child: DefaultTabController(
         length: 3,
@@ -57,6 +58,7 @@ class _ListenerWidgetState extends State<ListenerWidget> {
           backgroundColor: AppColors.black,
           endDrawer: ListenerDrawer(
             token: token,
+            profileBloc: BlocProvider.of<ProfileBloc>(context),
           ),
           body: NestedScrollView(
             headerSliverBuilder: (context, innerBoxScrolled) {
@@ -68,12 +70,15 @@ class _ListenerWidgetState extends State<ListenerWidget> {
               children: [
                 ListenerHome(
                   token: token,
+                  profileBloc: BlocProvider.of<ProfileBloc>(context),
                 ),
                 ListenerFavorites(
                   token: token,
+                  profileBloc: BlocProvider.of<ProfileBloc>(context),
                 ),
                 ListenerLibrary(
                   token: token,
+                  profileBloc: BlocProvider.of<ProfileBloc>(context),
                 ),
               ],
             ),

@@ -1,21 +1,22 @@
-import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
-import { Document } from "mongoose";
+import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
+import { Document } from 'mongoose';
 
 class Song {
-    album: string
-    index: number
+  album: string;
+  index: number;
+  filePath: string;
 }
 
 @Schema()
 export class Playlist extends Document {
-    @Prop()
-    name: string
+  @Prop()
+  name: string;
 
-    @Prop()
-    owner: string
+  @Prop()
+  owner: string;
 
-    @Prop({ default: [] })
-    songs: Array<Song>
+  @Prop({ default: [] })
+  songs: Array<Song>;
 }
 
-export const PlaylistSchema = SchemaFactory.createForClass(Playlist)
+export const PlaylistSchema = SchemaFactory.createForClass(Playlist);

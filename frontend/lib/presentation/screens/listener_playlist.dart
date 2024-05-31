@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:masinqo/application/listener/listener_playlist/playlist_bloc.dart';
 import 'package:masinqo/application/listener/listener_playlist/playlist_events.dart';
+import 'package:masinqo/application/listener/listener_profile/profile_bloc.dart';
 import 'package:masinqo/domain/entities/playlist.dart';
 import 'package:masinqo/presentation/core/theme/app_colors.dart';
 
@@ -17,9 +18,11 @@ class PlaylistWidget extends StatelessWidget {
   final Playlist playlist;
   final String token;
   final PlaylistBloc bloc;
+  final ProfileBloc profileBloc;
 
   const PlaylistWidget(
       {super.key,
+      required this.profileBloc,
       required this.token,
       required this.playlist,
       required this.bloc});
@@ -73,7 +76,8 @@ class PlaylistWidget extends StatelessWidget {
                           const Divider(height: 30, thickness: 2),
                           PlaylistTracksWidget(
                             playlist: playlist,
-                            onDelete: () {},
+                            bloc: bloc,
+                            token: token,
                             audioManager: audioManager,
                           ),
                         ],
@@ -87,6 +91,7 @@ class PlaylistWidget extends StatelessWidget {
         ),
         endDrawer: ListenerDrawer(
           token: token,
+          profileBloc: profileBloc,
         ),
       ),
     );

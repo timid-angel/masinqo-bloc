@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:masinqo/application/listener/listener_favorite/favorite_bloc.dart';
+import 'package:masinqo/application/listener/listener_playlist/playlist_bloc.dart';
+import 'package:masinqo/application/listener/listener_profile/profile_bloc.dart';
+import 'package:masinqo/domain/entities/playlist.dart';
 import 'package:masinqo/presentation/core/theme/app_colors.dart';
 
 import 'package:masinqo/presentation/widgets/listener_album_albumart.dart';
@@ -15,12 +18,18 @@ class AlbumWidget extends StatefulWidget {
   final Album album;
   final String token;
   final FavoriteBloc favoriteBloc;
+  final PlaylistBloc playlistBloc;
+  final List<Playlist> playlist;
+  final ProfileBloc profileBloc;
 
   const AlbumWidget({
     super.key,
+    required this.playlist,
     required this.album,
     required this.token,
     required this.favoriteBloc,
+    required this.playlistBloc,
+    required this.profileBloc,
   });
 
   @override
@@ -80,9 +89,13 @@ class _AlbumWidgetState extends State<AlbumWidget> {
                               album: widget.album, token: widget.token),
                           const Divider(height: 30, thickness: 2),
                           AlbumTracksWidget(
-                              album: widget.album,
-                              onAdd: () {},
-                              audioManager: audioManager),
+                            album: widget.album,
+                            onAdd: () {},
+                            audioManager: audioManager,
+                            playlists: widget.playlist,
+                            token: widget.token,
+                            playlistBloc: widget.playlistBloc,
+                          ),
                         ],
                       ),
                     ),
@@ -94,6 +107,7 @@ class _AlbumWidgetState extends State<AlbumWidget> {
         ),
         endDrawer: ListenerDrawer(
           token: widget.token,
+          profileBloc: widget.profileBloc,
         ),
       ),
     );

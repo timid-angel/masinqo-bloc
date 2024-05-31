@@ -53,5 +53,27 @@ class PlaylistBloc extends Bloc<PlaylistEvent, PlaylistState> {
         emit(ErrorPlaylist(e.toString()));
       }
     });
+
+    on<AddSongToPlaylist>((event, emit) async {
+      try {
+        await playlistRepository.addSongToPlaylist(event.id, event.albumId,
+            event.token, event.index, event.name, event.filePath);
+        final playlists = await playlistRepository.getPlaylists(event.token);
+        emit(LoadedPlaylist(playlists));
+      } catch (e) {
+        emit(ErrorPlaylist(e.toString()));
+      }
+    });
+
+    on<DeleteSongFromPlaylist>((event, emit) async {
+      try {
+        await playlistRepository.deleteSongFromPlaylist(event.id, event.albumId,
+            event.token, event.index, event.name, event.filePath);
+        final playlists = await playlistRepository.getPlaylists(event.token);
+        emit(LoadedPlaylist(playlists));
+      } catch (e) {
+        emit(ErrorPlaylist(e.toString()));
+      }
+    });
   }
 }

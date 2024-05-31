@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:masinqo/application/listener/listener_profile/profile_bloc.dart';
 import 'package:masinqo/application/listener/listener_profile/profile_events.dart';
+import 'package:masinqo/application/listener/listener_profile/profile_state.dart';
 import 'package:masinqo/presentation/core/theme/app_colors.dart';
 import 'package:masinqo/presentation/widgets/profile_mgmt_section_title.dart';
 
 class ListenerProfile extends StatefulWidget {
   final String token;
-  final ProfileBloc profileBloc;
-  const ListenerProfile(
-      {super.key, required this.token, required this.profileBloc});
+
+  const ListenerProfile({super.key, required this.token});
 
   @override
   ListenerProfileState createState() => ListenerProfileState();
@@ -25,87 +25,130 @@ class ListenerProfileState extends State<ListenerProfile> {
       TextEditingController();
 
   @override
+  void initState() {
+    super.initState();
+
+    BlocProvider.of<ProfileBloc>(context)
+        .add(FetchProfile(token: widget.token));
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return BlocProvider.value(
-      value: widget.profileBloc,
-      child: Scaffold(
-        key: _scaffoldKey,
-        appBar: AppBar(
-          backgroundColor: Colors.transparent,
-        ),
-        backgroundColor: Colors.black,
-        body: Center(
-          child: SingleChildScrollView(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                profilePicture(),
-                const SizedBox(height: 5),
-                const Text(
-                  'Username',
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    color: Color.fromARGB(255, 238, 197, 255),
-                    fontSize: 32,
-                    fontWeight: FontWeight.bold,
-                  ),
-                  overflow: TextOverflow.ellipsis,
-                  maxLines: 1,
-                ),
-                const SizedBox(height: 20),
-                const SectionTitle(title: 'Change Username'),
-                RoundedInputField(
-                  placeholder: "Enter new username",
-                  controller: _usernameController,
-                ),
-                const SizedBox(height: 2),
-                RoundedInputField(
-                  placeholder: "Enter new Email",
-                  controller: _emailController,
-                ),
-                const SizedBox(height: 20),
-                const SectionTitle(title: 'Change Password'),
-                const SizedBox(height: 10),
-                RoundedInputField(
-                  placeholder: "Enter new password",
-                  controller: _passwordController,
-                ),
-                const SizedBox(height: 2),
-                RoundedInputField(
-                    placeholder: "Confirm new Password",
-                    controller: _confirmPasswordController),
-                const SizedBox(height: 10),
-                ElevatedButton(
-                  onPressed: () {
-                    context.read<ProfileBloc>().add(
-                          EditProfile(
-                              token: widget.token,
-                              name: _usernameController.text,
-                              email: _emailController.text,
-                              password: _passwordController.text),
-                        );
-                  },
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: AppColors.listener2,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(30),
-                    ),
-                  ),
-                  child: const Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 40, vertical: 5),
-                    child: Text(
-                      "Submit",
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 18,
-                      ),
-                    ),
-                  ),
-                ),
-                const SizedBox(height: 75)
-              ],
-            ),
+    return Scaffold(
+      key: _scaffoldKey,
+      appBar: AppBar(
+        backgroundColor: Colors.transparent,
+      ),
+      backgroundColor: Colors.black,
+      body: Center(
+        child: SingleChildScrollView(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              profilePicture(),
+              const SizedBox(height: 5),
+              BlocBuilder<ProfileBloc, ProfileState>(
+                builder: (context, state) {
+                  if (state is LoadedProfile) {
+                    _usernameController.text = state.profile.name;
+                    _emailController.text = state.profile.email;
+                    return Column(
+                      children: [
+                        Text(
+                          state.profile.name,
+                          textAlign: TextAlign.center,
+                          style: const TextStyle(
+                            color: Color.fromARGB(255, 238, 197, 255),
+                            fontSize: 32,
+                            fontWeight: FontWeight.bold,
+                          ),
+                          overflow: TextOverflow.ellipsis,
+                          maxLines: 1,
+                        ),
+                        const SizedBox(height: 20),
+                        const SectionTitle(title: 'Change Username'),
+                        RoundedInputField(
+                          placeholder: "Enter new username",
+                          controller: _usernameController,
+                        ),
+                        const SizedBox(height: 2),
+                        RoundedInputField(
+                          placeholder: "Enter new Email",
+                          controller: _emailController,
+                        ),
+                        const SizedBox(height: 20),
+                        const SectionTitle(title: 'Change Password'),
+                        const SizedBox(height: 10),
+                        RoundedInputField(
+                          placeholder: "Enter new password",
+                          controller: _passwordController,
+                        ),
+                        const SizedBox(height: 2),
+                        RoundedInputField(
+                            placeholder: "Confirm new Password",
+                            controller: _confirmPasswordController),
+                        const SizedBox(height: 10),
+                        ElevatedButton(
+                          onPressed: () {
+                            BlocProvider.of<ProfileBloc>(context).add(
+                              EditProfile(
+                                  token: widget.token,
+                                  name: _usernameController.text,
+                                  email: _emailController.text,
+                                  password: _passwordController.text),
+                            );
+
+                            _usernameController.clear();
+                            _emailController.clear();
+                            _passwordController.clear();
+                            _confirmPasswordController.clear();
+
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(
+                                content: Text(
+                                  'Profile updated successfully',
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 18,
+                                  ),
+                                ),
+                                backgroundColor: Colors.green,
+                              ),
+                            );
+                          },
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: AppColors.listener2,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(30),
+                            ),
+                          ),
+                          child: const Padding(
+                            padding: EdgeInsets.symmetric(
+                                horizontal: 40, vertical: 5),
+                            child: Text(
+                              "Submit",
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 18,
+                              ),
+                            ),
+                          ),
+                        ),
+                        const SizedBox(height: 75)
+                      ],
+                    );
+                  } else if (state is ErrorProfile) {
+                    return Text(
+                      'Failed to load profile: ${state.error}',
+                      style: const TextStyle(color: Colors.red),
+                    );
+                  } else {
+                    return const Text('No profile information available');
+                  }
+                },
+              ),
+            ],
           ),
         ),
       ),
@@ -152,6 +195,7 @@ class RoundedInputField extends StatelessWidget {
         border: Border.all(color: AppColors.listener2, width: 1),
       ),
       child: TextField(
+        controller: controller,
         style: const TextStyle(color: Colors.grey),
         decoration: InputDecoration(
           hintText: placeholder,

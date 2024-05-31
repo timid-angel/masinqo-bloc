@@ -13,10 +13,7 @@ class ListenerProfileService {
   Future<Profile> getProfile(String token) async {
     final response = await http.get(
       Uri.parse('$baseUrl/listener/info'),
-      headers: {
-        "Cookie": "accessToken=$token",
-        "Content-Type": "application/json"
-      },
+      headers: {"Cookie": token, "Content-Type": "application/json"},
     );
     if (response.statusCode == 200) {
       return Profile.fromJson(json.decode(response.body));
@@ -27,14 +24,17 @@ class ListenerProfileService {
 
   Future<void> editProfile(
       String token, String name, String email, String password) async {
+    print("event name is");
     final response = await http.patch(
       Uri.parse('$baseUrl/listener/update'),
       headers: {
-        "Cookie": "accessToken=$token",
+        "Cookie": token,
         "Content-Type": "application/json",
       },
       body: jsonEncode({"name": name, "email": email, "password": password}),
     );
+    print("name is ${name}");
+    print(response.statusCode);
     if (response.statusCode != 200) {
       throw Exception('Failed to load profile');
     }
