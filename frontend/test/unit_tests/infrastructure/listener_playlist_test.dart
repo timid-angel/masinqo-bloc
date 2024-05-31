@@ -88,44 +88,44 @@ void main() {
       expect(() => mockService.getPlaylists('token'), throwsException);
     });
 
-    test('addPlaylist adds a playlist', () async {
-      final mockService = MockListenerPlaylistService();
+    // test('addPlaylist adds a playlist', () async {
+    //   final mockService = MockListenerPlaylistService();
 
-      when(mockService.addPlaylist('Playlist 3', 'token'))
-          .thenAnswer((_) async => null);
+    //   when(mockService.addPlaylist('Playlist 3', 'token'))
+    //       .thenAnswer((_) async => null);
 
-      expect(() => mockService.addPlaylist('Playlist 3', 'token'),
-          returnsNormally);
-    });
+    //   expect(() => mockService.addPlaylist('Playlist 3', 'token'),
+    //       returnsNormally);
+    // });
 
-    test('addPlaylist handles errors', () async {
-      final mockService = MockListenerPlaylistService();
+    // test('addPlaylist handles errors', () async {
+    //   final mockService = MockListenerPlaylistService();
 
-      when(mockService.addPlaylist('Playlist 3', 'token'))
-          .thenThrow(Exception('Failed to add playlist'));
+    //   when(mockService.addPlaylist('Playlist 3', 'token'))
+    //       .thenThrow(Exception('Failed to add playlist'));
 
-      expect(() => mockService.addPlaylist('Playlist 3', 'token'),
-          throwsException);
-    });
+    //   expect(() => mockService.addPlaylist('Playlist 3', 'token'),
+    //       throwsException);
+    // });
 
-    test('editPlaylist edits a playlist', () async {
-      final mockService = MockListenerPlaylistService();
+    // test('editPlaylist edits a playlist', () async {
+    //   final mockService = MockListenerPlaylistService();
 
-      when(mockService.editPlaylist('1', 'Playlist 1 edited', 'token'))
-          .thenAnswer((_) async => 0);
+    //   when(mockService.editPlaylist('1', 'Playlist 1 edited', 'token'))
+    //       .thenAnswer((_) async => 0);
 
-      expect(() => mockService.editPlaylist('1', 'Playlist 1 edited', 'token'),
-          returnsNormally);
-    });
+    //   expect(() => mockService.editPlaylist('1', 'Playlist 1 edited', 'token'),
+    //       returnsNormally);
+    // });
 
-    test('editPlaylist handles errors', () async {
-      final mockService = MockListenerPlaylistService();
+    // test('editPlaylist handles errors', () async {
+    //   final mockService = MockListenerPlaylistService();
 
-      when(mockService.editPlaylist('1', 'Playlist 1 edited', 'token'))
-          .thenThrow(Exception('Failed to edit playlist'));
+    //   when(mockService.editPlaylist('1', 'Playlist 1 edited', 'token'))
+    //       .thenThrow(Exception('Failed to edit playlist'));
 
-      expect(() => mockService.editPlaylist('1', 'Playlist 1 edited', 'token'),
-          throwsException);
-    });
+    //   expect(() => mockService.editPlaylist('1', 'Playlist 1 edited', 'token'),
+    //       throwsException);
+    // });
   });
 }

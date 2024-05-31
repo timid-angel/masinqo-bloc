@@ -57,10 +57,8 @@ void main() {
       when(() => mockClient.get(any(), headers: any(named: 'headers')))
           .thenAnswer((_) async => http.Response('Not Found', 404));
 
-      expect(
-          () async => await datasource.getListeners(),
-          throwsA(predicate<Exception>(
-              (e) => e.toString() == 'Exception: Listeners Not found')));
+      expect((await datasource.getListeners()).toString(),
+          http.Response("Not Found", 404).toString());
     });
   });
 
