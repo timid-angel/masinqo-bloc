@@ -1,0 +1,6 @@
+flutter driver\
+--driver=test_driver/integration_test.dart
+--target=integration_test/admin/admin_login_test.dart
+
+--driver=test_driver/integration_test.dart
+--target=integration_test/artist/artist_login_test.dart
