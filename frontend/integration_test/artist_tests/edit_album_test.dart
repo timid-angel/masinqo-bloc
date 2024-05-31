@@ -16,12 +16,11 @@ import 'package:mocktail/mocktail.dart';
 void main() {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
 
- setUpAll(() {
-  registerFallbackValue(FakeAlbumEvent());
-  registerFallbackValue(FakeAlbumState());
-  registerFallbackValue(FakeArtistHomeEvent()); // Add this line
-});
-
+  setUpAll(() {
+    registerFallbackValue(FakeAlbumEvent());
+    registerFallbackValue(FakeAlbumState());
+    registerFallbackValue(FakeArtistHomeEvent()); // Add this line
+  });
 
   testWidgets('Edit Album Integration Test', (WidgetTester tester) async {
     final mockAlbumBloc = MockAlbumBloc();
@@ -74,42 +73,48 @@ void main() {
     expect(find.byType(Dialog), findsOneWidget);
 
     // Edit album details
-    await tester.enterText(find.byKey(Key('title_field')), 'Edited Title');
-    await tester.enterText(find.byKey(Key('genre_field')), 'Edited Genre');
-    await tester.enterText(find.byKey(Key('description_field')), 'Edited Description');
+    await tester.enterText(
+        find.byKey(const Key('title_field')), 'Edited Title');
+    await tester.enterText(
+        find.byKey(const Key('genre_field')), 'Edited Genre');
+    await tester.enterText(
+        find.byKey(const Key('description_field')), 'Edited Description');
     await tester.tap(find.text('Save Changes'));
     await tester.pumpAndSettle();
 
     // Verify that the AlbumUpdateEvent was dispatched
     verify(() => mockAlbumBloc.add(
-      AlbumUpdateEvent(
-        title: 'Edited Title',
-        genre: 'Edited Genre',
-        description: 'Edited Description',
-      ),
-    )).called(1);
+          AlbumUpdateEvent(
+            title: 'Edited Title',
+            genre: 'Edited Genre',
+            description: 'Edited Description',
+          ),
+        )).called(1);
 
     // Verify that the album state is updated
     expect(
-      (mockAlbumBloc.state as AlbumState).title,
+      (mockAlbumBloc.state).title,
       equals('Edited Title'),
     );
     expect(
-      (mockAlbumBloc.state as AlbumState).genre,
+      (mockAlbumBloc.state).genre,
       equals('Edited Genre'),
     );
     expect(
-      (mockAlbumBloc.state as AlbumState).description,
+      (mockAlbumBloc.state).description,
       equals('Edited Description'),
     );
   });
 }
 
-class MockAlbumBloc extends MockBloc<AlbumEvent, AlbumState> implements AlbumBloc {}
+class MockAlbumBloc extends MockBloc<AlbumEvent, AlbumState>
+    implements AlbumBloc {}
 
-class MockArtistHomeBloc extends MockBloc<ArtistHomeEvent, ArtistHomeState> implements ArtistHomeBloc {}
+class MockArtistHomeBloc extends MockBloc<ArtistHomeEvent, ArtistHomeState>
+    implements ArtistHomeBloc {}
 
 class FakeAlbumEvent extends Fake implements AlbumEvent {}
 
 class FakeAlbumState extends Fake implements AlbumState {}
+
 class FakeArtistHomeEvent extends Fake implements ArtistHomeEvent {}

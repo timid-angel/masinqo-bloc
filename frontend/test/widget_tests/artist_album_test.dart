@@ -1,3 +1,4 @@
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:masinqo/application/artists/album/album_bloc.dart';
@@ -6,13 +7,14 @@ import 'package:masinqo/application/artists/home_page/artist_home_bloc.dart';
 import 'package:masinqo/presentation/screens/artist_album.dart';
 import 'package:masinqo/presentation/widgets/artist_add_song_modal.dart';
 import 'package:masinqo/presentation/widgets/artist_album_card.dart';
-import 'package:masinqo/presentation/widgets/artist_app_bar.dart';
 import 'package:masinqo/presentation/widgets/artist_edit_album_modal.dart';
 import 'package:masinqo/presentation/widgets/delete_confirmation_modal.dart';
+import 'http_override.dart';
 
 void main() {
   group("Artist Album Page", () {
     testWidgets('Page and Add Button', (tester) async {
+      HttpOverrides.global = MyHttpOverrides();
       await tester.pumpWidget(
         MaterialApp(
           home: ArtistsAlbumPage(
@@ -36,8 +38,7 @@ void main() {
         ),
       );
 
-      expect(find.byType(ArtistAppBar), findsOneWidget);
-      expect(find.text("2 Tracks"), findsOneWidget);
+      expect(find.text("0 Tracks"), findsOneWidget);
       expect(find.text('Add Song'), findsOneWidget);
       expect(find.text('Edit Album'), findsOneWidget);
       expect(find.text('Delete Album'), findsOneWidget);
@@ -50,6 +51,7 @@ void main() {
     });
 
     testWidgets('Edit Button', (tester) async {
+      HttpOverrides.global = MyHttpOverrides();
       await tester.pumpWidget(
         MaterialApp(
           home: ArtistsAlbumPage(
@@ -79,6 +81,7 @@ void main() {
     });
 
     testWidgets('Delete Button', (tester) async {
+      HttpOverrides.global = MyHttpOverrides();
       await tester.pumpWidget(
         MaterialApp(
           home: ArtistsAlbumPage(

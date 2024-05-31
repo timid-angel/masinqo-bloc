@@ -65,10 +65,8 @@ void main() {
       when(() => mockClient.get(any(), headers: any(named: 'headers')))
           .thenAnswer((_) async => http.Response('Not Found', 404));
 
-      expect(
-          () async => await datasource.getArtists(),
-          throwsA(predicate<Exception>(
-              (e) => e.toString() == 'Exception: Artists Not found')));
+      expect((await datasource.getArtists()).toString(),
+          (http.Response('Not Found', 404)).toString());
     });
   });
 

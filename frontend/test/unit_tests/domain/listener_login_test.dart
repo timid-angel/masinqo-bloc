@@ -1,13 +1,9 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
-import 'package:dartz/dartz.dart';
 import 'package:mockito/mockito.dart';
-import 'package:masinqo/infrastructure/auth/login_success.dart';
-import 'listener_login_test.mocks.dart';
 import 'package:masinqo/domain/auth/login/login_entities.dart';
 import 'package:masinqo/infrastructure/auth/listener/listener_login_repository.dart';
 import 'package:masinqo/domain/auth/login/login_failure.dart';
-import 'package:masinqo/domain/auth/login/login_success.dart';
 
 @GenerateMocks([ListenerLoginRepository])
 class MockListenerEntity extends Mock implements ListenerAuthEntity {
