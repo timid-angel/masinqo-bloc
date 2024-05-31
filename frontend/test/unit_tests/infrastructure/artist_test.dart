@@ -96,125 +96,129 @@ void main() {
     type: 'Test Type',
   );
 
-  test('should add album when fields are not empty', () async {
-    when(mockArtistsRepository.addAlbum(testAlbumDto)).thenAnswer(
-        (_) async => Right<ArtistFailure, Success>(ArtistsSuccess()));
+  group('ArtistsRepository tests', () {
+    test('should add album when fields are not empty', () async {
+      when(mockArtistsRepository.addAlbum(testAlbumDto)).thenAnswer(
+          (_) async => Right<ArtistFailure, Success>(ArtistsSuccess()));
 
-    final result = await mockArtistsRepository.addAlbum(testAlbumDto);
+      final result = await mockArtistsRepository.addAlbum(testAlbumDto);
 
-    verify(mockArtistsRepository.addAlbum(testAlbumDto));
-    expect(
-        result,
-        isA<Right<ArtistFailure, Success>>()
-            .having((r) => r.value, 'value', isA<ArtistsSuccess>()));
-  });
+      verify(mockArtistsRepository.addAlbum(testAlbumDto));
+      expect(
+          result,
+          isA<Right<ArtistFailure, Success>>()
+              .having((r) => r.value, 'value', isA<ArtistsSuccess>()));
+    });
 
-  final testSongDto = CreateSongDTO(albumId: 'album-id', songName: 'Test Song');
-  test('should add song when fields are not empty', () async {
-    when(mockArtistsRepository.addSong(testSongDto, 'song-file-path'))
-        .thenAnswer(
-            (_) async => Right<ArtistFailure, Success>(ArtistsSuccess()));
+    final testSongDto =
+        CreateSongDTO(albumId: 'album-id', songName: 'Test Song');
+    test('should add song when fields are not empty', () async {
+      when(mockArtistsRepository.addSong(testSongDto, 'song-file-path'))
+          .thenAnswer(
+              (_) async => Right<ArtistFailure, Success>(ArtistsSuccess()));
 
-    final result =
-        await mockArtistsRepository.addSong(testSongDto, 'song-file-path');
+      final result =
+          await mockArtistsRepository.addSong(testSongDto, 'song-file-path');
 
-    verify(mockArtistsRepository.addSong(testSongDto, 'song-file-path'));
-    expect(
-        result,
-        isA<Right<ArtistFailure, Success>>()
-            .having((r) => r.value, 'value', isA<ArtistsSuccess>()));
-  });
+      verify(mockArtistsRepository.addSong(testSongDto, 'song-file-path'));
+      expect(
+          result,
+          isA<Right<ArtistFailure, Success>>()
+              .having((r) => r.value, 'value', isA<ArtistsSuccess>()));
+    });
 
-  const albumId = 'album-id';
-  test('should delete album when albumId is valid', () async {
-    when(mockArtistsRepository.deleteAlbum(albumId)).thenAnswer(
-        (_) async => Right<ArtistFailure, Success>(ArtistsSuccess()));
+    const albumId = 'album-id';
+    test('should delete album when albumId is valid', () async {
+      when(mockArtistsRepository.deleteAlbum(albumId)).thenAnswer(
+          (_) async => Right<ArtistFailure, Success>(ArtistsSuccess()));
 
-    final result = await mockArtistsRepository.deleteAlbum(albumId);
+      final result = await mockArtistsRepository.deleteAlbum(albumId);
 
-    verify(mockArtistsRepository.deleteAlbum(albumId));
-    expect(
-        result,
-        isA<Right<ArtistFailure, Success>>()
-            .having((r) => r.value, 'value', isA<ArtistsSuccess>()));
-  });
+      verify(mockArtistsRepository.deleteAlbum(albumId));
+      expect(
+          result,
+          isA<Right<ArtistFailure, Success>>()
+              .having((r) => r.value, 'value', isA<ArtistsSuccess>()));
+    });
 
-  test('should get albums successfully', () async {
-    when(mockArtistsRepository.getAlbums()).thenAnswer((_) async =>
-        Right<ArtistFailure, GetAlbumsSuccess>(GetAlbumsSuccess(albums: [])));
+    test('should get albums successfully', () async {
+      when(mockArtistsRepository.getAlbums()).thenAnswer((_) async =>
+          Right<ArtistFailure, GetAlbumsSuccess>(GetAlbumsSuccess(albums: [])));
 
-    final result = await mockArtistsRepository.getAlbums();
+      final result = await mockArtistsRepository.getAlbums();
 
-    verify(mockArtistsRepository.getAlbums());
-    expect(
-        result,
-        isA<Right<ArtistFailure, GetAlbumsSuccess>>()
-            .having((r) => r.value, 'value', isA<GetAlbumsSuccess>()));
-  });
+      verify(mockArtistsRepository.getAlbums());
+      expect(
+          result,
+          isA<Right<ArtistFailure, GetAlbumsSuccess>>()
+              .having((r) => r.value, 'value', isA<GetAlbumsSuccess>()));
+    });
 
-  test('should get songs successfully', () async {
-    when(mockArtistsRepository.getSongs(albumId)).thenAnswer((_) async =>
-        Right<ArtistFailure, GetSongsSuccess>(GetSongsSuccess(songs: [])));
+    test('should get songs successfully', () async {
+      when(mockArtistsRepository.getSongs(albumId)).thenAnswer((_) async =>
+          Right<ArtistFailure, GetSongsSuccess>(GetSongsSuccess(songs: [])));
 
-    final result = await mockArtistsRepository.getSongs(albumId);
+      final result = await mockArtistsRepository.getSongs(albumId);
 
-    verify(mockArtistsRepository.getSongs(albumId));
-    expect(
-        result,
-        isA<Right<ArtistFailure, GetSongsSuccess>>()
-            .having((r) => r.value, 'value', isA<GetSongsSuccess>()));
-  });
+      verify(mockArtistsRepository.getSongs(albumId));
+      expect(
+          result,
+          isA<Right<ArtistFailure, GetSongsSuccess>>()
+              .having((r) => r.value, 'value', isA<GetSongsSuccess>()));
+    });
 
-  const songName = 'song-name';
-  test('should remove song when albumId and songName are valid', () async {
-    when(mockArtistsRepository.removeSong(albumId, songName)).thenAnswer(
-        (_) async => Right<ArtistFailure, Success>(ArtistsSuccess()));
+    const songName = 'song-name';
+    test('should remove song when albumId and songName are valid', () async {
+      when(mockArtistsRepository.removeSong(albumId, songName)).thenAnswer(
+          (_) async => Right<ArtistFailure, Success>(ArtistsSuccess()));
 
-    final result = await mockArtistsRepository.removeSong(albumId, songName);
+      final result = await mockArtistsRepository.removeSong(albumId, songName);
 
-    verify(mockArtistsRepository.removeSong(albumId, songName));
-    expect(
-        result,
-        isA<Right<ArtistFailure, Success>>()
-            .having((r) => r.value, 'value', isA<ArtistsSuccess>()));
-  });
+      verify(mockArtistsRepository.removeSong(albumId, songName));
+      expect(
+          result,
+          isA<Right<ArtistFailure, Success>>()
+              .having((r) => r.value, 'value', isA<ArtistsSuccess>()));
+    });
 
-  final updateDto = UpdateAlbumDTO(
-    albumId: 'album-id',
-    title: 'Updated Title',
-    genre: 'Updated Genre',
-    description: 'Updated Description',
-  );
+    final updateDto = UpdateAlbumDTO(
+      albumId: 'album-id',
+      title: 'Updated Title',
+      genre: 'Updated Genre',
+      description: 'Updated Description',
+    );
 
-  test('should update album when fields are valid', () async {
-    when(mockArtistsRepository.updateAlbum(updateDto)).thenAnswer(
-        (_) async => Right<ArtistFailure, Success>(ArtistsSuccess()));
+    test('should update album when fields are valid', () async {
+      when(mockArtistsRepository.updateAlbum(updateDto)).thenAnswer(
+          (_) async => Right<ArtistFailure, Success>(ArtistsSuccess()));
 
-    final result = await mockArtistsRepository.updateAlbum(updateDto);
+      final result = await mockArtistsRepository.updateAlbum(updateDto);
 
-    verify(mockArtistsRepository.updateAlbum(updateDto));
-    expect(
-        result,
-        isA<Right<ArtistFailure, Success>>()
-            .having((r) => r.value, 'value', isA<ArtistsSuccess>()));
-  });
+      verify(mockArtistsRepository.updateAlbum(updateDto));
+      expect(
+          result,
+          isA<Right<ArtistFailure, Success>>()
+              .having((r) => r.value, 'value', isA<ArtistsSuccess>()));
+    });
 
-  final updateInfoDto = UpdateArtistInformatioDTO(
-    'path/to/profile/picture',
-    email: 'test@example.com',
-    name: 'Test Artist',
-    password: 'password123',
-  );
-  test('should update artist information when fields are valid', () async {
-    when(mockArtistsRepository.updateInformation(updateInfoDto)).thenAnswer(
-        (_) async => Right<ArtistFailure, Success>(ArtistsSuccess()));
+    final updateInfoDto = UpdateArtistInformatioDTO(
+      'path/to/profile/picture',
+      email: 'test@example.com',
+      name: 'Test Artist',
+      password: 'password123',
+    );
+    test('should update artist information when fields are valid', () async {
+      when(mockArtistsRepository.updateInformation(updateInfoDto)).thenAnswer(
+          (_) async => Right<ArtistFailure, Success>(ArtistsSuccess()));
 
-    final result = await mockArtistsRepository.updateInformation(updateInfoDto);
+      final result =
+          await mockArtistsRepository.updateInformation(updateInfoDto);
 
-    verify(mockArtistsRepository.updateInformation(updateInfoDto));
-    expect(
-        result,
-        isA<Right<ArtistFailure, Success>>()
-            .having((r) => r.value, 'value', isA<ArtistsSuccess>()));
+      verify(mockArtistsRepository.updateInformation(updateInfoDto));
+      expect(
+          result,
+          isA<Right<ArtistFailure, Success>>()
+              .having((r) => r.value, 'value', isA<ArtistsSuccess>()));
+    });
   });
 }
